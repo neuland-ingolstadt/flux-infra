@@ -1,0 +1,26 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: neuland-website
+  namespace: flux-system
+spec:
+  interval: 1m
+  path: ./kustomize
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: neuland-website
+  images:
+    - name: ghcr.io/neuland-ingolstadt/neuland-website
+      newTag: build-150 # {"$imagepolicy": "flux-system:neuland-website:tag"}
+  targetNamespace: verein-ext
+  wait: true
+  patches:
+    - target:
+        kind: ImageRepository
+        name: neuland-website
+      patch: |
+        - op: add
+          path: /spec/secretRef
+          value:
+            name: ghcr-secret
