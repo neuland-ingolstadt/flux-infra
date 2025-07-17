@@ -5,3 +5,5 @@ resources:
   - flux-system
   - apps
   - infrastructure.yaml
+  - sealed-secrets-source.yaml
+  - sealed-secrets-hr.yaml
