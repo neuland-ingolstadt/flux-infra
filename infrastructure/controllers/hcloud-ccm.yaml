@@ -51,7 +51,7 @@ spec:
 #     hostNetwork: false
 ---
 # Deploy hcloud-ip-floater using ImageRepository and ImagePolicy
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: hcloud-ip-floater
