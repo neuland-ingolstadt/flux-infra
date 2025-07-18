@@ -14,39 +14,41 @@ metadata:
 spec:
   interval: 24h
   url: https://charts.hetzner.cloud
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: hcloud-cloud-controller-manager
-  namespace: hcloud-system
-spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: hcloud-cloud-controller-manager
-      version: "1.20.0"
-      sourceRef:
-        kind: HelmRepository
-        name: hcloud
-        namespace: hcloud-system
-      interval: 12h
-  values:
-    # Use the sealed secret for the API token
-    env:
-      HCLOUD_TOKEN:
-        valueFrom:
-          secretKeyRef:
-            name: hcloud-token
-            key: token
-    # Enable network support for private networks
-    networking:
-      enabled: true
-    # Configure for floating IP management
-    metrics:
-      enabled: false
-    image:
-      tag: "v1.20.0"
+# Temporarily disabled due to conflicts with K3s built-in cloud controller manager
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: hcloud-cloud-controller-manager
+#   namespace: hcloud-system
+# spec:
+#   interval: 30m
+#   chart:
+#     spec:
+#       chart: hcloud-cloud-controller-manager
+#       version: "1.20.0"
+#       sourceRef:
+#         kind: HelmRepository
+#         name: hcloud
+#         namespace: hcloud-system
+#       interval: 12h
+#   values:
+#     # Configure the hcloud token
+#     hcloudToken:
+#       existingSecret: hcloud-token
+#       key: token
+#     # Enable network support for private networks
+#     networking:
+#       enabled: true
+#     # Configure for floating IP management
+#     metrics:
+#       enabled: false
+#     image:
+#       tag: "v1.20.0"
+#     # Disable the secure port to avoid conflicts
+#     additionalArgs:
+#       - --secure-port=0
+#     hostNetwork: false
 ---
 # Deploy hcloud-ip-floater using kustomize 
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -64,7 +66,7 @@ spec:
   prune: true
   targetNamespace: hcloud-system
   patches:
-    # Patch the deployment to use our existing hcloud-token secret and correct image
+    # Strategic merge patch to update image and add environment variable
     - patch: |
         apiVersion: apps/v1
         kind: Deployment
