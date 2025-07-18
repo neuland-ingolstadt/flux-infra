@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: neuland-next-staging
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: https://github.com/neuland-ingolstadt/neuland.app-native
+  ref:
+    branch: main
