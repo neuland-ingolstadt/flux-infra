@@ -4,4 +4,7 @@ resources:
   - cert-manager.yaml
   - ingress-nginx.yaml
   - metallb.yaml
-  - hcloud-ccm.yaml
+  - hcloud-floater.yaml
+  - longhorn.yaml
+  - longhorn-s3-sealed.yaml
+  - hcloud-token-sealed.yaml
