@@ -13,7 +13,7 @@ spec:
   images:
     - name: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp
       newTag: staging-176
-  targetNamespace: verein-ext
+  targetNamespace: neuland-app
   wait: true
   patches:
     - target:

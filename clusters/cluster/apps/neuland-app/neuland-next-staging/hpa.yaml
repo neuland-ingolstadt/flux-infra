@@ -2,6 +2,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: neuland-next-staging
+  namespace: neuland-app
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
