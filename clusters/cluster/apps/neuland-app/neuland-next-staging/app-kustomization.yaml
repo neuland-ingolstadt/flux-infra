@@ -5,11 +5,11 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  path: ./
+  path: ./clusters/cluster/apps/neuland-app/neuland-next-staging
   prune: true
   sourceRef:
     kind: GitRepository
-    name: neuland.app-native
+    name: flux-system
   images:
     - name: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp
       newTag: staging-176
