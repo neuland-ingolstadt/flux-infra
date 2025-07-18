@@ -50,6 +50,28 @@ spec:
 #       - --secure-port=0
 #     hostNetwork: false
 ---
+# Deploy hcloud-ip-floater using ImageRepository and ImagePolicy
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: hcloud-ip-floater
+  namespace: hcloud-system
+spec:
+  image: ghcr.io/costela/hcloud-ip-floater
+  interval: 10m
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: hcloud-ip-floater
+  namespace: hcloud-system
+spec:
+  imageRepositoryRef:
+    name: hcloud-ip-floater
+  policy:
+    semver:
+      range: ">=0.1.0"
+---
 # Deploy hcloud-ip-floater using kustomize 
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -75,7 +97,10 @@ spec:
         spec:
           template:
             spec:
-              env:
+              containers:
+              - name: hcloud-ip-floater
+                image: ghcr.io/costela/hcloud-ip-floater:0.1.6 # {"$imagepolicy": "hcloud-system:hcloud-ip-floater"}
+                env:
                 - name: HCLOUD_IP_FLOATER_HCLOUD_TOKEN
                   valueFrom:
                     secretKeyRef:
@@ -99,5 +124,5 @@ spec:
   interval: 30m
   url: https://github.com/costela/hcloud-ip-floater
   ref:
-    tag: 0.1.6
+    tag: v0.1.6
 
