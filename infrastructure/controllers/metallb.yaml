@@ -1,0 +1,71 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metallb-system
+  labels:
+    toolkit.fluxcd.io/tenant: sre-team
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: metallb
+  namespace: metallb-system
+spec:
+  interval: 24h
+  url: https://metallb.github.io/metallb
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: metallb
+  namespace: metallb-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: metallb
+      version: "0.14.8"
+      sourceRef:
+        kind: HelmRepository
+        name: metallb
+        namespace: metallb-system
+      interval: 12h
+  values:
+    # Enable prometheus monitoring
+    prometheus:
+      serviceAccount: metallb-controller
+      serviceMonitor:
+        enabled: false
+      prometheusRule:
+        enabled: false
+    # Controller configuration
+    controller:
+      enabled: true
+    # Speaker configuration  
+    speaker:
+      enabled: true
+      # Run speaker on all nodes
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: floating-ip-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - "195.201.250.90/32"  # e.g., "78.46.123.456/32"
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: floating-ip-advertisement
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - floating-ip-pool

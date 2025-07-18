@@ -34,6 +34,23 @@ spec:
   values:
     controller:
       service:
-        type: "NodePort"
+        type: "LoadBalancer"
+        # Uncomment and set your floating IP here after MetalLB is deployed
+        loadBalancerIP: "195.201.250.90"
+        annotations:
+          metallb.universe.tf/address-pool: floating-ip-pool
+      # Enable metrics for monitoring
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: false
+      # Configure for high availability
+      replicaCount: 2
+      # Allow scheduling on all nodes
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
     admissionWebhooks:
       enabled: false
