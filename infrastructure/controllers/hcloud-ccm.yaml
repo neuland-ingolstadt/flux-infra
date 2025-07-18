@@ -87,11 +87,12 @@ spec:
       target:
         kind: Deployment
         name: hcloud-ip-floater
-  healthChecks:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: hcloud-ip-floater
-      namespace: hcloud-system
+  # Temporarily disable health checks to debug deployment issues
+  # healthChecks:
+  #   - apiVersion: apps/v1
+  #     kind: Deployment
+  #     name: hcloud-ip-floater
+  #     namespace: hcloud-system
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
