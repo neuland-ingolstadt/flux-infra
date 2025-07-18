@@ -15,12 +15,4 @@ spec:
       newTag: staging-176
   targetNamespace: neuland-app
   wait: true
-  patches:
-    - target:
-        kind: ImageRepository
-        name: neuland-next-staging
-      patch: |
-        - op: add
-          path: /spec/secretRef
-          value:
-            name: ghcr-secret
+  
