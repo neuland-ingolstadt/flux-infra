@@ -77,7 +77,7 @@ spec:
             spec:
               containers:
               - name: hcloud-ip-floater
-                image: ghcr.io/costela/hcloud-ip-floater:v0.1.6
+                image: ghcr.io/costela/hcloud-ip-floater:0.1.6
                 env:
                 - name: HCLOUD_IP_FLOATER_HCLOUD_TOKEN
                   valueFrom:
@@ -87,12 +87,11 @@ spec:
       target:
         kind: Deployment
         name: hcloud-ip-floater
-  # Temporarily disable health checks to debug deployment issues
-  # healthChecks:
-  #   - apiVersion: apps/v1
-  #     kind: Deployment
-  #     name: hcloud-ip-floater
-  #     namespace: hcloud-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: hcloud-ip-floater
+      namespace: hcloud-system
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
@@ -103,5 +102,5 @@ spec:
   interval: 30m
   url: https://github.com/costela/hcloud-ip-floater
   ref:
-    tag: v0.1.6
+    tag: 0.1.6
 
