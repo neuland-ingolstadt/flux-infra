@@ -72,57 +72,65 @@ spec:
     semver:
       range: ">=0.1.0"
 ---
-# Deploy hcloud-ip-floater using kustomize 
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
+# Deploy hcloud-ip-floater directly using Deployment
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: hcloud-ip-floater
   namespace: hcloud-system
 spec:
-  interval: 30m
-  sourceRef:
-    kind: GitRepository
-    name: hcloud-ip-floater
-    namespace: hcloud-system
-  path: "./deploy"
-  prune: true
-  targetNamespace: hcloud-system
-  patches:
-    # Strategic merge patch to update image and add environment variable
-    - patch: |
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: hcloud-ip-floater
-        spec:
-          template:
-            spec:
-              containers:
-              - name: hcloud-ip-floater
-                image: ghcr.io/costela/hcloud-ip-floater:0.1.6 # {"$imagepolicy": "hcloud-system:hcloud-ip-floater"}
-                env:
-                - name: HCLOUD_IP_FLOATER_HCLOUD_TOKEN
-                  valueFrom:
-                    secretKeyRef:
-                      name: hcloud-token
-                      key: token
-      target:
-        kind: Deployment
-        name: hcloud-ip-floater
-  healthChecks:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: hcloud-ip-floater
-      namespace: hcloud-system
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: hcloud-ip-floater
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: hcloud-ip-floater
+    spec:
+      serviceAccountName: hcloud-ip-floater
+      containers:
+      - name: hcloud-ip-floater
+        image: ghcr.io/costela/hcloud-ip-floater:0.1.6 # {"$imagepolicy": "hcloud-system:hcloud-ip-floater"}
+        env:
+        - name: HCLOUD_IP_FLOATER_HCLOUD_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: hcloud-token
+              key: token
+        resources:
+          limits:
+            cpu: 100m
+            memory: 64Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: GitRepository
+apiVersion: v1
+kind: ServiceAccount
 metadata:
   name: hcloud-ip-floater
   namespace: hcloud-system
-spec:
-  interval: 30m
-  url: https://github.com/costela/hcloud-ip-floater
-  ref:
-    tag: v0.1.6
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: hcloud-ip-floater
+rules:
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["get", "list", "watch", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: hcloud-ip-floater
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: hcloud-ip-floater
+subjects:
+- kind: ServiceAccount
+  name: hcloud-ip-floater
+  namespace: hcloud-system
 
