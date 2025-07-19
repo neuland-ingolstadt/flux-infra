@@ -5,14 +5,22 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  path: ./clusters/cluster/apps/neuland-app/neuland-next-prod
+  path: ./kubernetes/production
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: neuland.app-native
   images:
     - name: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp
-      newTag: 0.13.8
+      newTag: 0.13.8 # {"$imagepolicy": "flux-system:neuland-next-prod"}
   targetNamespace: neuland-app
   wait: true
-  
+  patches:
+    - target:
+        kind: ImageRepository
+        name: neuland-next-web
+      patch: |
+        - op: add
+          path: /spec/secretRef
+          value:
+            name: ghcr-secret
