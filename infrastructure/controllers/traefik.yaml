@@ -25,17 +25,13 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: "*"
+      version: "29.0.1"
       sourceRef:
         kind: HelmRepository
         name: traefik
         namespace: traefik
       interval: 12h
   values:
-    # Deployment configuration
-    deployment:
-      replicas: 2
-    
     # Service configuration
     service:
       type: LoadBalancer
@@ -48,29 +44,8 @@ spec:
     ports:
       web:
         port: 80
-        redirectTo:
-          port: websecure
+        redirectTo: websecure
       websecure:
         port: 443
         tls:
           enabled: true
-      traefik:
-        port: 9000
-        expose:
-          default: false
-    
-    # Enable metrics
-    metrics:
-      prometheus:
-        serviceMonitor:
-          enabled: false
-    
-    # Allow scheduling on all nodes
-    tolerations:
-      - effect: NoSchedule
-        operator: Exists
-    
-    # Persistence for ACME data
-    persistence:
-      enabled: true
-      size: 1Gi
