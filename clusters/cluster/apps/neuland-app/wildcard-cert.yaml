@@ -1,0 +1,16 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: eggl-one-wildcard
+  namespace: neuland-app
+spec:
+  secretName: eggl-one-wildcard-tls
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  dnsNames:
+  - eggl.one
+  - "*.eggl.one"
+  - dev.app.eggl.one
+  - dev.ersti.eggl.one
