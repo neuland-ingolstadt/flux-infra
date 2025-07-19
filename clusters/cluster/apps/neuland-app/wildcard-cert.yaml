@@ -11,6 +11,6 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - eggl.one
-  - "*.eggl.one"
+  - ersti.eggl.one
   - dev.app.eggl.one
   - dev.ersti.eggl.one
