@@ -13,7 +13,7 @@ spec:
   tls:
   - hosts:
     - dev.ersti.eggl.one
-    secretName: neuland-website-tls
+    secretName: ersti-kit-staging-tls
   rules:
   - host: dev.ersti.eggl.one
     http:
