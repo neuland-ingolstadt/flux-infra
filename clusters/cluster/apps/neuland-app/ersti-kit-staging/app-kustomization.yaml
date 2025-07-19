@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  path: ./kustomize
+  path: ./kubernetes/staging
   prune: true
   sourceRef:
     kind: GitRepository
