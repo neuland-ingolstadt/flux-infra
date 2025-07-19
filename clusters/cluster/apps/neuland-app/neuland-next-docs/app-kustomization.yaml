@@ -1,0 +1,26 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: neuland-next-docs
+  namespace: flux-system
+spec:
+  interval: 1m
+  path: ./kustomize
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: neuland.app-docs
+  images:
+    - name: ghcr.io/neuland-ingolstadt/neuland.app-docs
+      newTag: build-31 # {"$imagepolicy": "flux-system:neuland-next-docs:tag"}
+  targetNamespace: neuland-app
+  wait: true
+  patches:
+    - target:
+        kind: ImageRepository
+        name: neuland-next-docs
+      patch: |
+        - op: add
+          path: /spec/secretRef
+          value:
+            name: ghcr-secret
