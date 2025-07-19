@@ -12,7 +12,7 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - eggl.one
+    - dev.app.eggl.one
     secretName: neuland-next-staging-tls
   rules:
   - host: dev.app.eggl.one
