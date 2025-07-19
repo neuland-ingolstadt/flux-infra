@@ -12,7 +12,7 @@ spec:
   tls:
   - hosts:
     - dev.ersti.eggl.one
-    secretName: eggl-one-wildcard-tls
+    secretName: dev-ersti-eggl-one-tls
   rules:
   - host: dev.ersti.eggl.one
     http:

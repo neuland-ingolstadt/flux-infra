@@ -12,7 +12,7 @@ spec:
   tls:
   - hosts:
     - eggl.one
-    secretName: eggl-one-wildcard-tls
+    secretName: eggl-one-tls
   rules:
   - host: eggl.one
     http:

@@ -12,7 +12,7 @@ spec:
   tls:
   - hosts:
     - dev.app.eggl.one
-    secretName: eggl-one-wildcard-tls
+    secretName: dev-app-eggl-one-tls
   rules:
   - host: dev.app.eggl.one
     http:
