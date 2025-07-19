@@ -4,5 +4,4 @@ resources:
   - namespace.yaml
   - serviceaccount.yaml
   - ghcr-sealed-secret.yaml
-  - wildcard-cert.yaml
   - neuland-website

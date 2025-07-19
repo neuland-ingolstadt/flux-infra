@@ -4,14 +4,19 @@ kind: Certificate
 metadata:
   name: eggl-one-wildcard
   namespace: cert-manager
+  annotations:
+    # Reflector will copy this certificate to other namespaces
+    reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+    reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "neuland-app,verein-ext"
+    reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
 spec:
   secretName: eggl-one-wildcard-tls
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer
+  # Using proper wildcards - covers ALL current and future subdomains
   dnsNames:
   - eggl.one
-  - app.eggl.one
-  - ersti.eggl.one
-  - dev.app.eggl.one
-  - dev.ersti.eggl.one
+  - "*.eggl.one"
+  - "*.app.eggl.one"
+  - "*.ersti.eggl.one"
