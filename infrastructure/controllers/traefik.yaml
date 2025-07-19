@@ -32,6 +32,11 @@ spec:
         namespace: traefik
       interval: 12h
   values:
+    # API and Dashboard configuration
+    api:
+      dashboard: true
+      insecure: true
+    
     # Service configuration
     service:
       type: LoadBalancer
