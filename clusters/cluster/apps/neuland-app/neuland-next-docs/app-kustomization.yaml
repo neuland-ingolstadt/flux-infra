@@ -12,13 +12,13 @@ spec:
     name: neuland.app-docs
   images:
     - name: ghcr.io/neuland-ingolstadt/neuland.app-docs
-      newTag: build-31 # {"$imagepolicy": "flux-system:neuland-next-docs:tag"}
+      newTag: build-33 # {"$imagepolicy": "flux-system:neuland-next-docs:tag"}
   targetNamespace: neuland-app
   wait: true
   patches:
     - target:
         kind: ImageRepository
-        name: neuland-next-docs
+        name: neuland.app-docs
       patch: |
         - op: add
           path: /spec/secretRef

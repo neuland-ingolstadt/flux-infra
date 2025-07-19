@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ical-service
+  namespace: neuland-app
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - ical.eggl.one
+    secretName: eggl-one-wildcard-tls
+  rules:
+  - host: ical.eggl.one
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ical-service
+            port:
+              number: 7077

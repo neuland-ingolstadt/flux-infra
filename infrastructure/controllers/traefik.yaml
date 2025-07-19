@@ -37,13 +37,28 @@ spec:
       dashboard: true
       insecure: true
     
+    deployment:
+      replicas: 2
+    
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - traefik
+            topologyKey: kubernetes.io/hostname
+    
     # Service configuration
     service:
       type: LoadBalancer
-      spec:
-        loadBalancerIP: "195.201.250.90"
       annotations:
         metallb.universe.tf/address-pool: floating-ip-pool
+        metallb.universe.tf/loadBalancerIPs: "195.201.250.90"
     
     # Entry points
     ports:

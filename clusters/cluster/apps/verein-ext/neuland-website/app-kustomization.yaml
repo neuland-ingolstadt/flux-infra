@@ -5,22 +5,12 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  path: ./kustomize
   prune: true
   sourceRef:
     kind: GitRepository
-    name: neuland-website
+    name: flux-system
+  path: ./clusters/cluster/apps/verein-ext/neuland-website
   images:
     - name: ghcr.io/neuland-ingolstadt/neuland-website
-      newTag: build-150 # {"$imagepolicy": "flux-system:neuland-website:tag"}
-  targetNamespace: verein-ext
+      newTag: build-152 # {"$imagepolicy": "flux-system:neuland-website:tag"}
   wait: true
-  patches:
-    - target:
-        kind: ImageRepository
-        name: neuland-website
-      patch: |
-        - op: add
-          path: /spec/secretRef
-          value:
-            name: ghcr-secret

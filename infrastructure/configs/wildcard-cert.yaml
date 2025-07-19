@@ -7,14 +7,14 @@ metadata:
   annotations:
     # Reflector will copy this certificate to other namespaces
     reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
-    reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "neuland-app,verein-ext"
+    reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "neuland-app,verein-ext,monitoring"
     reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
 spec:
   secretName: eggl-one-wildcard-tls
   secretTemplate:
     annotations:
       reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
-      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "neuland-app,verein-ext"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "neuland-app,verein-ext,monitoring"
       reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
   issuerRef:
     name: letsencrypt
@@ -27,3 +27,5 @@ spec:
   - dev.app.eggl.one
   - ersti.eggl.one
   - dev.ersti.eggl.one
+  - uptime.eggl.one
+  - ical.eggl.one

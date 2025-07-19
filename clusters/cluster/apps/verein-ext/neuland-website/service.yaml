@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: neuland-website
+  namespace: verein-ext
+spec:
+  type: ClusterIP
+  selector:
+    app: neuland-website
+  ports:
+    - name: http
+      port: 3000
+      protocol: TCP
+      targetPort: http

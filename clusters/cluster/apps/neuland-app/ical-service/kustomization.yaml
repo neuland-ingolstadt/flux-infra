@@ -4,9 +4,5 @@ kind: Kustomization
 resources:
   - imageupdateautomation.yaml
   - app-kustomization.yaml
-  - deployment.yaml
+  - source.yaml
   - ingress.yaml
-  - hpa.yaml
-  - imagerepository.yaml
-  - imagepolicy.yaml
-  - service.yaml

@@ -9,10 +9,10 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: ersti-hilfe-kit
+    name: ersti-hilfe-kit-staging
   images:
     - name: ghcr.io/neuland-ingolstadt/ersti-hilfe-kit
-      newTag: develop-21
+      newTag: develop-23 # {"$imagepolicy": "neuland-app:ersti-kit-staging:tag"}
   targetNamespace: neuland-app
   wait: true
   patches:

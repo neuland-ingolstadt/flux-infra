@@ -27,14 +27,13 @@ spec:
     semver:
       range: ">=0.1.0"
 ---
-# Deploy hcloud-ip-floater directly using Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hcloud-ip-floater
   namespace: hcloud-system
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: hcloud-ip-floater
@@ -44,15 +43,29 @@ spec:
         app.kubernetes.io/name: hcloud-ip-floater
     spec:
       serviceAccountName: hcloud-ip-floater
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - hcloud-ip-floater
+              topologyKey: kubernetes.io/hostname
       containers:
       - name: hcloud-ip-floater
-        image: ghcr.io/costela/hcloud-ip-floater:0.1.6 # {"$imagepolicy": "hcloud-system:hcloud-ip-floater"}
+        image: ghcr.io/costela/hcloud-ip-floater:0.1.6 # {"$imagepolicy": "hcloud-system:hcloud-ip-floater:tag"}
         env:
         - name: HCLOUD_IP_FLOATER_HCLOUD_TOKEN
           valueFrom:
             secretKeyRef:
               name: hcloud-token
               key: token
+        - name: HCLOUD_IP_FLOATER_LOG_LEVEL
+          value: "info"
         resources:
           limits:
             cpu: 100m

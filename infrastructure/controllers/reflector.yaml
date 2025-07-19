@@ -27,3 +27,18 @@ spec:
     # Reflector automatically copies secrets/configmaps between namespaces
     nameOverride: "reflector"
     fullnameOverride: "reflector"
+    
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
+    
+    configuration:
+      resyncPeriod: 150
+      watchNamespaces: ["cert-manager", "neuland-app", "verein-ext", "monitoring"]
+    
+    logLevel: "info"
+    

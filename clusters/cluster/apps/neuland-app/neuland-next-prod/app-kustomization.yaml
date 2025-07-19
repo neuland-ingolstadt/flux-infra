@@ -9,7 +9,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: neuland.app-native
+    name: neuland.app-native-prod
   images:
     - name: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp
       newTag: 0.13.8 # {"$imagepolicy": "flux-system:neuland-next-prod:tag"}

@@ -4,9 +4,10 @@ resources:
   - namespace.yaml
   - serviceaccount.yaml
   - ghcr-sealed-secret.yaml
-  - podinfo
   - neuland-next-staging
   - neuland-next-prod
+  - neuland-next-docs
   - ersti-kit-staging
-  - ersti-kit-prod
+  - ical-service
+ # - ersti-kit-prod
   

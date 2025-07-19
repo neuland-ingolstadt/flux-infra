@@ -1,0 +1,62 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: uptime-kuma
+  namespace: monitoring
+spec:
+  interval: 24h
+  url: https://helm.irsigler.cloud
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: uptime-kuma
+  namespace: monitoring
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: uptime-kuma
+      sourceRef:
+        kind: HelmRepository
+        name: uptime-kuma
+        namespace: monitoring
+      interval: 12h
+  values:
+    image:
+      repository: louislam/uptime-kuma
+      tag: "2.0.0-beta.3"
+      pullPolicy: IfNotPresent
+    
+    service:
+      type: ClusterIP
+      port: 3001
+    
+    volume:
+      enabled: true
+      size: 1Gi
+      storageClass: longhorn
+      accessMode: ReadWriteOnce
+    
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+    
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: false
+      capabilities:
+        add:
+          - SETGID
+          - SETUID
+        drop:
+          - ALL
+    
+    podSecurityContext:
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"

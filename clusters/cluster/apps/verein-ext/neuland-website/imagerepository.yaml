@@ -1,0 +1,10 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: neuland-website
+  namespace: flux-system
+spec:
+  image: ghcr.io/neuland-ingolstadt/neuland-website
+  interval: 5m
+  secretRef:
+    name: ghcr-secret
