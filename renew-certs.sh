@@ -8,7 +8,13 @@ kubectl delete secret eggl-one-wildcard-tls -n cert-manager --ignore-not-found=t
 # Delete the existing certificate resource (it will be recreated by flux)
 kubectl delete certificate eggl-one-wildcard -n cert-manager --ignore-not-found=true
 
-echo "Certificate and secret deleted. Waiting for Flux to recreate the certificate..."
+# Delete the old Cloudflare secret if it exists
+kubectl delete secret cloudflare-api-token-secret -n cert-manager --ignore-not-found=true
+
+# Delete old ClusterIssuer if it exists
+kubectl delete clusterissuer letsencrypt-cloudflare --ignore-not-found=true
+
+echo "Old certificates and secrets deleted. Waiting for Flux to recreate with HTTP validation..."
 
 # Wait a moment for the resources to be deleted
 sleep 5
