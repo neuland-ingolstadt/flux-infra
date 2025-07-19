@@ -5,14 +5,22 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  path: ./clusters/cluster/apps/neuland-app/neuland-next-staging
+  path: ./kubernetes/staging
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: neuland.app-native
   images:
     - name: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp
-      newTag: staging-176
+      newTag: develop-21
   targetNamespace: neuland-app
   wait: true
-  
+  patches:
+    - target:
+        kind: ImageRepository
+        name: neuland-next-web
+      patch: |
+        - op: add
+          path: /spec/secretRef
+          value:
+            name: ghcr-secret
