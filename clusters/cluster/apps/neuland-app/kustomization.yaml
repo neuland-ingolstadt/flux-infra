@@ -7,3 +7,5 @@ resources:
   - podinfo
   - neuland-next-staging
   - neuland-next-prod
+  - ersti-kit-staging
+  
