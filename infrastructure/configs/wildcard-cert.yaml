@@ -7,7 +7,7 @@ metadata:
 spec:
   secretName: eggl-one-wildcard-tls
   issuerRef:
-    name: letsencrypt-http
+    name: letsencrypt
     kind: ClusterIssuer
   dnsNames:
   - eggl.one
