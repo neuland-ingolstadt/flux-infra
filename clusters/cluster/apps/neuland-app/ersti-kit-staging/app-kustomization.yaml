@@ -1,0 +1,26 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ersti-kit-staging
+  namespace: flux-system
+spec:
+  interval: 1m
+  path: ./kustomize
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: ersti-hilfe-kit
+  images:
+    - name: ghcr.io/neuland-ingolstadt/ersti-hilfe-kit
+      newTag: develop-21
+  targetNamespace: neuland-app
+  wait: true
+  patches:
+    - target:
+        kind: ImageRepository
+        name: ersti-hilfe-kit
+      patch: |
+        - op: add
+          path: /spec/secretRef
+          value:
+            name: ghcr-secret
