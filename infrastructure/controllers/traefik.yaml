@@ -44,11 +44,6 @@ spec:
       annotations:
         metallb.universe.tf/address-pool: floating-ip-pool
     
-    # Enable API and dashboard
-    api:
-      dashboard: true
-      insecure: false
-    
     # Entry points
     ports:
       web:
@@ -61,7 +56,8 @@ spec:
           enabled: true
       traefik:
         port: 9000
-        expose: false
+        expose:
+          default: false
     
     # Enable metrics
     metrics:
@@ -73,15 +69,6 @@ spec:
     tolerations:
       - effect: NoSchedule
         operator: Exists
-    
-    # Enable cert-manager integration
-    certResolvers:
-      letsencrypt:
-        acme:
-          email: info@neuland-ingolstadt.de
-          storage: /data/acme.json
-          httpChallenge:
-            entryPoint: web
     
     # Persistence for ACME data
     persistence:
