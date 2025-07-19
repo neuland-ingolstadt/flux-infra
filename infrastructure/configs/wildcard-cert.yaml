@@ -14,9 +14,10 @@ spec:
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer
-  # Using proper wildcards - covers ALL current and future subdomains
+  # List specific domains instead of wildcards - works with HTTP-01 challenges
   dnsNames:
   - eggl.one
-  - "*.eggl.one"
-  - "*.app.eggl.one"
-  - "*.ersti.eggl.one"
+  - app.eggl.one
+  - dev.app.eggl.one
+  - ersti.eggl.one
+  - dev.ersti.eggl.one
