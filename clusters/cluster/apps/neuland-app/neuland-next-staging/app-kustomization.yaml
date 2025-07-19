@@ -12,7 +12,7 @@ spec:
     name: neuland.app-native
   images:
     - name: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp
-      newTag: staging-178 # {"$imagepolicy": "flux-system:neuland-next-staging:tag"}
+      newTag: staging-179 # {"$imagepolicy": "flux-system:neuland-next-staging:tag"}
   targetNamespace: neuland-app
   wait: true
   patches:
