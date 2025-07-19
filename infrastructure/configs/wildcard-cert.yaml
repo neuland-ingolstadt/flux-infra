@@ -12,3 +12,5 @@ spec:
   dnsNames:
   - eggl.one
   - "*.eggl.one"
+  - app.eggl.one
+  - dev.app.eggl.one
