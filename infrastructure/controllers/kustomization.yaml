@@ -8,3 +8,4 @@ resources:
   - longhorn.yaml
   - longhorn-s3-sealed.yaml
   - hcloud-token-sealed.yaml
+  - cloudflare-api-token-sealed.yaml
