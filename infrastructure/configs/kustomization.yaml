@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - cluster-issuers.yaml
   - metallb-config.yaml
+  - wildcard-cert.yaml

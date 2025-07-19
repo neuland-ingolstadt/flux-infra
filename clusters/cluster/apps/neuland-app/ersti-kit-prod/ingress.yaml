@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ersti-kit-staging
+  name: ersti-kit-prod
   namespace: neuland-app
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
@@ -12,16 +12,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - dev.ersti.eggl.one
+    - ersti.eggl.one
     secretName: eggl-one-wildcard-tls
   rules:
-  - host: dev.ersti.eggl.one
+  - host: ersti.eggl.one
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: ersti-kit-staging
+            name: ersti-kit-prod
             port:
               number: 3000
