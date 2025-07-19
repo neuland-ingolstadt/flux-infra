@@ -6,3 +6,4 @@ resources:
   - ghcr-sealed-secret.yaml
   - podinfo
   - neuland-next-staging
+  - neuland-next-prod
