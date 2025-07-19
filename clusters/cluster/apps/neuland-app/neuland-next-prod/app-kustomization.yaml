@@ -12,7 +12,7 @@ spec:
     name: neuland.app-native
   images:
     - name: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp
-      newTag: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp:0.13.8 # {"$imagepolicy": "flux-system:neuland-next-prod"}
+      newTag: 0.13.8 # {"$imagepolicy": "flux-system:neuland-next-prod"}
   targetNamespace: neuland-app
   wait: true
   patches:
