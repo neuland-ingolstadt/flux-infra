@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: neuland-next-staging
-        image: staging-180 # {"$imagepolicy": "flux-system:neuland-next-staging:tag"}
+        image: staging-180 # {"$imagepolicy": "flux-system:neuland-next-staging"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
