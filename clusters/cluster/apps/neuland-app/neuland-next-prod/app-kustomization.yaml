@@ -12,5 +12,5 @@ spec:
     name: flux-system
   images:
     - name: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp
-      newTag: 0.13.18 # {"$imagepolicy": "flux-system:neuland-next-prod:tag"}
+      newTag: staging-180 # {"$imagepolicy": "flux-system:neuland-next-prod:tag"}
   wait: true
