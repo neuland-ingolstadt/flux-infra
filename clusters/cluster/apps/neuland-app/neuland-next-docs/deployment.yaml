@@ -23,6 +23,13 @@ spec:
       - name: neuland-next-docs
         image: ghcr.io/neuland-ingolstadt/neuland.app-docs
         imagePullPolicy: IfNotPresent
+        env:
+        - name: HOSTNAME
+          value: "0.0.0.0"
+        - name: PORT
+          value: "3000"
+        - name: NODE_ENV
+          value: "production"
         ports:
         - name: http
           containerPort: 3000
