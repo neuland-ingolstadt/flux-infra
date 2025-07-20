@@ -7,6 +7,5 @@ resources:
   - deployment.yaml
   - ingress.yaml
   - hpa.yaml
-  - imagerepository.yaml
   - imagepolicy.yaml
   - service.yaml

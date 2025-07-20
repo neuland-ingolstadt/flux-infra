@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   imageRepositoryRef:
-    name: neuland-next-staging
+    name: neuland-next-prod
   policy:
     numerical:
       order: asc
