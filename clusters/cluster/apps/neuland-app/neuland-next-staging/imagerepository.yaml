@@ -1,7 +1,7 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
-  name: neuland-next-web
+  name: neuland-next-staging
   namespace: flux-system
 spec:
   image: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp
