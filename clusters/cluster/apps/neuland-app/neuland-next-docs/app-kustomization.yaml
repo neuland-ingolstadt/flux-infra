@@ -13,5 +13,4 @@ spec:
   images:
     - name: ghcr.io/neuland-ingolstadt/neuland.app-docs
       newTag: build-33 # {"$imagepolicy": "flux-system:neuland-next-docs:tag"}
-  targetNamespace: neuland-app
   wait: true
