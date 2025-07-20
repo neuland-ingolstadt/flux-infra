@@ -21,5 +21,5 @@ spec:
     push:
       branch: main
   update:
-    path: "./clusters/cluster/apps/neuland-app/neuland-next-prod/"
+    path: "./clusters/cluster/apps/neuland-app/neuland-next-prod"
     strategy: Setters
