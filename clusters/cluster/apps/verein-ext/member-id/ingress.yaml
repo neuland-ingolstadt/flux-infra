@@ -17,6 +17,13 @@ spec:
     - host: id.eggl.one
       http:
         paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: member-id-backend
+                port:
+                  number: 8000
           - path: /api/
             pathType: Prefix
             backend:
@@ -24,13 +31,6 @@ spec:
                 name: member-id-backend
                 port:
                   number: 8000
-          # - path: /_next/webpack-hmr
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: member-id-frontend
-          #       port:
-          #         number: 3000
           - path: /
             pathType: Prefix
             backend:
