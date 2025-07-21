@@ -24,13 +24,6 @@ spec:
                 name: member-id-backend
                 port:
                   number: 8000
-          - path: /api/
-            pathType: Prefix
-            backend:
-              service:
-                name: member-id-backend
-                port:
-                  number: 8000
           - path: /
             pathType: Prefix
             backend:
