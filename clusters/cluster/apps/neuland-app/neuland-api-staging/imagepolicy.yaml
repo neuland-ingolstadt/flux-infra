@@ -1,7 +1,7 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
-  name: neuland-api-prod
+  name: neuland-api-staging
   namespace: flux-system
 spec:
   imageRepositoryRef:
@@ -10,5 +10,5 @@ spec:
     numerical:
       order: asc
   filterTags:
-    pattern: '^main-([0-9]+)$'
+    pattern: '^develop-([0-9]+)$'
     extract: '$1'

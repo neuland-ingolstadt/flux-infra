@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: neuland-api-staging
+  namespace: neuland-app
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - dev.api.eggl.one
+    secretName: eggl-one-wildcard-tls
+  rules:
+  - host: dev.api.eggl.one
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: neuland-api-staging
+            port:
+              number: 4000

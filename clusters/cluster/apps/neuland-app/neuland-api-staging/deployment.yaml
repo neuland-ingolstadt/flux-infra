@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neuland-api-staging
+  namespace: neuland-app
+spec:
+  minReadySeconds: 3
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 60
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: neuland-api-staging
+  template:
+    metadata:
+      labels:
+        app: neuland-api-staging
+    spec:
+      containers:
+      - name: neuland-api-staging
+        image: ghcr.io/neuland-ingolstadt/neuland.app-backend:main-154 # {"$imagepolicy": "flux-system:neuland-api-staging"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 4000
+          protocol: TCP
+        env:
+        # DeepL API Key
+        - name: DEEPL_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: neuland-api-prod-secrets
+              key: DEEPL_API_KEY
+        # Moodle credentials
+        - name: MOODLE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: neuland-api-prod-secrets
+              key: MOODLE_USERNAME
+        - name: MOODLE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: neuland-api-prod-secrets
+              key: MOODLE_PASSWORD
+        - name: DB_HOST
+          value: "neuland-shared-db"
+        - name: DB_PORT
+          value: "5432"
+        - name: POSTGRES_DB
+          value: "neuland_api_staging"
+        - name: POSTGRES_USER
+          value: "neuland_api_staging_user"
+        - name: POSTGRES_PASSWORD
+          value: "neuland_api_staging_password"
+        - name: NODE_ENV
+          value: "production"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 4000
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 4000
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 128Mi

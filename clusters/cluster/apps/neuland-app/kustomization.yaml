@@ -11,5 +11,6 @@ resources:
   - ical-service
   - shared-database
   - neuland-api-prod
+  - neuland-api-staging
  # - ersti-kit-prod
   

@@ -9,29 +9,48 @@ data:
     set -e
     
     psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-        -- Create database for API service
+        -- Create databases for API services
         CREATE DATABASE neuland_api;
+        CREATE DATABASE neuland_api_staging;
         
-        -- Create user for API service
+        -- Create users for API services
         CREATE USER neuland_api_user WITH PASSWORD 'neuland_api_password';
+        CREATE USER neuland_api_staging_user WITH PASSWORD 'neuland_api_staging_password';
         
-        -- Grant all privileges on the API database
+        -- Grant all privileges on the API databases
         GRANT ALL PRIVILEGES ON DATABASE neuland_api TO neuland_api_user;
+        GRANT ALL PRIVILEGES ON DATABASE neuland_api_staging TO neuland_api_staging_user;
         
-        -- Connect to the API database and grant schema permissions
+        -- Connect to the prod API database and grant schema permissions
         \c neuland_api;
         
-        -- Grant all privileges on the public schema
+        -- Grant all privileges on the public schema for prod
         GRANT ALL ON SCHEMA public TO neuland_api_user;
         GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO neuland_api_user;
         GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO neuland_api_user;
         GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO neuland_api_user;
         
-        -- Grant future privileges (for new objects created by the API)
+        -- Grant future privileges for prod (for new objects created by the API)
         ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO neuland_api_user;
         ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO neuland_api_user;
         ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON FUNCTIONS TO neuland_api_user;
         
-        -- Grant CREATE privilege on the database (needed for creating types)
+        -- Connect to the staging API database and grant schema permissions
+        \c neuland_api_staging;
+        
+        -- Grant all privileges on the public schema for staging
+        GRANT ALL ON SCHEMA public TO neuland_api_staging_user;
+        GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO neuland_api_staging_user;
+        GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO neuland_api_staging_user;
+        GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO neuland_api_staging_user;
+        
+        -- Grant future privileges for staging (for new objects created by the API)
+        ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO neuland_api_staging_user;
+        ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO neuland_api_staging_user;
+        ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON FUNCTIONS TO neuland_api_staging_user;
+        
+        -- Grant CREATE privilege on both databases (needed for creating types)
+        \c neuland;
         GRANT CREATE ON DATABASE neuland_api TO neuland_api_user;
+        GRANT CREATE ON DATABASE neuland_api_staging TO neuland_api_staging_user;
 
