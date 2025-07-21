@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: member-id-backend
+  namespace: verein-ext
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: member-id-backend
+  template:
+    metadata:
+      labels:
+        app: member-id-backend
+    spec:
+      containers:
+      - name: member-id-backend
+        image: ghcr.io/neuland-ingolstadt/member-id-backend:build-21 # {"$imagepolicy": "flux-system:member-id-backend"}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: RUST_LOG
+          value: info
+        - name: QR_PRIVATE_KEY_HEX
+          valueFrom:
+            secretKeyRef:
+              name: member-id-secrets
+              key: QR_PRIVATE_KEY_HEX
+        - name: JWKS_URL
+          value: https://sso.informatik.sexy/application/o/next/jwks/
+        - name: EXPECTED_AUDIENCE
+          valueFrom:
+            secretKeyRef:
+              name: member-id-secrets
+              key: EXPECTED_AUDIENCE
+        - name: PKPASS_ORGANIZATION_NAME
+          value: Neuland Ingolstadt e.V.
+        - name: PKPASS_PASS_TYPE_IDENTIFIER
+          value: pass.member.neuland.app
+        - name: PKPASS_TEAM_IDENTIFIER
+          value: FSXB76X6V2
+        - name: PKPASS_SIGN_CERT_PATH
+          value: /app/certs/pass.pem
+        - name: PKPASS_SIGN_KEY_PATH
+          value: /app/certs/pass-private.pem
+        - name: PKPASS_BEACON_PROXIMITY_UUID
+          valueFrom:
+            secretKeyRef:
+              name: member-id-secrets
+              key: PKPASS_BEACON_PROXIMITY_UUID
+        - name: GOOGLE_SERVICE_ACCOUNT_KEY_PATH
+          value: /app/certs/google-service-account.json
+        - name: GOOGLE_WALLET_CLASS_ID
+          value: pass.member.neuland.app.v15
+        - name: GOOGLE_SERVICE_ACCOUNT_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: member-id-secrets
+              key: GOOGLE_SERVICE_ACCOUNT_EMAIL
+        - name: GOOGLE_WALLET_ISSUER_ID
+          valueFrom:
+            secretKeyRef:
+              name: member-id-secrets
+              key: GOOGLE_WALLET_ISSUER_ID
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 20
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 20
+          timeoutSeconds: 10
+        volumeMounts:
+        - name: certs
+          mountPath: /app/certs
+          readOnly: true
+      volumes:
+      - name: certs
+        secret:
+          secretName: member-id-certs 

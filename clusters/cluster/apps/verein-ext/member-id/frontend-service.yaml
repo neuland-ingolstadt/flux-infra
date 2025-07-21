@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: member-id-frontend
+  namespace: verein-ext
+spec:
+  type: ClusterIP
+  selector:
+    app: member-id-frontend
+  ports:
+    - name: http
+      port: 3000
+      protocol: TCP
+      targetPort: http 

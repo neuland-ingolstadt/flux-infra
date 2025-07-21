@@ -5,3 +5,4 @@ resources:
   - serviceaccount.yaml
   - ghcr-sealed-secret.yaml
   - neuland-website
+  - member-id

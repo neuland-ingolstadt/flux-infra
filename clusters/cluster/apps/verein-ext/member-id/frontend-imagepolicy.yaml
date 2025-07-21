@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: member-id-frontend
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: member-id-frontend
+  policy:
+    numerical:
+      order: asc
+  filterTags:
+    pattern: '^build-([0-9]+)$'
+    extract: '$1'

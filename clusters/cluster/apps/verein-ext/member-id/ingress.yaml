@@ -1,0 +1,40 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: member-id
+  namespace: verein-ext
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - id.eggl.one
+      secretName: eggl-one-wildcard-tls
+  rules:
+    - host: id.eggl.one
+      http:
+        paths:
+          - path: /api/
+            pathType: Prefix
+            backend:
+              service:
+                name: member-id-backend
+                port:
+                  number: 8080
+          # - path: /_next/webpack-hmr
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: member-id-frontend
+          #       port:
+          #         number: 3000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: member-id-frontend
+                port:
+                  number: 3000 

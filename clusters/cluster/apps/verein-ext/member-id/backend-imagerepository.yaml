@@ -1,0 +1,10 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: member-id-backend
+  namespace: flux-system
+spec:
+  image: ghcr.io/neuland-ingolstadt/member-id-backend
+  interval: 5m
+  secretRef:
+    name: ghcr-secret 

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: member-id-frontend
+  namespace: verein-ext
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: member-id-frontend
+  template:
+    metadata:
+      labels:
+        app: member-id-frontend
+    spec:
+      containers:
+      - name: member-id-frontend
+        image: ghcr.io/neuland-ingolstadt/member-id-frontend:build-25 # {"$imagepolicy": "flux-system:member-id-frontend"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP 
