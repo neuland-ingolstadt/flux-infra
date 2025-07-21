@@ -63,18 +63,18 @@ spec:
               key: GOOGLE_WALLET_ISSUER_ID
         ports:
         - name: http
-          containerPort: 8080
+          containerPort: 8000
           protocol: TCP
         livenessProbe:
           httpGet:
             path: /health
-            port: 8080
+            port: 8000
           initialDelaySeconds: 20
           timeoutSeconds: 10
         readinessProbe:
           httpGet:
             path: /health
-            port: 8080
+            port: 8000
           initialDelaySeconds: 20
           timeoutSeconds: 10
         volumeMounts:

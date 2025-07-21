@@ -23,7 +23,7 @@ spec:
               service:
                 name: member-id-backend
                 port:
-                  number: 8080
+                  number: 8000
           # - path: /_next/webpack-hmr
           #   pathType: Prefix
           #   backend:
