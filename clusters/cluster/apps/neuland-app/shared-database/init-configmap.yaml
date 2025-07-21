@@ -20,4 +20,3 @@ data:
         
         -- Grant schema privileges
         GRANT ALL ON SCHEMA public TO neuland_api_user;
-    EOSQL 
