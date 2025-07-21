@@ -10,5 +10,6 @@ resources:
   - ersti-kit-staging
   - ical-service
   - shared-database
+  - neuland-api-prod
  # - ersti-kit-prod
   
