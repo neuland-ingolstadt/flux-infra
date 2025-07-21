@@ -5,8 +5,5 @@ resources:
   - imageupdateautomation.yaml
   - deployment.yaml
   - ingress.yaml
-  - imagerepository.yaml
   - imagepolicy.yaml
   - service.yaml
-  - hpa.yaml
-  - sealed-secrets.yaml
