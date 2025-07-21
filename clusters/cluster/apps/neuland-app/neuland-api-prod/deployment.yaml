@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neuland-api-prod
+  namespace: neuland-app
+spec:
+  minReadySeconds: 3
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 60
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: neuland-api-prod
+  template:
+    metadata:
+      labels:
+        app: neuland-api-prod
+    spec:
+      containers:
+      - name: neuland-api-prod
+        image: ghcr.io/neuland-ingolstadt/neuland.app-backend:main-153 # {"$imagepolicy": "flux-system:neuland-api-prod"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 4000
+          protocol: TCP
+        env:
+        # DeepL API Key
+        - name: DEEPL_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: neuland-api-prod-secrets
+              key: DEEPL_API_KEY
+        # Moodle credentials
+        - name: MOODLE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: neuland-api-prod-secrets
+              key: MOODLE_USERNAME
+        - name: MOODLE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: neuland-api-prod-secrets
+              key: MOODLE_PASSWORD
+        - name: DB_HOST
+          value: "neuland-shared-db"
+        - name: DB_PORT
+          value: "5432"
+        - name: POSTGRES_DB
+          value: "neuland_api"
+        - name: POSTGRES_USER
+          value: "neuland_api_user"
+        - name: POSTGRES_PASSWORD
+          value: "neuland_api_password"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 4000
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 4000
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 250m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi

@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neuland-shared-db
+  namespace: neuland-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: neuland-shared-db
+  template:
+    metadata:
+      labels:
+        app: neuland-shared-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15-alpine
+        ports:
+        - containerPort: 5432
+          name: postgres
+        env:
+        - name: POSTGRES_DB
+          value: neuland
+        - name: POSTGRES_USER
+          value: neuland_admin
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: neuland-shared-db-secrets
+              key: POSTGRES_PASSWORD
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+          subPath: postgres
+        - name: init-scripts
+          mountPath: /docker-entrypoint-initdb.d
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        livenessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - neuland_admin
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - neuland_admin
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: neuland-shared-db-pvc
+      - name: init-scripts
+        configMap:
+          name: postgres-init-scripts 

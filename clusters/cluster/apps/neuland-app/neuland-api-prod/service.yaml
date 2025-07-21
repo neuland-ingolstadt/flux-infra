@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: neuland-api-prod
+  namespace: neuland-app
+spec:
+  type: ClusterIP
+  selector:
+    app: neuland-api-prod
+  ports:
+    - name: http
+      port: 4000
+      protocol: TCP
+      targetPort: http

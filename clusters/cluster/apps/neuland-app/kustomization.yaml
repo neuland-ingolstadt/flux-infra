@@ -9,5 +9,6 @@ resources:
   - neuland-next-docs
   - ersti-kit-staging
   - ical-service
+  - shared-database
  # - ersti-kit-prod
   

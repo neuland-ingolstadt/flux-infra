@@ -23,6 +23,7 @@ spec:
   dnsNames:
   - eggl.one
   - app.eggl.one
+  - api.eggl.one
   - docs.app.eggl.one
   - dev.app.eggl.one
   - ersti.eggl.one

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-scripts
+  namespace: neuland-app
+data:
+  init-database.sh: |
+    #!/bin/bash
+    set -e
+    
+    psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+        -- Create database for API service
+        CREATE DATABASE neuland_api;
+        
+        -- Create user for API service
+        CREATE USER neuland_api_user WITH PASSWORD 'neuland_api_password';
+        
+        -- Grant privileges
+        GRANT ALL PRIVILEGES ON DATABASE neuland_api TO neuland_api_user;
+        
+        -- Grant schema privileges
+        GRANT ALL ON SCHEMA public TO neuland_api_user;
+    EOSQL 
