@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
       - name: member-id-frontend
-        image: ghcr.io/neuland-ingolstadt/member-id-frontend:build-25 # {"$imagepolicy": "flux-system:member-id-frontend"}
+        image: ghcr.io/neuland-ingolstadt/member-id-frontend:build-26 # {"$imagepolicy": "flux-system:member-id-frontend"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
           containerPort: 3000
-          protocol: TCP 
+          protocol: TCP
