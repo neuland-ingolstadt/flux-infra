@@ -15,8 +15,23 @@ data:
         -- Create user for API service
         CREATE USER neuland_api_user WITH PASSWORD 'neuland_api_password';
         
-        -- Grant privileges
+        -- Grant all privileges on the API database
         GRANT ALL PRIVILEGES ON DATABASE neuland_api TO neuland_api_user;
         
-        -- Grant schema privileges
+        -- Connect to the API database and grant schema permissions
+        \c neuland_api;
+        
+        -- Grant all privileges on the public schema
         GRANT ALL ON SCHEMA public TO neuland_api_user;
+        GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO neuland_api_user;
+        GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO neuland_api_user;
+        GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO neuland_api_user;
+        
+        -- Grant future privileges (for new objects created by the API)
+        ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO neuland_api_user;
+        ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO neuland_api_user;
+        ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON FUNCTIONS TO neuland_api_user;
+        
+        -- Grant CREATE privilege on the database (needed for creating types)
+        GRANT CREATE ON DATABASE neuland_api TO neuland_api_user;
+

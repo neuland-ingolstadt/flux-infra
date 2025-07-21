@@ -55,6 +55,8 @@ spec:
           value: "neuland_api_user"
         - name: POSTGRES_PASSWORD
           value: "neuland_api_password"
+        - name: NODE_ENV
+          value: "production"
         livenessProbe:
           httpGet:
             path: /
