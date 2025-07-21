@@ -28,11 +28,11 @@ spec:
       stabilizationWindowSeconds: 60
       policies:
       - type: Percent
-        value: 100
+        value: 50
         periodSeconds: 15
     scaleDown:
-      stabilizationWindowSeconds: 300
+      stabilizationWindowSeconds: 180
       policies:
       - type: Percent
-        value: 10
+        value: 50
         periodSeconds: 60 
