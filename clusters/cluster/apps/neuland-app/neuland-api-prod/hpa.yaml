@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: neuland-api-prod
   minReplicas: 1
-  maxReplicas: 3
+  maxReplicas: 2
   metrics:
   - type: Resource
     resource:
@@ -31,7 +31,7 @@ spec:
         value: 50
         periodSeconds: 15
     scaleDown:
-      stabilizationWindowSeconds: 180
+      stabilizationWindowSeconds: 120
       policies:
       - type: Percent
         value: 50
