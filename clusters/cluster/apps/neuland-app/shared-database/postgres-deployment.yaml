@@ -48,6 +48,8 @@ spec:
             - pg_isready
             - -U
             - neuland_admin
+            - -d
+            - neuland
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
@@ -56,6 +58,8 @@ spec:
             - pg_isready
             - -U
             - neuland_admin
+            - -d
+            - neuland
           initialDelaySeconds: 5
           periodSeconds: 5
       volumes:
