@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: neuland-next-docs
-        image: ghcr.io/neuland-ingolstadt/neuland.app-docs:build-36 # {"$imagepolicy": "flux-system:neuland-next-docs"}
+        image: ghcr.io/neuland-ingolstadt/neuland.app-docs:build-37 # {"$imagepolicy": "flux-system:neuland-next-docs"}
         imagePullPolicy: IfNotPresent
         env:
         - name: HOSTNAME
