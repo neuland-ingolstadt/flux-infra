@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: neuland-next-prod
-        image: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp:0.13.8 # {"$imagepolicy": "flux-system:neuland-next-prod"}
+        image: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp:0.13.9 # {"$imagepolicy": "flux-system:neuland-next-prod"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
