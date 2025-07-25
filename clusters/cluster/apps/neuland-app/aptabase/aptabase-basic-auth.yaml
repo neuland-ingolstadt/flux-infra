@@ -5,4 +5,4 @@ metadata:
   namespace: neuland-app
 type: Opaque
 stringData:
-  auth: test:test 
+  auth: test:$apr1$UIimsERu$Zc31Dfa9A98scqZFpbfAS. 
