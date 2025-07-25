@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aptabase-events-db
+  namespace: neuland-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aptabase-events-db
+  template:
+    metadata:
+      labels:
+        app: aptabase-events-db
+    spec:
+      containers:
+      - name: clickhouse
+        image: clickhouse/clickhouse-server:23.8.4.69-alpine
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8123
+          name: http
+        - containerPort: 9000
+          name: native
+        env:
+        - name: CLICKHOUSE_USER
+          value: aptabase
+        - name: CLICKHOUSE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: DB_PASSWORD
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/clickhouse
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: aptabase-events-db-pvc

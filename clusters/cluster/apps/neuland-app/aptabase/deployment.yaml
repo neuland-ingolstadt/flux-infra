@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aptabase
+  namespace: neuland-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aptabase
+  template:
+    metadata:
+      labels:
+        app: aptabase
+    spec:
+      containers:
+      - name: aptabase
+        image: ghcr.io/aptabase/aptabase:main
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: BASE_URL
+          value: https://analytics.eggl.one
+        - name: AUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: AUTH_SECRET
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: DB_PASSWORD
+        - name: DATABASE_URL
+          value: Server=neuland-shared-db;Port=5432;User Id=aptabase;Password=${DATABASE_PASSWORD};Database=aptabase
+        - name: CLICKHOUSE_URL
+          value: Host=aptabase-events-db;Port=8123;Username=aptabase;Password=${DATABASE_PASSWORD}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi

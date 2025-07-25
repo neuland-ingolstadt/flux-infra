@@ -12,5 +12,6 @@ resources:
   - shared-database
   - neuland-api-prod
   - neuland-api-staging
+  - aptabase
  # - ersti-kit-prod
   
