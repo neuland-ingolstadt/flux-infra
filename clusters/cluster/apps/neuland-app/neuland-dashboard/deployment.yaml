@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neuland-dashboard
+  namespace: neuland-app
+spec:
+  minReadySeconds: 3
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 60
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: neuland-dashboard
+  template:
+    metadata:
+      labels:
+        app: neuland-dashboard
+    spec:
+      containers:
+      - name: neuland-dashboard
+        image: ghcr.io/neuland-ingolstadt/neuland-dashboard:main-60 # {"$imagepolicy": "flux-system:neuland-dashboard"}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: NEXTAUTH_URL
+          value: "https://dashboard.eggl.one"
+        - name: GRAPHQL_URL
+          value: "https://api.neuland.app/graphql"
+        - name: DEV_GRAPHQL_URL
+          value: "https://api.dev.neuland.app/graphql"
+        envFrom:
+        - secretRef:
+            name: neuland-dashboard-secret
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /auth/signIn
+            port: 3000
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /auth/signIn
+            port: 3000
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+        resources:
+          limits:
+            cpu: 300m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi

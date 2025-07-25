@@ -4,7 +4,7 @@ metadata:
   name: neuland-next-staging
   namespace: flux-system
 spec:
-  interval: 1m
+  interval: 10m
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aptabase
+  namespace: neuland-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aptabase
+  template:
+    metadata:
+      labels:
+        app: aptabase
+    spec:
+      containers:
+      - name: aptabase
+        image: ghcr.io/robert27/aptabase:ci-oauth-15
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: OAUTH_AUTHENTIK_AUTHORIZE_URL
+          value: https://auth.eggl.one/application/o/authorize/
+        - name: OAUTH_AUTHENTIK_TOKEN_URL
+          value: https://auth.eggl.one/application/o/token/
+        - name: OAUTH_AUTHENTIK_USERINFO_URL
+          value: https://auth.eggl.one/application/o/userinfo/
+        - name: DISABLE_EMAIL_AUTH
+          value: "true"
+        - name: BASE_URL
+          value: https://analytics.eggl.one
+        - name: AUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: AUTH_SECRET
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: DB_PASSWORD
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: DATABASE_URL
+        - name: CLICKHOUSE_URL
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: CLICKHOUSE_URL
+        - name: OAUTH_AUTHENTIK_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: OAUTH_AUTHENTIK_CLIENT_ID
+        - name: OAUTH_AUTHENTIK_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: OAUTH_AUTHENTIK_CLIENT_SECRET
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi

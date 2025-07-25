@@ -4,7 +4,7 @@ metadata:
   name: ersti-kit-prod
   namespace: flux-system
 spec:
-  interval: 1m
+  interval: 10m
   path: ./kubernetes/production
   prune: true
   sourceRef:

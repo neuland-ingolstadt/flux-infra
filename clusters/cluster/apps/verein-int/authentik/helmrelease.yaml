@@ -1,0 +1,60 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: authentik
+  namespace: verein-int
+spec:
+  interval: 24h
+  url: https://charts.goauthentik.io
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: verein-int
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: authentik
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+        namespace: verein-int
+      interval: 12h
+  values:
+    authentik:
+      error_reporting:
+        enabled: false
+      secret_key: "${SECRET_KEY}" # will be set from secret
+      postgresql:
+        password: "${POSTGRES_PASSWORD}" # will be set from secret
+    server:
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+          - auth.eggl.one
+        tls:
+          - hosts:
+              - auth.eggl.one
+            secretName: eggl-one-wildcard-tls
+      env:
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: secret-key
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: postgres-password
+    postgresql:
+      enabled: true
+      auth:
+        password: "${POSTGRES_PASSWORD}" # will be set from secret
+    redis:
+      enabled: true
+

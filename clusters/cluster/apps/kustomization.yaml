@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - neuland-app
   - verein-ext
+  - verein-int
   - monitoring
   
