@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: aptabase-basic-auth
+  namespace: neuland-app
+type: Opaque
+stringData:
+  auth: test:test 

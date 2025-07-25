@@ -1,11 +1,48 @@
+# Ingress for /api/events and /api/event (no auth)
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: aptabase
+  name: aptabase-no-auth
   namespace: neuland-app
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
     cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - analytics.eggl.one
+      secretName: eggl-one-wildcard-tls
+  rules:
+    - host: analytics.eggl.one
+      http:
+        paths:
+          - path: /api/events
+            pathType: Prefix
+            backend:
+              service:
+                name: aptabase
+                port:
+                  number: 8080
+          - path: /api/event
+            pathType: Prefix
+            backend:
+              service:
+                name: aptabase
+                port:
+                  number: 8080
+# Ingress for all other paths (with basic auth)
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aptabase-auth
+  namespace: neuland-app
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    traefik.ingress.kubernetes.io/router.middlewares: neuland-app-aptabase-basic-auth@kubernetescrd
 spec:
   ingressClassName: traefik
   tls:
