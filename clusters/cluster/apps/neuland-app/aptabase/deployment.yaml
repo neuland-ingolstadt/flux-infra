@@ -34,9 +34,15 @@ spec:
               name: aptabase-auth
               key: DB_PASSWORD
         - name: DATABASE_URL
-          value: Server=neuland-shared-db;Port=5432;User Id=aptabase;Password=${DATABASE_PASSWORD};Database=aptabase
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: DATABASE_URL
         - name: CLICKHOUSE_URL
-          value: Host=aptabase-events-db;Port=8123;Username=aptabase;Password=${DATABASE_PASSWORD}
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: CLICKHOUSE_URL
         livenessProbe:
           httpGet:
             path: /
