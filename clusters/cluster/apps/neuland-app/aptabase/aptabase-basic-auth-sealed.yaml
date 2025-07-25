@@ -1,0 +1,16 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: aptabase-basic-auth
+  namespace: neuland-app
+spec:
+  encryptedData:
+    auth: AgA03BAyzo02/B/IER9+Wglj0Qo1Y8jKjTcekWR7uQtxhTozxULWg6+8GmYE9e1yzgYNe4+M0s4uydmbiOI0ngY3kXhAo98f6ZLGK0IvMymE3cT9aUsbN/KX0RqG6h7W+oiep0M9gJZC3IcJ4JSTm60f7B6N2d6qKZd54aJ+UdCYGP3Pd0Q4KQJHvEvx1Ib4lP/LU0J9HATBOmTeGgtPAB1QM2E/d96ncj3KtznqFcHUkf8+bJ6oGfiP0lSyo35dmlW0mvrq47ydRkzJOo3SQtS2gYH9jQ0jCYgVTnpGHbaGFdmiDtPdNbfDkkymlDFXvZBeDVirRtlixmgDVdn+3b3Tqxcni7eFp/m9P25ODaG+ej8zZBVe3mJSR3npT6Zfu6DBoIfwF+fvsR01K5LrXYgl0AVdOxuFP1fRugS0rK9mL5LUxr5z/8nLI243r+zSW3n2QiarEAWpl7X/cPuWAbXMYWbd9e+Ny/CO4p9MzX486I8+h8QBesX/PXE4YWW8D9TDcaI2aT9FbuFvOnXkh6YbvdHHEEc6O/oQVKGTx/+uXJ9xvIVGUKZJw0D9A9+xniO7s4bZ4clZbxvrdt5u3GyOFZrr72L+aU9yELnv6UUSVMA3adGv3QI9U/S1NJW7vpf0eiYO3X+pPp9nHWosmw6ExApvstVpe+4SjMaRljsmtfKrbjV13A9BGrZVrBM647HCnIP/boimCmupM8H1UmRw/xZjhPPZRiUBpNzHX051VIFER1a2A0+oHUQKijCKjGEOIRIGKk4pYa3cL65b+7fMdA==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: aptabase-basic-auth
+      namespace: neuland-app
+    type: Opaque
