@@ -31,7 +31,7 @@ spec:
         - name: NODE_ENV
           value: "production"
         - name: NEXTAUTH_URL
-          value: "https://dashboard.neuland.app"
+          value: "https://dashboard.eggl.one"
         - name: GRAPHQL_URL
           value: "https://api.neuland.app/graphql"
         - name: DEV_GRAPHQL_URL
@@ -48,13 +48,13 @@ spec:
             path: /
             port: 3000
           initialDelaySeconds: 5
-          timeoutSeconds: 5
+          timeoutSeconds: 10
         readinessProbe:
           httpGet:
             path: /
             port: 3000
           initialDelaySeconds: 5
-          timeoutSeconds: 5
+          timeoutSeconds: 10
         resources:
           limits:
             cpu: 300m
