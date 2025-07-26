@@ -13,5 +13,6 @@ resources:
   - neuland-api-prod
   - neuland-api-staging
   - aptabase
+  - neuland-dashboard
  # - ersti-kit-prod
   
