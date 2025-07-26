@@ -32,7 +32,7 @@ spec:
           value: "production"
         envFrom:
         - secretRef:
-            name: neuland-dashboard-secrets
+            name: neuland-dashboard-secret
         ports:
         - name: http
           containerPort: 3000

@@ -8,4 +8,4 @@ resources:
   - imagerepository.yaml
   - imagepolicy.yaml
   - service.yaml
-  - sealed-secrets.yaml
+  - sealed-secret.yaml
