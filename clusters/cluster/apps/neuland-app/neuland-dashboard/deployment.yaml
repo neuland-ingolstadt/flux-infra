@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: neuland-dashboard
-        image: ghcr.io/neuland-ingolstadt/neuland-dashboard:main-57 # {"$imagepolicy": "flux-system:neuland-dashboard"}
+        image: ghcr.io/neuland-ingolstadt/neuland-dashboard:main-60 # {"$imagepolicy": "flux-system:neuland-dashboard"}
         imagePullPolicy: IfNotPresent
         env:
         - name: HOSTNAME
