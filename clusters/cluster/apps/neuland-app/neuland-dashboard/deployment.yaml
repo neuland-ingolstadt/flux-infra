@@ -26,6 +26,8 @@ spec:
         env:
         - name: HOSTNAME
           value: "0.0.0.0"
+        - name: NEXT_PUBLIC_HOSTNAME
+          value: "0.0.0.0"
         - name: PORT
           value: "3000"
         - name: NODE_ENV
@@ -45,15 +47,15 @@ spec:
           protocol: TCP
         livenessProbe:
           httpGet:
-            path: /
+            path: /auth/signIn
             port: 3000
-          initialDelaySeconds: 5
+          initialDelaySeconds: 30
           timeoutSeconds: 10
         readinessProbe:
           httpGet:
-            path: /
+            path: /auth/signIn
             port: 3000
-          initialDelaySeconds: 5
+          initialDelaySeconds: 30
           timeoutSeconds: 10
         resources:
           limits:
