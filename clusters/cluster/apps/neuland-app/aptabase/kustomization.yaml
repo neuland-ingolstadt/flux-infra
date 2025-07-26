@@ -11,5 +11,3 @@ resources:
   - clickhouse-service.yaml
   - pvc.yaml
   - aptabase-sealed.yaml
-  - aptabase-basic-auth-sealed.yaml
-  - aptabase-basic-auth-middleware.yaml
