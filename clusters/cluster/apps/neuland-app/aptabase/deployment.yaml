@@ -15,12 +15,20 @@ spec:
     spec:
       containers:
       - name: aptabase
-        image: ghcr.io/aptabase/aptabase:main
+        image: ghcr.io/robert27/aptabase:ci-oauth-14
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
           name: http
         env:
+        - name: OAUTH_AUTHENTIK_AUTHORIZE_URL
+          value: https://sso.informatik.sexy/application/o/authorize/
+        - name: OAUTH_AUTHENTIK_TOKEN_URL
+          value: https://sso.informatik.sexy/application/o/token/
+        - name: OAUTH_AUTHENTIK_USERINFO_URL
+          value: https://sso.informatik.sexy/application/o/userinfo/
+        - name: DISABLE_EMAIL_AUTH
+          value: true
         - name: BASE_URL
           value: https://analytics.eggl.one
         - name: AUTH_SECRET
@@ -43,6 +51,16 @@ spec:
             secretKeyRef:
               name: aptabase-auth
               key: CLICKHOUSE_URL
+        - name: OAUTH_AUTHENTIK_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: OAUTH_AUTHENTIK_CLIENT_ID
+        - name: OAUTH_AUTHENTIK_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: aptabase-auth
+              key: OAUTH_AUTHENTIK_CLIENT_SECRET
         livenessProbe:
           httpGet:
             path: /
