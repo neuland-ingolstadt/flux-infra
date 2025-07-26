@@ -24,14 +24,6 @@ spec:
         image: ghcr.io/neuland-ingolstadt/neuland-dashboard:main-60 # {"$imagepolicy": "flux-system:neuland-dashboard"}
         imagePullPolicy: IfNotPresent
         env:
-        - name: HOSTNAME
-          value: "0.0.0.0"
-        - name: NEXT_PUBLIC_HOSTNAME
-          value: "0.0.0.0"
-        - name: PORT
-          value: "3000"
-        - name: NODE_ENV
-          value: "production"
         - name: NEXTAUTH_URL
           value: "https://dashboard.eggl.one"
         - name: GRAPHQL_URL
