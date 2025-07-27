@@ -34,25 +34,12 @@ spec:
     mariadb:
       enabled: true
     env:
-      - name: CMD_DOMAIN
-        value: "pad.eggl.one"
-      - name: CMD_PROTOCOL_USESSL
-        value: "true"
-      - name: CMD_OAUTH2_CLIENT_ID
-        valueFrom:
-          secretKeyRef:
-            name: hedgedoc-secrets
-            key: OAUTH2_CLIENT_ID
-      - name: CMD_OAUTH2_CLIENT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: hedgedoc-secrets
-            key: OAUTH2_CLIENT_SECRET
-      - name: CMD_OAUTH2_AUTHORIZATION_URL
-        value: "https://auth.eggl.one/application/o/authorize/"
-      - name: CMD_OAUTH2_TOKEN_URL
-        value: "https://auth.eggl.one/application/o/token/"
-      - name: CMD_OAUTH2_USER_PROFILE_URL
-        value: "https://auth.eggl.one/application/o/userinfo/"
-      - name: CMD_OAUTH2_PROVIDERNAME
-        value: "Authentik"
+      CMD_DOMAIN: "pad.eggl.one"
+      CMD_PROTOCOL_USESSL: "true"
+      CMD_OAUTH2_AUTHORIZATION_URL: "https://auth.eggl.one/application/o/authorize/"
+      CMD_OAUTH2_TOKEN_URL: "https://auth.eggl.one/application/o/token/"
+      CMD_OAUTH2_USER_PROFILE_URL: "https://auth.eggl.one/application/o/userinfo/"
+      CMD_OAUTH2_PROVIDERNAME: "Authentik"
+    envFrom:
+      - secretRef:
+          name: hedgedoc-secrets
