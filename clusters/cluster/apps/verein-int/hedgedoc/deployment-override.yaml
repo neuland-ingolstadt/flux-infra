@@ -5,7 +5,15 @@ metadata:
   name: hedgedoc
   namespace: verein-int
 spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: hedgedoc
+      app.kubernetes.io/instance: hedgedoc
   template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: hedgedoc
+        app.kubernetes.io/instance: hedgedoc
     spec:
       containers:
       - name: hedgedoc
