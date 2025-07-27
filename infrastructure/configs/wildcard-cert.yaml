@@ -33,4 +33,5 @@ spec:
   - dev.api.eggl.one
   - id.eggl.one
   - analytics.eggl.one
+  - auth.eggl.one
   - dashboard.eggl.one
