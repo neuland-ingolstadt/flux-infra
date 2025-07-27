@@ -24,15 +24,12 @@ spec:
         namespace: verein-int
       interval: 12h
   values:
-    # Core authentik configuration
     authentik:
-      enabled: false  # Disable the chart's secret creation
-      secret_key: ""  # Not used since we're using our own secret
-      # Error reporting configuration
       error_reporting:
         enabled: false
-    
-    # Server configuration with ingress
+      secret_key: "${SECRET_KEY}" # will be set from secret
+      postgresql:
+        password: "${POSTGRES_PASSWORD}" # will be set from secret
     server:
       ingress:
         enabled: true
@@ -43,25 +40,21 @@ spec:
           - hosts:
               - auth.eggl.one
             secretName: eggl-one-wildcard-tls
-      # Use our existing sealed secret
-      envFrom:
-        - secretRef:
-            name: authentik-secrets
-    
-    # Worker configuration
-    worker:
-      # Use our existing sealed secret
-      envFrom:
-        - secretRef:
-            name: authentik-secrets
-    
-    # PostgreSQL configuration
+      env:
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: secret-key
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: postgres-password
     postgresql:
       enabled: true
       auth:
-        password: ""  # Will be set via environment variable from sealed secret
-    
-    # Redis configuration
+        password: "${POSTGRES_PASSWORD}" # will be set from secret
     redis:
       enabled: true
 
