@@ -33,9 +33,7 @@ spec:
         size: 1Gi
     mariadb:
       enabled: true
-    env:
-      CMD_DOMAIN: "pad.eggl.one"
-      CMD_PROTOCOL_USESSL: "true"
+    secret:
       CMD_OAUTH2_CLIENT_ID:
         valueFrom:
           secretKeyRef:
@@ -46,6 +44,9 @@ spec:
           secretKeyRef:
             name: hedgedoc-secrets
             key: OAUTH2_CLIENT_SECRET
+    env:
+      CMD_DOMAIN: "pad.eggl.one"
+      CMD_PROTOCOL_USESSL: "true"
       CMD_OAUTH2_AUTHORIZATION_URL: "https://auth.eggl.one/application/o/authorize/"
       CMD_OAUTH2_TOKEN_URL: "https://auth.eggl.one/application/o/token/"
       CMD_OAUTH2_USER_PROFILE_URL: "https://auth.eggl.one/application/o/userinfo/"
