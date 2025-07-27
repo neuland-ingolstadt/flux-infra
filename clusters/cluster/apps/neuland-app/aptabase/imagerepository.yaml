@@ -5,4 +5,4 @@ metadata:
   namespace: flux-system
 spec:
   image: ghcr.io/aptabase/aptabase
-  interval: 5m
+  interval: 10m
