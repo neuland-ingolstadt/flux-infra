@@ -33,9 +33,6 @@ spec:
         size: 1Gi
     mariadb:
       enabled: true
-    envFrom:
-      - secretRef:
-          name: hedgedoc-secrets
     env:
       CMD_DOMAIN: "pad.eggl.one"
       CMD_PROTOCOL_USESSL: "true"
