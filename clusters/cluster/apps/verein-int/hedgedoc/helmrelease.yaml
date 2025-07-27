@@ -1,0 +1,42 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: nicholaswilde
+  namespace: verein-int
+spec:
+  interval: 24h
+  url: https://nicholaswilde.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: hedgedoc
+  namespace: verein-int
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: hedgedoc
+      sourceRef:
+        kind: HelmRepository
+        name: nicholaswilde
+        namespace: verein-int
+      interval: 12h
+  values:
+    ingress:
+      enabled: false
+    persistence:
+      config:
+        enabled: true
+        storageClass: longhorn
+        size: 1Gi
+    mariadb:
+      enabled: true
+    env:
+      CMD_OAUTH2_CLIENT_ID: "${OAUTH2_CLIENT_ID}"
+      CMD_OAUTH2_CLIENT_SECRET: "${OAUTH2_CLIENT_SECRET}"
+      CMD_OAUTH2_AUTHORIZATION_URL: "https://auth.eggl.one/application/o/authorize/"
+      CMD_OAUTH2_TOKEN_URL: "https://auth.eggl.one/application/o/token/"
+      CMD_OAUTH2_USER_PROFILE_URL: "https://auth.eggl.one/application/o/userinfo/"
+      CMD_OAUTH2_PROVIDERNAME: "Authentik"
