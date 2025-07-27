@@ -26,7 +26,8 @@ spec:
   values:
     # Core authentik configuration
     authentik:
-      secret_key: ""  # Will be set via environment variable
+      enabled: false  # Disable the chart's secret creation
+      secret_key: ""  # Not used since we're using our own secret
       # Error reporting configuration
       error_reporting:
         enabled: false
@@ -42,27 +43,25 @@ spec:
           - hosts:
               - auth.eggl.one
             secretName: eggl-one-wildcard-tls
+      # Use our existing sealed secret
+      envFrom:
+        - secretRef:
+            name: authentik-secrets
+    
+    # Worker configuration
+    worker:
+      # Use our existing sealed secret
+      envFrom:
+        - secretRef:
+            name: authentik-secrets
     
     # PostgreSQL configuration
     postgresql:
       enabled: true
       auth:
-        password: ""  # Will be set via environment variable
+        password: ""  # Will be set via environment variable from sealed secret
     
     # Redis configuration
     redis:
       enabled: true
-    
-    # Environment variables to pass secrets from sealed secret
-    env:
-      - name: AUTHENTIK_SECRET_KEY
-        valueFrom:
-          secretKeyRef:
-            name: authentik-secrets
-            key: secret-key
-      - name: POSTGRES_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: authentik-secrets
-            key: postgres-password
 
