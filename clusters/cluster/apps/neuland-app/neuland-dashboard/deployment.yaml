@@ -27,9 +27,11 @@ spec:
         - name: NEXTAUTH_URL
           value: "https://dashboard.eggl.one"
         - name: GRAPHQL_URL
-          value: "https://api.neuland.app/graphql"
+          value: "https://api.eggl.one/graphql"
         - name: DEV_GRAPHQL_URL
-          value: "https://api.dev.neuland.app/graphql"
+          value: "https://dev.api.eggl.one/graphql"
+        - name: AUTHENTIK_ISSUER
+          value: "https://auth.eggl.one/application/o/api-dashboard"
         envFrom:
         - secretRef:
             name: neuland-dashboard-secret
