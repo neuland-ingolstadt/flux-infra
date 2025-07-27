@@ -55,6 +55,12 @@ spec:
       enabled: true
       auth:
         password: "${POSTGRES_PASSWORD}" # will be set from secret
+      primary:
+        persistence:
+          size: 2Gi
     redis:
       enabled: true
+      master:
+        persistence:
+          size: 1Gi
 
