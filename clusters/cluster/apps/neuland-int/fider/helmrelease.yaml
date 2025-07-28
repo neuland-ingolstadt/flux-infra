@@ -1,0 +1,51 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: fider
+  namespace: neuland-int
+spec:
+  interval: 24h
+  url: https://getfider.github.io/helm
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: fider
+  namespace: neuland-int
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: fider
+      sourceRef:
+        kind: HelmRepository
+        name: fider
+        namespace: neuland-int
+      interval: 12h
+  values:
+    ingress:
+      enabled: true
+      className: traefik
+      annotations:
+        traefik.ingress.kubernetes.io/router.tls: "true"
+        cert-manager.io/cluster-issuer: "letsencrypt"
+      hosts:
+        - host: ideas.eggl.one
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: eggl-one-wildcard-tls
+          hosts:
+            - ideas.eggl.one
+    env:
+      - name: BASE_URL
+        value: https://ideas.eggl.one
+      - name: EMAIL_NOREPLY
+        value: noreply@example.com
+    secretEnv:
+      OAUTH_AUTHENTIK_CLIENT_ID: ""
+      OAUTH_AUTHENTIK_CLIENT_SECRET: ""
+      JWT_SECRET: "CHANGEME"
+      DATABASE_URL: "postgres://fider:password@postgresql:5432/fider?sslmode=disable"
