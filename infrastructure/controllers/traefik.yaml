@@ -56,10 +56,13 @@ spec:
     # Service configuration
     service:
       type: LoadBalancer
-      externalTrafficPolicy: Local
+      externalTrafficPolicy: Cluster
       annotations:
         metallb.universe.tf/address-pool: floating-ip-pool
         metallb.universe.tf/loadBalancerIPs: "195.201.250.90"
+      additionalArguments:
+        - "--entrypoints.websecure.proxyProtocol.trustedIPs=0.0.0.0/0"
+        - "--entrypoints.websecure.forwardedHeaders.trustedIPs=0.0.0.0/0"
     
     # Entry points
     ports:
