@@ -11,10 +11,10 @@ spec:
   ingressClassName: traefik
   tls:
   - hosts:
-    - dev.api.eggl.one
+    - api.dev.eggl.one
     secretName: eggl-one-wildcard-tls
   rules:
-  - host: dev.api.eggl.one
+  - host: api.dev.eggl.one
     http:
       paths:
       - path: /

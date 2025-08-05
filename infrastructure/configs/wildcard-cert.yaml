@@ -30,7 +30,7 @@ spec:
   - dev.ersti.eggl.one
   - uptime.eggl.one
   - ical.eggl.one
-  - dev.api.eggl.one
+  - api.dev.eggl.one
   - id.eggl.one
   - analytics.eggl.one
   - auth.eggl.one
