@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: neuland-shared-db
-  namespace: neuland-app
+  name: aptabase-db-pvc
+  namespace: monitoring
 spec:
   accessModes:
     - ReadWriteOnce
   storageClassName: longhorn
   resources:
     requests:
-      storage: 1Gi
+      storage: 500Mi

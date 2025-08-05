@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: aptabase-events-db
-  namespace: neuland-app
+  namespace: monitoring
 spec:
   replicas: 1
   selector:

@@ -11,3 +11,7 @@ resources:
   - clickhouse-service.yaml
   - pvc.yaml
   - aptabase-sealed.yaml
+  - aptabase-db-deployment.yaml
+  - aptabase-db-service.yaml
+  - aptabase-db-pvc.yaml
+  - aptabase-db-sealed-secrets.yaml

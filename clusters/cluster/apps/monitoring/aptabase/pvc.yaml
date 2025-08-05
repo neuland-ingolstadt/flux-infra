@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: aptabase-events-db-pvc
-  namespace: neuland-app
+  namespace: monitoring
 spec:
   accessModes:
     - ReadWriteOnce
