@@ -11,10 +11,10 @@ spec:
   ingressClassName: traefik
   tls:
   - hosts:
-    - app.eggl.one
-    secretName: eggl-one-wildcard-tls
+    - app.neuland.app
+    secretName: neuland-app-wildcard-tls
   rules:
-  - host: app.eggl.one
+  - host: app.neuland.app
     http:
       paths:
       - path: /

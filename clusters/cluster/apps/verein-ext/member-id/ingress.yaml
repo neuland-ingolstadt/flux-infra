@@ -13,7 +13,7 @@ spec:
   tls:
     - hosts:
         - id.eggl.one
-      secretName: eggl-one-wildcard-tls
+      secretName: neuland-app-wildcard-tls
   rules:
     - host: id.eggl.one
       http:

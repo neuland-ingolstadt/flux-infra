@@ -25,11 +25,11 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: NEXTAUTH_URL
-          value: "https://dashboard.eggl.one"
+          value: "https://dashboard.neuland.app"
         - name: GRAPHQL_URL
-          value: "https://api.eggl.one/graphql"
+          value: "https://api.neuland.app/graphql"
         - name: DEV_GRAPHQL_URL
-          value: "https://dev.api.eggl.one/graphql"
+          value: "https://dev.api.neuland.app/graphql"
         - name: AUTHENTIK_ISSUER
           value: "https://auth.eggl.one/application/o/api-dashboard"
         envFrom:

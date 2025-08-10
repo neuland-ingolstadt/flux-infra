@@ -21,4 +21,4 @@ spec:
   tls:
     - hosts:
         - ideas.eggl.one
-      secretName: eggl-one-wildcard-tls
+      secretName: neuland-app-wildcard-tls

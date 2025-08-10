@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: eggl-one-wildcard
+  name: neuland-app-wildcard
   namespace: cert-manager
   annotations:
     # Reflector will copy this certificate to other namespaces
@@ -10,7 +10,7 @@ metadata:
     reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "neuland-app,verein-ext,monitoring,verein-int"
     reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
 spec:
-  secretName: eggl-one-wildcard-tls
+  secretName: neuland-app-wildcard-tls
   secretTemplate:
     annotations:
       reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
@@ -21,19 +21,19 @@ spec:
     kind: ClusterIssuer
   # List specific domains instead of wildcards - works with HTTP-01 challenges
   dnsNames:
-  - eggl.one
-  - app.eggl.one
-  - api.eggl.one
-  - docs.app.eggl.one
-  - dev.app.eggl.one
-  - ersti.eggl.one
-  - dev.ersti.eggl.one
-  - uptime.eggl.one
-  - ical.eggl.one
-  - api.dev.eggl.one
+  - neuland.app
+  - app.neuland.app
+  - api.neuland.app
+  - docs.app.neuland.app
+  - dev.app.neuland.app
+  - ersti.neuland.app
+  - dev.ersti.neuland.app
+  - status.neuland.app
+  - ical.neuland.app
+  - api.dev.neuland.app
   - id.eggl.one
-  - analytics.eggl.one
+  - analytics.neuland.app
   - auth.eggl.one
   - pad.eggl.one
-  - dashboard.eggl.one
+  - dashboard.neuland.app
   - ideas.eggl.one

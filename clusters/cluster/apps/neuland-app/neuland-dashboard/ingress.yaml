@@ -10,10 +10,10 @@ spec:
   ingressClassName: traefik
   tls:
   - hosts:
-    - dashboard.eggl.one
-    secretName: eggl-one-wildcard-tls
+    - dashboard.neuland.app
+    secretName: neuland-app-wildcard-tls
   rules:
-  - host: dashboard.eggl.one
+  - host: dashboard.neuland.app
     http:
       paths:
       - path: /

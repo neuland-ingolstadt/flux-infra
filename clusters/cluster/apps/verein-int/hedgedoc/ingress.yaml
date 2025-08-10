@@ -11,7 +11,7 @@ spec:
   tls:
     - hosts:
         - pad.eggl.one
-      secretName: eggl-one-wildcard-tls
+      secretName: neuland-app-wildcard-tls
   rules:
     - host: pad.eggl.one
       http:

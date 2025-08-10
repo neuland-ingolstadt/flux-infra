@@ -39,7 +39,7 @@ spec:
         tls:
           - hosts:
               - auth.eggl.one
-            secretName: eggl-one-wildcard-tls
+            secretName: neuland-app-wildcard-tls
       env:
         - name: SECRET_KEY
           valueFrom:
