@@ -33,7 +33,7 @@ spec:
   - api.dev.neuland.app
   - id.neuland-ingolstadt.de
   - analytics.neuland.app
-  - sso.informatik.sexy
-  - pad.eggl.one
+  # - sso.informatik.sexy
+  # - pad.eggl.one
   - dashboard.neuland.app
-  - ideas.eggl.one
+  # - ideas.eggl.one
