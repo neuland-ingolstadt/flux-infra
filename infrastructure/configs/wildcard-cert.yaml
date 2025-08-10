@@ -21,11 +21,11 @@ spec:
     kind: ClusterIssuer
   # List specific domains instead of wildcards - works with HTTP-01 challenges
   dnsNames:
-  - neuland.app
-  - app.neuland.app
+  - neuland-ingolstadt.de
+  - web.neuland.app
   - api.neuland.app
-  - docs.app.neuland.app
-  - dev.app.neuland.app
+  - neuland.app
+  - dev.neuland.app
   - ersti.neuland.app
   - dev.ersti.neuland.app
   - status.neuland.app
