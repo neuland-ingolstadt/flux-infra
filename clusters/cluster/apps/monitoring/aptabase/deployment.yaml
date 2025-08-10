@@ -22,11 +22,11 @@ spec:
           name: http
         env:
         - name: OAUTH_AUTHENTIK_AUTHORIZE_URL
-          value: https://auth.eggl.one/application/o/authorize/
+          value: https://sso.informatik.sexy/application/o/authorize/
         - name: OAUTH_AUTHENTIK_TOKEN_URL
-          value: https://auth.eggl.one/application/o/token/
+          value: https://sso.informatik.sexy/application/o/token/
         - name: OAUTH_AUTHENTIK_USERINFO_URL
-          value: https://auth.eggl.one/application/o/userinfo/
+          value: https://sso.informatik.sexy/application/o/userinfo/
         - name: DISABLE_EMAIL_AUTH
           value: "true"
         - name: BASE_URL

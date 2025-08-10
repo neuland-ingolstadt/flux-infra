@@ -31,7 +31,7 @@ spec:
         - name: DEV_GRAPHQL_URL
           value: "https://dev.api.neuland.app/graphql"
         - name: AUTHENTIK_ISSUER
-          value: "https://auth.eggl.one/application/o/api-dashboard"
+          value: "https://sso.informatik.sexy/application/o/api-dashboard"
         envFrom:
         - secretRef:
             name: neuland-dashboard-secret

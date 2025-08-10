@@ -31,9 +31,9 @@ spec:
   - status.neuland.app
   - ical.neuland.app
   - api.dev.neuland.app
-  - id.eggl.one
+  - id.neuland-ingolstadt.de
   - analytics.neuland.app
-  - auth.eggl.one
+  - sso.informatik.sexy
   - pad.eggl.one
   - dashboard.neuland.app
   - ideas.eggl.one

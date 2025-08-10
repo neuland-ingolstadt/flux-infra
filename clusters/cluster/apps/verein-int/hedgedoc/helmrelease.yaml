@@ -36,9 +36,9 @@ spec:
     env:
       CMD_DOMAIN: "pad.eggl.one"
       CMD_PROTOCOL_USESSL: "true"
-      CMD_OAUTH2_AUTHORIZATION_URL: "https://auth.eggl.one/application/o/authorize/"
-      CMD_OAUTH2_TOKEN_URL: "https://auth.eggl.one/application/o/token/"
-      CMD_OAUTH2_USER_PROFILE_URL: "https://auth.eggl.one/application/o/userinfo/"
+      CMD_OAUTH2_AUTHORIZATION_URL: "https://sso.informatik.sexy/application/o/authorize/"
+      CMD_OAUTH2_TOKEN_URL: "https://sso.informatik.sexy/application/o/token/"
+      CMD_OAUTH2_USER_PROFILE_URL: "https://sso.informatik.sexy/application/o/userinfo/"
       CMD_OAUTH2_PROVIDERNAME: "Authentik"
       CMD_ALLOW_ANONYMOUS: "false"
       CMD_EMAIL: "false"
