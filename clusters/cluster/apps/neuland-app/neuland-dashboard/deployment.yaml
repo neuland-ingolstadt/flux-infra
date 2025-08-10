@@ -29,7 +29,7 @@ spec:
         - name: GRAPHQL_URL
           value: "https://api.neuland.app/graphql"
         - name: DEV_GRAPHQL_URL
-          value: "https://dev.api.neuland.app/graphql"
+          value: "https://api.dev.neuland.app/graphql"
         - name: AUTHENTIK_ISSUER
           value: "https://sso.informatik.sexy/application/o/api-dashboard"
         envFrom:
