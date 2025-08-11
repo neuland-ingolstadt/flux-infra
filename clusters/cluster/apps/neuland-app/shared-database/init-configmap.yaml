@@ -21,11 +21,18 @@ data:
         GRANT ALL PRIVILEGES ON DATABASE neuland_api TO neuland_api_user;
         GRANT ALL PRIVILEGES ON DATABASE neuland_api_staging TO neuland_api_staging_user;
         
+        -- Grant database connection and creation permissions
+        GRANT CONNECT ON DATABASE neuland_api TO neuland_api_user;
+        GRANT CREATE ON DATABASE neuland_api TO neuland_api_user;
+        GRANT CONNECT ON DATABASE neuland_api_staging TO neuland_api_staging_user;
+        GRANT CREATE ON DATABASE neuland_api_staging TO neuland_api_staging_user;
+        
         -- Connect to the prod API database and grant schema permissions
         \c neuland_api;
         
         -- Grant all privileges on the public schema for prod
         GRANT ALL ON SCHEMA public TO neuland_api_user;
+        GRANT USAGE ON SCHEMA public TO neuland_api_user;
         GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO neuland_api_user;
         GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO neuland_api_user;
         GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO neuland_api_user;
@@ -35,11 +42,26 @@ data:
         ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO neuland_api_user;
         ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON FUNCTIONS TO neuland_api_user;
         
+        -- Grant schema creation and management permissions for prod
+        GRANT CREATE ON DATABASE neuland_api TO neuland_api_user;
+        GRANT USAGE ON SCHEMA public TO neuland_api_user;
+        
+        -- Create drizzle schema and grant full permissions to API user
+        CREATE SCHEMA IF NOT EXISTS drizzle;
+        GRANT ALL ON SCHEMA drizzle TO neuland_api_user;
+        GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA drizzle TO neuland_api_user;
+        GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA drizzle TO neuland_api_user;
+        GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA drizzle TO neuland_api_user;
+        ALTER DEFAULT PRIVILEGES IN SCHEMA drizzle GRANT ALL ON TABLES TO neuland_api_user;
+        ALTER DEFAULT PRIVILEGES IN SCHEMA drizzle GRANT ALL ON SEQUENCES TO neuland_api_user;
+        ALTER DEFAULT PRIVILEGES IN SCHEMA drizzle GRANT ALL ON FUNCTIONS TO neuland_api_user;
+        
         -- Connect to the staging API database and grant schema permissions
         \c neuland_api_staging;
         
         -- Grant all privileges on the public schema for staging
         GRANT ALL ON SCHEMA public TO neuland_api_staging_user;
+        GRANT USAGE ON SCHEMA public TO neuland_api_staging_user;
         GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO neuland_api_staging_user;
         GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO neuland_api_staging_user;
         GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO neuland_api_staging_user;
@@ -48,6 +70,20 @@ data:
         ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO neuland_api_staging_user;
         ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO neuland_api_staging_user;
         ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON FUNCTIONS TO neuland_api_staging_user;
+        
+        -- Grant schema creation and management permissions for staging
+        GRANT CREATE ON DATABASE neuland_api_staging TO neuland_api_staging_user;
+        GRANT USAGE ON SCHEMA public TO neuland_api_staging_user;
+        
+        -- Create drizzle schema and grant full permissions to staging API user
+        CREATE SCHEMA IF NOT EXISTS drizzle;
+        GRANT ALL ON SCHEMA drizzle TO neuland_api_staging_user;
+        GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA drizzle TO neuland_api_staging_user;
+        GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA drizzle TO neuland_api_staging_user;
+        GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA drizzle TO neuland_api_staging_user;
+        ALTER DEFAULT PRIVILEGES IN SCHEMA drizzle GRANT ALL ON TABLES TO neuland_api_staging_user;
+        ALTER DEFAULT PRIVILEGES IN SCHEMA drizzle GRANT ALL ON SEQUENCES TO neuland_api_staging_user;
+        ALTER DEFAULT PRIVILEGES IN SCHEMA drizzle GRANT ALL ON FUNCTIONS TO neuland_api_staging_user;
         
         -- Grant CREATE privilege on both databases (needed for creating types)
         \c neuland;
