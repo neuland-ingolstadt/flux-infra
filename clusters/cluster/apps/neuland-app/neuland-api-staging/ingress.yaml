@@ -6,13 +6,12 @@ metadata:
   namespace: neuland-app
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
-    cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   ingressClassName: traefik
   tls:
   - hosts:
     - api.dev.neuland.app
-    secretName: neuland-app-wildcard-tls
+    secretName: neuland-app-tls
   rules:
   - host: api.dev.neuland.app
     http:

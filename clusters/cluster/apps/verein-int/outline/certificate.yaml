@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: notes-neuland-ing
+  namespace: verein-int
+spec:
+  secretName: notes-neuland-ing-tls
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  dnsNames:
+    - notes.neuland.ing

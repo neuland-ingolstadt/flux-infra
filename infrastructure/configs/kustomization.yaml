@@ -3,4 +3,7 @@ kind: Kustomization
 resources:
   - cluster-issuers.yaml
   - metallb-config.yaml
-  - wildcard-cert.yaml
+  - neuland-app-cert.yaml
+  - verein-int-cert.yaml
+  - monitoring-cert.yaml
+  - verein-ext-cert.yaml

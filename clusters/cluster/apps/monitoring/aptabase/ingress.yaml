@@ -6,13 +6,12 @@ metadata:
   namespace: monitoring
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
-    cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   ingressClassName: traefik
   tls:
     - hosts:
         - analytics.neuland.app
-      secretName: neuland-app-wildcard-tls
+      secretName: monitoring-tls
   rules:
     - host: analytics.neuland.app
       http:

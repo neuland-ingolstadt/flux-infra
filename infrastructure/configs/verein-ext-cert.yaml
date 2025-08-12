@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: verein-ext-cert
+  namespace: verein-ext
+spec:
+  secretName: verein-ext-tls
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  # Domains specific to verein-ext namespace
+  dnsNames:
+  - id.neuland-ingolstadt.de
+  - neuland-ingolstadt.de 

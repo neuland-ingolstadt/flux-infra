@@ -7,8 +7,8 @@ resources:
   - neuland-next-staging
   - neuland-next-prod
   - neuland-next-docs
-  - ersti-kit-staging
-  - ical-service
+  # - ersti-kit-staging
+  # - ical-service
   - shared-database
   - neuland-api-prod
   - neuland-api-staging

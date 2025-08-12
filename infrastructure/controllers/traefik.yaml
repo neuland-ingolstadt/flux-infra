@@ -63,6 +63,8 @@ spec:
       additionalArguments:
         - "--entrypoints.websecure.proxyProtocol.trustedIPs=0.0.0.0/0"
         - "--entrypoints.websecure.forwardedHeaders.trustedIPs=0.0.0.0/0"
+        - "--providers.kubernetesingress.ingressclass=traefik"
+        - "--providers.kubernetesingress.allowcrossnamespace=true"
     
     # Entry points
     ports:

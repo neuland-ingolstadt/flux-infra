@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: outline-db
+  namespace: verein-int
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: outline-db
+  template:
+    metadata:
+      labels:
+        app: outline-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15-alpine
+        ports:
+        - containerPort: 5432
+          name: postgres
+        env:
+        - name: POSTGRES_DB
+          value: outline
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: OUTLINE_DB_USERNAME
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: OUTLINE_DB_PASSWORD
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+          subPath: postgres
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: outline-db-pvc

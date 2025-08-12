@@ -12,7 +12,7 @@ spec:
   tls:
   - hosts:
     - ical.neuland.app
-    secretName: neuland-app-wildcard-tls
+    secretName: neuland-app-tls
   rules:
   - host: ical.neuland.app
     http:

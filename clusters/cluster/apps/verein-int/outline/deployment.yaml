@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: outline
+  namespace: verein-int
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: outline
+  template:
+    metadata:
+      labels:
+        app: outline
+    spec:
+      containers:
+      - name: outline
+        image: docker.getoutline.com/outlinewiki/outline:latest
+        ports:
+        - containerPort: 3000
+          name: http
+        env:
+        - name: URL
+          value: https://notes.neuland.ing
+        - name: WEB_CONCURRENCY
+          value: "1"
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: SECRET_KEY
+        - name: UTILS_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: UTILS_SECRET
+        - name: DEFAULT_LANGUAGE
+          value: de_DE
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: DATABASE_URL
+        - name: PGSSLMODE
+          value: disable
+        - name: REDIS_URL
+          value: redis://outline-redis:6379
+        - name: FILE_STORAGE
+          value: local
+        - name: FILE_STORAGE_LOCAL_ROOT_DIR
+          value: /var/lib/outline/data
+        - name: FILE_STORAGE_UPLOAD_MAX_SIZE
+          value: "52428800"
+        - name: FILE_STORAGE_IMPORT_MAX_SIZE
+          value: "52428800"
+        - name: FILE_STORAGE_WORKSPACE_IMPORT_MAX_SIZE
+          value: "52428800"
+        - name: FORCE_HTTPS
+          value: "false"
+        - name: OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: OIDC_CLIENT_ID
+        - name: OIDC_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: OIDC_CLIENT_SECRET
+        - name: OIDC_AUTH_URI
+          value: https://sso.eggl.one/application/o/authorize/
+        - name: OIDC_TOKEN_URI
+          value: https://sso.eggl.one/application/o/token/
+        - name: OIDC_USERINFO_URI
+          value: https://sso.eggl.one/application/o/userinfo/
+        - name: OIDC_LOGOUT_URI
+          value: https://sso.eggl.one/application/o/outline/end-session/
+        - name: OIDC_USERNAME_CLAIM
+          value: preferred_username
+        - name: OIDC_DISPLAY_NAME
+          value: "Authentik"
+        - name: OIDC_SCOPES
+          value: "openid profile email"
+        - name: RATE_LIMITER_ENABLED
+          value: "false"
+        - name: ENABLE_UPDATES
+          value: "true"
+        - name: LOG_LEVEL
+          value: info
+        volumeMounts:
+        - name: outline-storage
+          mountPath: /var/lib/outline/data
+      volumes:
+      - name: outline-storage
+        persistentVolumeClaim:
+          claimName: outline-storage-pvc

@@ -6,13 +6,12 @@ metadata:
   namespace: verein-ext
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
-    cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   ingressClassName: traefik
   tls:
   - hosts:
     - neuland-ingolstadt.de
-    secretName: neuland-app-wildcard-tls
+    secretName: verein-ext-tls
   rules:
   - host: neuland-ingolstadt.de
     http:

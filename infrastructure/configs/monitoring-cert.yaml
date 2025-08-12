@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: monitoring-cert
+  namespace: monitoring
+spec:
+  secretName: monitoring-tls
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  # Domains specific to monitoring namespace
+  dnsNames:
+  - analytics.neuland.app
+  - status.neuland.app 

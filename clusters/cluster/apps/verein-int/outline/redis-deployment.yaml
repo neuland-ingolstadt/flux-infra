@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: outline-redis
+  namespace: verein-int
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: outline-redis
+  template:
+    metadata:
+      labels:
+        app: outline-redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        command: ["redis-server"]
+        ports:
+        - containerPort: 6379
+          name: redis

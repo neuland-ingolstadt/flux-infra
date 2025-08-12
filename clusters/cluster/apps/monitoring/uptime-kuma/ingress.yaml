@@ -11,7 +11,7 @@ spec:
   tls:
   - hosts:
     - status.neuland.app
-    secretName: neuland-app-wildcard-tls
+    secretName: monitoring-tls
   rules:
   - host: status.neuland.app
     http:
