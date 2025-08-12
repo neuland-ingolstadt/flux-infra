@@ -11,7 +11,7 @@ spec:
   tls:
   - hosts:
     - api.dev.neuland.app
-    secretName: neuland-app-tls
+    secretName: neuland-app-dev-tls
   rules:
   - host: api.dev.neuland.app
     http:

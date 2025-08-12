@@ -10,7 +10,7 @@ spec:
   tls:
   - hosts:
     - dashboard.neuland.app
-    secretName: neuland-app-tls
+    secretName: neuland-app-prod-tls
   rules:
   - host: dashboard.neuland.app
     http:

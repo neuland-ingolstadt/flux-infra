@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: notes.neuland.ing
+    - host: notes.neuland-ingolstadt.de
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   name: http
   tls:
     - hosts:
-        - notes.neuland.ing
-      secretName: notes-neuland-ing-tls
+        - notes.neuland-ingolstadt.de
+      secretName: notes-neuland-ingolstadt-de-tls

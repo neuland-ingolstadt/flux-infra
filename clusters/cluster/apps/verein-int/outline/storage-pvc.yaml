@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: outline-storage-pvc
+  name: outline-storage-pvc-claim
   namespace: verein-int
 spec:
   accessModes:

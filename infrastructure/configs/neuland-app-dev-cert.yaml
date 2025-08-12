@@ -1,0 +1,16 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: neuland-app-dev-cert
+  namespace: neuland-app
+spec:
+  secretName: neuland-app-dev-tls
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  # Development domains for neuland-app services
+  dnsNames:
+  - api.dev.neuland.app
+  - dev.ersti.neuland.app
+  # - dev.neuland.app

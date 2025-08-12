@@ -13,6 +13,19 @@ spec:
       labels:
         app: outline
     spec:
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsUser: 1000
+      initContainers:
+      - name: init-chmod-data
+        image: busybox:1.35
+        command: ['sh', '-c', 'chown -R 1000:1000 /var/lib/outline/data && chmod -R 755 /var/lib/outline/data']
+        volumeMounts:
+        - name: outline-storage
+          mountPath: /var/lib/outline/data
+        securityContext:
+          runAsUser: 0
       containers:
       - name: outline
         image: docker.getoutline.com/outlinewiki/outline:latest
@@ -21,7 +34,7 @@ spec:
           name: http
         env:
         - name: URL
-          value: https://notes.neuland.ing
+          value: https://notes.neuland-ingolstadt.de
         - name: WEB_CONCURRENCY
           value: "1"
         - name: SECRET_KEY
@@ -68,13 +81,13 @@ spec:
               name: outline-secret
               key: OIDC_CLIENT_SECRET
         - name: OIDC_AUTH_URI
-          value: https://sso.eggl.one/application/o/authorize/
+          value: https://sso.informatik.sexy/application/o/authorize/
         - name: OIDC_TOKEN_URI
-          value: https://sso.eggl.one/application/o/token/
+          value: https://sso.informatik.sexy/application/o/token/
         - name: OIDC_USERINFO_URI
-          value: https://sso.eggl.one/application/o/userinfo/
+          value: https://sso.informatik.sexy/application/o/userinfo/
         - name: OIDC_LOGOUT_URI
-          value: https://sso.eggl.one/application/o/outline/end-session/
+          value: https://sso.informatik.sexy/application/o/outline/end-session/
         - name: OIDC_USERNAME_CLAIM
           value: preferred_username
         - name: OIDC_DISPLAY_NAME
@@ -93,4 +106,4 @@ spec:
       volumes:
       - name: outline-storage
         persistentVolumeClaim:
-          claimName: outline-storage-pvc
+          claimName: outline-storage-pvc-claim

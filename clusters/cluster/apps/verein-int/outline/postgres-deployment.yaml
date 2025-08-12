@@ -39,4 +39,4 @@ spec:
       volumes:
       - name: postgres-storage
         persistentVolumeClaim:
-          claimName: outline-db-pvc
+          claimName: outline-db-claim-pvc

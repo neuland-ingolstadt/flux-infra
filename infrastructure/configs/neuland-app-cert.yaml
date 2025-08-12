@@ -5,19 +5,14 @@ metadata:
   name: neuland-app-cert
   namespace: neuland-app
 spec:
-  secretName: neuland-app-tls
+  secretName: neuland-app-prod-tls
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer
-  # Domains specific to neuland-app namespace
+  # Production domains for neuland-app services
   dnsNames:
-  - web.neuland.app
   - api.neuland.app
-  - neuland.app
-  - dev.neuland.app
-  # - ersti.neuland.app
-  - dev.ersti.neuland.app
-  - status.neuland.app
-  - ical.neuland.app
-  - api.dev.neuland.app
   - dashboard.neuland.app
+  - ical.neuland.app
+  - neuland.app
+  # - web.neuland.app

@@ -10,7 +10,7 @@ spec:
   tls:
   - hosts:
     - neuland.app
-    secretName: neuland-app-tls
+    secretName: neuland-app-prod-tls
   rules:
   - host: neuland.app
     http:
