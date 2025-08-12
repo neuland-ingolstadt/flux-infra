@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sso-eggl-one-cert
+  namespace: verein-int
+spec:
+  secretName: sso-eggl-one-tls
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  dnsNames:
+  - sso.eggl.one

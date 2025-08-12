@@ -35,11 +35,11 @@ spec:
         enabled: true
         ingressClassName: traefik
         hosts:
-          - sso.dev.neuland.app
+          - sso.eggl.one
         tls:
           - hosts:
-              - sso.dev.neuland.app
-            secretName: neuland-app-wildcard-tls
+              - sso.eggl.one
+            secretName: sso-eggl-one-tls
       env:
         - name: SECRET_KEY
           valueFrom:
