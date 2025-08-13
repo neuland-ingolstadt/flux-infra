@@ -30,6 +30,11 @@ spec:
           value: "3000"
         - name: NODE_ENV
           value: production
+        - name: OUTLINE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: neuland-website-secrets
+              key: OUTLINE_API_KEY
         ports:
         - name: http
           containerPort: 3000
