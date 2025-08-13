@@ -33,8 +33,6 @@ spec:
         - name: postgres-storage
           mountPath: /var/lib/postgresql/data
           subPath: postgres
-        - name: init-scripts
-          mountPath: /docker-entrypoint-initdb.d
         resources:
           limits:
             cpu: 500m
@@ -66,6 +64,3 @@ spec:
       - name: postgres-storage
         persistentVolumeClaim:
           claimName: neuland-shared-database
-      - name: init-scripts
-        configMap:
-          name: postgres-init-scripts 
