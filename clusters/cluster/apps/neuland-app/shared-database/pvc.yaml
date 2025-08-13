@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: neuland-shared-database
+  name: neuland-shared-database-pvc
   namespace: neuland-app
 spec:
   accessModes:

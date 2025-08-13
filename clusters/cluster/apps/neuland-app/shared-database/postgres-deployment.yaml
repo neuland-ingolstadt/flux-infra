@@ -63,4 +63,4 @@ spec:
       volumes:
       - name: postgres-storage
         persistentVolumeClaim:
-          claimName: neuland-shared-database
+          claimName: neuland-shared-database-pvc
