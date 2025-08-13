@@ -5,5 +5,4 @@ resources:
   - pvc.yaml
   - postgres-deployment.yaml
   - postgres-service.yaml
-  - init-configmap.yaml
   - sealed-secrets.yaml

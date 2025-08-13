@@ -55,7 +55,10 @@ spec:
         - name: POSTGRES_USER
           value: "neuland_api_user"
         - name: POSTGRES_PASSWORD
-          value: "neuland_api_password"
+          valueFrom:
+            secretKeyRef:
+              name: neuland-api-prod-secrets
+              key: POSTGRES_PASSWORD
         - name: NODE_ENV
           value: "production"
         livenessProbe:
