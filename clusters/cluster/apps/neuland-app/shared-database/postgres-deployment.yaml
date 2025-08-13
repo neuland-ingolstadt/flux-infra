@@ -65,7 +65,7 @@ spec:
       volumes:
       - name: postgres-storage
         persistentVolumeClaim:
-          claimName: neuland-shared-db-pvc
+          claimName: neuland-shared-database
       - name: init-scripts
         configMap:
           name: postgres-init-scripts 
