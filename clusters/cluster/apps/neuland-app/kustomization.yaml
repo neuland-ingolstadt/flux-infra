@@ -4,8 +4,8 @@ resources:
   - namespace.yaml
   - serviceaccount.yaml
   - ghcr-sealed-secret.yaml
-  # - neuland-next-staging
-  # - neuland-next-prod
+  - neuland-next-staging
+  - neuland-next-prod
   - neuland-next-docs
   - ersti-kit-staging
   - ical-service

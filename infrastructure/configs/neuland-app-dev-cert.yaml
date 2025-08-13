@@ -13,4 +13,4 @@ spec:
   dnsNames:
   - api.dev.neuland.app
   - dev.ersti.neuland.app
-  # - dev.neuland.app
+  - dev.neuland.app

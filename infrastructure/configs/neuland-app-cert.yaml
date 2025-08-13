@@ -15,4 +15,4 @@ spec:
   - dashboard.neuland.app
   - ical.neuland.app
   - neuland.app
-  # - web.neuland.app
+  - web.neuland.app
