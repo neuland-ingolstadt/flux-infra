@@ -104,6 +104,12 @@ spec:
           value: smtp.azurecomm.net
         - name: SMTP_PORT
           value: "587"
+        - name: SMTP_SECURE
+          value: "false"
+        - name: SMTP_TLS_CIPHERS
+          value: "TLSv1.2:TLSv1.3"
+        - name: SMTP_NAME
+          value: "smtp.azurecomm.net"
         - name: SMTP_FROM_EMAIL
           value: "DoNotReply@neuland-ingolstadt.de"
         - name: SMTP_PASSWORD
