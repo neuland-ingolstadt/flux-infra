@@ -111,9 +111,7 @@ spec:
         - name: SMTP_NAME
           value: "smtp.azurecomm.net"
         - name: SMTP_FROM_EMAIL
-          value: "Neuland Ingolstadt e.V. <DoNotReply@neuland-ingolstadt.de>"
-        - name: SMTP_REPLY_EMAIL
-          value: ""
+          value: "DoNotReply@neuland-ingolstadt.de"
         - name: SMTP_PASSWORD
           valueFrom:
             secretKeyRef:
