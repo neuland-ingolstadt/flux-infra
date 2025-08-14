@@ -100,6 +100,45 @@ spec:
           value: "true"
         - name: LOG_LEVEL
           value: info
+        - name: SMTP_HOST
+          value: smtp.azurecomm.net
+        - name: SMTP_PORT
+          value: "587"
+        - name: SMTP_FROM_EMAIL
+          value: "DoNotReply@neuland-ingolstadt.de"
+        - name: SMTP_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: SMTP_PASSWORD
+        - name: SMTP_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: SMTP_USERNAME
+        - name: GITHUB_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: GITHUB_CLIENT_ID
+        - name: GITHUB_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: GITHUB_CLIENT_SECRET
+        - name: GITHUB_APP_NAME
+          value: "outline-neuland-notes"
+        - name: GITHUB_APP_ID
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: GITHUB_APP_ID
+        - name: GITHUB_APP_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: outline-secret
+              key: GITHUB_APP_PRIVATE_KEY
+
         volumeMounts:
         - name: outline-storage
           mountPath: /var/lib/outline/data
