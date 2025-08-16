@@ -12,7 +12,7 @@ spec:
     name: ersti-hilfe-kit-prod
   images:
     - name: ghcr.io/neuland-ingolstadt/ersti-hilfe-kit
-      newTag: main-21 # {"$imagepolicy": "flux-system:ersti-kit-prod:tag"}
+      newTag: main-26 # {"$imagepolicy": "flux-system:ersti-kit-prod:tag"}
   targetNamespace: neuland-app
   wait: true
   patches:

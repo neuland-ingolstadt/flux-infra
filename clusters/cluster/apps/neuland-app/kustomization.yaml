@@ -13,5 +13,5 @@ resources:
   - neuland-api-prod
   - neuland-api-staging
   - neuland-dashboard
- # - ersti-kit-prod
+  - ersti-kit-prod
   
