@@ -20,6 +20,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: ersti-kit-prod
+            name: ersti-kit-production
             port:
               number: 3000
