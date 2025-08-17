@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: ist-informatik-sexy
-        image: ghcr.io/neuland-ingolstadt/ist.informatik.sexy:main-1 # {"$imagepolicy": "flux-system:ist-informatik-sexy"}
+        image: ghcr.io/neuland-ingolstadt/ist.informatik.sexy:main-3 # {"$imagepolicy": "flux-system:ist-informatik-sexy"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
