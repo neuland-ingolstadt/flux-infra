@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ist-informatik-sexy
+  namespace: verein-ext
+spec:
+  minReadySeconds: 3
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 60
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: ist-informatik-sexy
+  template:
+    metadata:
+      labels:
+        app: ist-informatik-sexy
+    spec:
+      containers:
+      - name: ist-informatik-sexy
+        image: ghcr.io/neuland-ingolstadt/ist.informatik.sexy:main-1 # {"$imagepolicy": "flux-system:ist-informatik-sexy"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 5

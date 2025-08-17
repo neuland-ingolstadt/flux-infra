@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: ist-informatik-sexy
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: ist-informatik-sexy
+  policy:
+    numerical:
+      order: asc
+  filterTags:
+    pattern: '^main-([0-9]+)$'
+    extract: '$1'
