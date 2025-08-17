@@ -13,7 +13,7 @@ spec:
     - ist.informatik.sexy
     secretName: verein-ext-tls
   rules:
-  - host: informatik.sexy
+  - host: ist.informatik.sexy
     http:
       paths:
       - path: /
