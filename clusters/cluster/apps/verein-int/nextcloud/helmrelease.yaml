@@ -65,4 +65,4 @@ spec:
               name: nextcloud-secrets
               key: oidc-client-secret
         - name: OIDC_ISSUER_URL
-          value: https://sso.informatik.sexy/application/o/newappidk/
+          value: https://sso.informatik.sexy/application/o/nextcloud/

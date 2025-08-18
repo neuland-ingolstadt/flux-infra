@@ -28,7 +28,12 @@ spec:
       repository: louislam/uptime-kuma
       tag: "2.0.0-beta.3"
       pullPolicy: IfNotPresent
-    
+
+    dnsPolicy: "ClusterFirst"
+    dnsConfig:
+      options:
+        - name: ndots
+          value: "1"
     service:
       type: ClusterIP
       port: 3001
