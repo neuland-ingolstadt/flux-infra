@@ -45,7 +45,7 @@ spec:
             name: uptime-kuma
             port:
               number: 3001
-      - path: /upload
+      - path: /upload/logo1.png
         pathType: Prefix
         backend:
           service:
