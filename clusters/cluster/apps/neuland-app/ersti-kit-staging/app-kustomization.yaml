@@ -12,7 +12,7 @@ spec:
     name: ersti-hilfe-kit-staging
   images:
     - name: ghcr.io/neuland-ingolstadt/ersti-hilfe-kit
-      newTag: develop-23 # {"$imagepolicy": "neuland-app:ersti-kit-staging:tag"}
+      newTag: develop-23 # {"$imagepolicy": "flux-system:ersti-kit-develop:tag"}
   targetNamespace: neuland-app
   wait: true
   patches:
