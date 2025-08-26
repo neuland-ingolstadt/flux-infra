@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: ersti-kit-staging
-        image: ghcr.io/neuland-ingolstadt/ersti-hilfe-kit:develop-36 # {"$imagepolicy": "flux-system:ersti-kit-staging"}
+        image: ghcr.io/neuland-ingolstadt/ersti-hilfe-kit:develop-38 # {"$imagepolicy": "flux-system:ersti-kit-staging"}
         imagePullPolicy: Always
         env:
         - name: HOSTNAME
