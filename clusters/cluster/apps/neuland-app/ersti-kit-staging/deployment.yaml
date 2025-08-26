@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ersti-kit-staging 
+  name: ersti-kit-staging
   namespace: neuland-app
 spec:
   minReadySeconds: 3
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: ersti-kit-staging
-        image: ghcr.io/neuland-ingolstadt/ersti-hilfe-kit:develop-23 # {"$imagepolicy": "flux-system:ersti-kit-staging"}
+        image: ghcr.io/neuland-ingolstadt/ersti-hilfe-kit:develop-32 # {"$imagepolicy": "flux-system:ersti-kit-staging"}
         imagePullPolicy: Always
         env:
         - name: HOSTNAME
@@ -53,4 +53,3 @@ spec:
           requests:
             cpu: 50m
             memory: 32Mi
-
