@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ersti-kit-staging
+  name: ersti-kit-staging 
+  namespace: neuland-app
 spec:
   minReadySeconds: 3
   revisionHistoryLimit: 5
