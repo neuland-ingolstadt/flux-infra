@@ -7,5 +7,8 @@ spec:
   imageRepositoryRef:
     name: cl-events-backend
   policy:
-    alphabetical:
+    numerical:
       order: asc
+  filterTags:
+    pattern: '^build-([0-9]+)$'
+    extract: '$1'
