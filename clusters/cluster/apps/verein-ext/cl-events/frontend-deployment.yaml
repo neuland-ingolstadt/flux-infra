@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cl-events-frontend
+  namespace: verein-ext
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cl-events-frontend
+  template:
+    metadata:
+      labels:
+        app: cl-events-frontend
+    spec:
+      containers:
+      - name: cl-events-frontend
+        image: ghcr.io/neuland-ingolstadt/campus-life-events-frontend:latest # {"$imagepolicy": "flux-system:cl-events-frontend"}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: BACKEND_URL
+          value: http://cl-events-backend:8080
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP

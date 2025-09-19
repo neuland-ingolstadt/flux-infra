@@ -1,0 +1,11 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: cl-events-frontend
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: cl-events-frontend
+  policy:
+    alphabetical:
+      order: asc

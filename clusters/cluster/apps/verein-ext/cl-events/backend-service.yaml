@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cl-events-backend
+  namespace: verein-ext
+spec:
+  type: ClusterIP
+  selector:
+    app: cl-events-backend
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: http

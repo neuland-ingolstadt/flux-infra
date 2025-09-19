@@ -1,0 +1,10 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: cl-events-backend
+  namespace: flux-system
+spec:
+  image: ghcr.io/neuland-ingolstadt/campus-life-events-backend
+  interval: 30m
+  secretRef:
+    name: ghcr-secret

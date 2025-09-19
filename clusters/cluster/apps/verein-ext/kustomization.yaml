@@ -6,4 +6,5 @@ resources:
   - ghcr-sealed-secret.yaml
   - neuland-website
   - member-id
+  - cl-events
   - ist-informatik-sexy
