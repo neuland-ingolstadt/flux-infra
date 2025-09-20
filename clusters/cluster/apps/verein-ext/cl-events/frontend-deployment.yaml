@@ -20,6 +20,12 @@ spec:
         env:
         - name: BACKEND_URL
           value: http://cl-events-backend:8080
+        - name: HOSTNAME
+          value: 0.0.0.0
+        - name: PORT
+          value: "3000"
+        - name: NODE_ENV
+          value: production
         ports:
         - name: http
           containerPort: 3000
