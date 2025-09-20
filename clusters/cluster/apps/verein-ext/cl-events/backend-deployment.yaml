@@ -23,6 +23,26 @@ spec:
             secretKeyRef:
               name: cl-events-secrets
               key: DATABASE_URL
+        - name: RREGISTRATION_BASE_URL
+          value: https://app.eggl.one/register?token=
+        - name: SMTP_HOST
+          value: smtp.azurecomm.net
+        - name: SMTP_PORT
+          value: "587"
+        - name: SMTP_NAME
+          value: "smtp.azurecomm.net"
+        - name: SMTP_FROM_EMAIL
+          value: "DoNotReply@neuland-ingolstadt.de"
+        - name: SMTP_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cl-events-secrets
+              key: SMTP_PASSWORD
+        - name: SMTP_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: cl-events-secrets
+              key: SMTP_USERNAME
         ports:
         - name: http
           containerPort: 8080
