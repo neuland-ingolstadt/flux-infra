@@ -23,7 +23,7 @@ spec:
             secretKeyRef:
               name: cl-events-secrets
               key: DATABASE_URL
-        - name: RREGISTRATION_BASE_URL
+        - name: REGISTRATION_BASE_URL
           value: https://app.eggl.one/register?token=
         - name: SMTP_HOST
           value: smtp.azurecomm.net
