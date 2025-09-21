@@ -24,7 +24,7 @@ spec:
               name: cl-events-secrets
               key: DATABASE_URL
         - name: BASE_URL
-          value: https://app.eggl.one
+          value: https://cl.neuland-ingolstadt.de
         - name: SMTP_HOST
           value: smtp.azurecomm.net
         - name: SMTP_PORT

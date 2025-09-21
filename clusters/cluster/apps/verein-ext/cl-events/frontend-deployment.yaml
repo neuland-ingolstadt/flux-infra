@@ -21,7 +21,7 @@ spec:
         - name: BACKEND_URL
           value: http://cl-events-backend:8080
         - name: SELF_URL
-          value: https://app.eggl.one
+          value: https://cl.neuland-ingolstadt.de
         - name: HOSTNAME
           value: 0.0.0.0
         - name: PORT

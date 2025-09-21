@@ -9,10 +9,10 @@ spec:
   ingressClassName: traefik
   tls:
   - hosts:
-    - app.eggl.one
+    - cl.neuland-ingolstadt.de
     secretName: verein-ext-tls
   rules:
-  - host: app.eggl.one
+  - host: cl.neuland-ingolstadt.de
     http:
       paths:
       - path: /api
