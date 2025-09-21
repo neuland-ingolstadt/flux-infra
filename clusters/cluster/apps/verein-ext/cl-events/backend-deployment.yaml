@@ -25,6 +25,8 @@ spec:
               key: DATABASE_URL
         - name: REGISTRATION_BASE_URL
           value: https://app.eggl.one/register?token=
+        - name: RESET_BASE_URL
+          value: https://app.eggl.one/reset?token=
         - name: SMTP_HOST
           value: smtp.azurecomm.net
         - name: SMTP_PORT
