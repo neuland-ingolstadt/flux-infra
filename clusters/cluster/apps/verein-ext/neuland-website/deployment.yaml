@@ -35,6 +35,11 @@ spec:
             secretKeyRef:
               name: neuland-website-secrets
               key: OUTLINE_API_KEY
+        - name: CL_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: neuland-website-secrets
+              key: CL_API_KEY
         ports:
         - name: http
           containerPort: 3000
