@@ -12,3 +12,6 @@ resources:
   - ingress.yaml
   - sealed-secret.yaml
   - certificate.yaml
+  - imagerepository.yaml
+  - imagepolicy.yaml
+  - imageupdateautomation.yaml

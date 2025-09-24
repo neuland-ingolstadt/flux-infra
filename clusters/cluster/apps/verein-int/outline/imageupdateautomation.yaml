@@ -1,0 +1,25 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: outline
+  namespace: flux-system
+spec:
+  interval: 60m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: |
+        Automated image update for outline
+    push:
+      branch: main
+  update:
+    path: "./clusters/cluster/apps/verein-int/outline"
+    strategy: Setters
