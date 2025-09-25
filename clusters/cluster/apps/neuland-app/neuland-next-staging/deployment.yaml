@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: neuland-next-staging
-        image: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp:staging-217 # {"$imagepolicy": "flux-system:neuland-next-staging"}
+        image: ghcr.io/neuland-ingolstadt/neuland.app-native/webapp:staging-218 # {"$imagepolicy": "flux-system:neuland-next-staging"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
