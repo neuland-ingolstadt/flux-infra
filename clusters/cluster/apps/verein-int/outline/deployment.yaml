@@ -35,8 +35,6 @@ spec:
         env:
         - name: URL
           value: https://notes.neuland.ing
-        - name: PUBLIC_URL
-          value: https://notes.neuland.ing
         - name: WEB_CONCURRENCY
           value: "1"
         - name: SECRET_KEY
