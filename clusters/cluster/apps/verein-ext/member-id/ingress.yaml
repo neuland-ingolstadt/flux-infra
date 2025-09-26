@@ -12,9 +12,27 @@ spec:
   tls:
     - hosts:
         - id.neuland-ingolstadt.de
+        - id.neuland.ing
       secretName: verein-ext-tls
   rules:
     - host: id.neuland-ingolstadt.de
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: member-id-backend
+                port:
+                  number: 8000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: member-id-frontend
+                port:
+                  number: 3000
+    - host: id.neuland.ing
       http:
         paths:
           - path: /api

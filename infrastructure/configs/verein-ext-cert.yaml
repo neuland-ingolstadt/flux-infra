@@ -12,6 +12,7 @@ spec:
   # Domains specific to verein-ext namespace
   dnsNames:
   - id.neuland-ingolstadt.de
+  - id.neuland.ing
   - neuland-ingolstadt.de
   - neuland.ing
   - ist.informatik.sexy
