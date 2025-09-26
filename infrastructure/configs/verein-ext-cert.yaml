@@ -13,5 +13,6 @@ spec:
   dnsNames:
   - id.neuland-ingolstadt.de
   - neuland-ingolstadt.de
+  - neuland.ing
   - ist.informatik.sexy
   - cl.neuland-ingolstadt.de

@@ -18,7 +18,18 @@ spec:
                 name: outline
                 port:
                   name: http
+    - host: notes.neuland.ing
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: outline
+                port:
+                  name: http
   tls:
     - hosts:
         - notes.neuland-ingolstadt.de
+        - notes.neuland.ing
       secretName: notes-neuland-ingolstadt-de-tls

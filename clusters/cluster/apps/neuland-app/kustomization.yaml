@@ -8,7 +8,7 @@ resources:
   - neuland-next-prod
   - neuland-next-docs
   - ersti-kit-staging
-  # - ical-service - Replaced by verein-ext:cl-events
+  # - ical-service - Replaced by verein-ext:cl-eventsa
   - shared-database
   - neuland-api-prod
   - neuland-api-staging

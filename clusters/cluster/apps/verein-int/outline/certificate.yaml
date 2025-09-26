@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - notes.neuland-ingolstadt.de
+    - notes.neuland.ing

@@ -11,9 +11,20 @@ spec:
   tls:
   - hosts:
     - neuland-ingolstadt.de
+    - neuland.ing
     secretName: verein-ext-tls
   rules:
   - host: neuland-ingolstadt.de
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: neuland-website
+            port:
+              number: 3000
+  - host: neuland.ing
     http:
       paths:
       - path: /
