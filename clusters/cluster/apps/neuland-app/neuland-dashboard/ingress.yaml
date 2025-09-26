@@ -10,9 +10,20 @@ spec:
   tls:
   - hosts:
     - dashboard.neuland.app
+    - dash.neuland.ing
     secretName: neuland-app-prod-tls
   rules:
   - host: dashboard.neuland.app
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: neuland-dashboard
+            port:
+              number: 3000
+  - host: dash.neuland.ing
     http:
       paths:
       - path: /

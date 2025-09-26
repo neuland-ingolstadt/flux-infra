@@ -13,6 +13,7 @@ spec:
   dnsNames:
   - api.neuland.app
   - dashboard.neuland.app
+  - dash.neuland.ing
   - ical.neuland.app
   - neuland.app
   - web.neuland.app
