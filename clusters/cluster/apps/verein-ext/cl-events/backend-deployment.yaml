@@ -25,6 +25,8 @@ spec:
               key: DATABASE_URL
         - name: BASE_URL
           value: https://cl.neuland.ing
+        - name: ALLOWED_ORIGINS
+          value: https://dev.neuland.app, https://web.neuland.app, http://localhost:3000
         - name: SMTP_HOST
           value: smtp.azurecomm.net
         - name: SMTP_PORT
