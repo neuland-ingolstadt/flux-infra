@@ -23,6 +23,10 @@ spec:
             secretKeyRef:
               name: cl-events-secrets
               key: DATABASE_URL
+        - name: REDIS_URL
+          value: redis://cl-events-redis:6379
+        - name: CACHE_TTL_SECONDS
+          value: "120"
         - name: BASE_URL
           value: https://cl.neuland.ing
         - name: ALLOWED_ORIGINS

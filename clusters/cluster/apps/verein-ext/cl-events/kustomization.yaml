@@ -15,3 +15,5 @@ resources:
   - postgres-pvc.yaml
   - ingress.yaml
   - sealed-secrets.yaml
+  - redis-deployment.yaml
+  - redis-service.yaml
