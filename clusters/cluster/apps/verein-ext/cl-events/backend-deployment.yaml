@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: cl-events-backend
-        image: ghcr.io/neuland-ingolstadt/campus-life-events-backend:build-52 # {"$imagepolicy": "flux-system:cl-events-backend"}
+        image: ghcr.io/neuland-ingolstadt/campus-life-events-backend:build-53 # {"$imagepolicy": "flux-system:cl-events-backend"}
         imagePullPolicy: IfNotPresent
         env:
         - name: DATABASE_URL
