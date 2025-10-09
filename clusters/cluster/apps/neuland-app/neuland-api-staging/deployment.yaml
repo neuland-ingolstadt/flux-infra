@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: neuland-api-staging
-        image: ghcr.io/neuland-ingolstadt/neuland.app-backend:develop-165 # {"$imagepolicy": "flux-system:neuland-api-staging"}
+        image: ghcr.io/neuland-ingolstadt/neuland.app-backend:develop-167 # {"$imagepolicy": "flux-system:neuland-api-staging"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
