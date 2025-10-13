@@ -5,47 +5,90 @@ infrastructure and applications of the cluster using GitOps. Any change
 that lands on the `main` branch is reconciled by Flux and applied to the
 cluster automatically.
 
-## Useful Commands
+## 🛠️ Setup & Tools
 
-A few handy Flux commands when operating the cluster:
+### Windows Installation
+
+```powershell
+# Install Scoop
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# Install GO
+winget install --id=GoLang.Go -e
+
+# Install FluxCD, kubectl and k9s
+winget install -e --id FluxCD.Flux
+winget install -e --id Kubernetes.kubectl
+scoop install k9s
+```
+
+## 🔐 Managing Secrets
+
+### Create New Sealed Secret
+
+```bash
+kubectl create secret generic <secret-name> \
+  --namespace=<namespace> \
+  --from-literal=KEY_NAME="VALUE" \
+  --dry-run=client -o yaml | \
+kubeseal --cert pub-sealed-secrets.pem -o yaml > sealed-secret.yaml
+```
+
+### Add to Existing Sealed Secret
+
+```bash
+kubectl create secret generic <secret-name> \
+  --namespace=<namespace> \
+  --from-literal=KEY_NAME="VALUE" \
+  --dry-run=client -o yaml | \
+kubeseal --cert pub-sealed-secrets.pem --merge-into <existing-file> -o yaml
+```
+
+## ⚡ Common Operations
+
+### Force Immediate Reconciliation
 
 ```bash
 flux reconcile kustomization flux-system --with-source
 ```
 
-Check the status of all Flux objects:
-
-```bash
-flux get all
-```
-
-Verify that all controllers are healthy:
-
-```bash
-flux check --pre
-```
-
-Tail the logs of the Flux controllers:
-
-```bash
-flux logs --kind Kustomization -n flux-system
-```
-
-Update a source and apply the latest manifests:
+### Update Source and Apply Latest Manifests
 
 ```bash
 flux reconcile source git flux-system && \
   flux reconcile kustomization flux-system
 ```
 
-Suspend and resume a specific Kustomization:
+### Check Cluster Health
+
+```bash
+flux check --pre
+flux get all
+```
+
+### Monitor Logs
+
+```bash
+flux logs --kind Kustomization -n flux-system
+```
+
+### Suspend and Resume Kustomizations
 
 ```bash
 flux suspend kustomization <name> -n flux-system
 flux resume kustomization <name> -n flux-system
 ```
 
-Bootstrapping a cluster
+### Cluster Management UI
+
+```bash
+k9s  # Terminal-based Kubernetes UI
+```
+
+## 🧑🏼‍💻 Cluster Bootstrap
+
+### Install Flux on Fresh Cluster
 
 Install Flux on a fresh Kubernetes cluster and point it at this
 repository. The command below installs the Flux controllers and
