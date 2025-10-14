@@ -34,7 +34,7 @@ spec:
           name: http
         env:
         - name: URL
-          value: https://notes.neuland.ing
+          value: https://notes.neuland-ingolstadt.de
         - name: WEB_CONCURRENCY
           value: "1"
         - name: SECRET_KEY
