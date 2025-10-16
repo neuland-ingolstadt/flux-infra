@@ -48,7 +48,7 @@ spec:
               name: member-id-secrets
               key: PKPASS_BEACON_PROXIMITY_UUID
         - name: GOOGLE_SERVICE_ACCOUNT_KEY_PATH
-          value: /app/certs/google-service-account.json
+          value: /app/certs/google-private.pem
         - name: GOOGLE_WALLET_CLASS_ID
           value: pass.member.neuland.app.v15
         - name: GOOGLE_SERVICE_ACCOUNT_EMAIL
