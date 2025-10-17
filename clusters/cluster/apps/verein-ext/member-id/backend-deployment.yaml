@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: member-id-backend
-        image: ghcr.io/neuland-ingolstadt/member-id-backend:build-21 # {"$imagepolicy": "flux-system:member-id-backend"}
+        image: ghcr.io/neuland-ingolstadt/member-id-backend:build-24 # {"$imagepolicy": "flux-system:member-id-backend"}
         imagePullPolicy: IfNotPresent
         env:
         - name: RUST_LOG
@@ -84,4 +84,4 @@ spec:
       volumes:
       - name: certs
         secret:
-          secretName: member-id-certs 
+          secretName: member-id-certs
