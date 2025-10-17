@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: member-id-frontend
-        image: ghcr.io/neuland-ingolstadt/member-id-frontend:build-28 # {"$imagepolicy": "flux-system:member-id-frontend"}
+        image: ghcr.io/neuland-ingolstadt/member-id-frontend:build-29 # {"$imagepolicy": "flux-system:member-id-frontend"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
