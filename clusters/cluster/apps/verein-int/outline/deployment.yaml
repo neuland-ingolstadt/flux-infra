@@ -28,7 +28,7 @@ spec:
           runAsUser: 0
       containers:
       - name: outline
-        image: docker.getoutline.com/outlinewiki/outline:0.87.4 # {"$imagepolicy": "flux-system:outline"}
+        image: docker.getoutline.com/outlinewiki/outline:1.0.1 # {"$imagepolicy": "flux-system:outline"}
         ports:
         - containerPort: 3000
           name: http
