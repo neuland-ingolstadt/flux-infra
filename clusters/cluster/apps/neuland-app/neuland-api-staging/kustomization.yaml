@@ -7,4 +7,3 @@ resources:
   - ingress.yaml
   - imagepolicy.yaml
   - service.yaml
-  - sealed-secrets.yaml
