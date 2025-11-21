@@ -8,3 +8,5 @@ resources:
   - longhorn.yaml
   - longhorn-s3-sealed.yaml
   - hcloud-token-sealed.yaml
+  - sops-secrets-source.yaml
+  - sops-secrets-kustomization.yaml
