@@ -1,11 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - imageupdateautomation.yaml
   - deployment.yaml
   - service.yaml
   - ingress.yaml
-  - imagerepository.yaml
   - imagepolicy.yaml
   - clickhouse-deployment.yaml
   - clickhouse-service.yaml
