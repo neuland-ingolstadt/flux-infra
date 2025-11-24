@@ -8,8 +8,16 @@ metadata:
     app.kubernetes.io/component: monitoring
 spec:
   selector:
-    matchLabels:
-      app.kubernetes.io/part-of: flux
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - source-controller
+          - kustomize-controller
+          - helm-controller
+          - notification-controller
+          - image-reflector-controller
+          - image-automation-controller
   namespaceSelector:
     matchNames:
       - flux-system

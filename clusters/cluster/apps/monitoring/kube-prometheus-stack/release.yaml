@@ -322,7 +322,7 @@ spec:
                       exported_namespace: [metadata, namespace]
                       suspended: [spec, suspend]
                       ready: [status, conditions, "[type=Ready]", status]
-                      webhook_path: [spec, resources, "[0]", path]
+                      webhook_path: [status, webhookPath]
     alertmanager:
       enabled: true
       alertmanagerSpec:
