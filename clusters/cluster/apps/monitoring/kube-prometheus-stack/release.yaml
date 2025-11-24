@@ -32,24 +32,24 @@ spec:
         namespace: monitoring
   values:
     grafana:
-    envFromSecret: grafana-oidc-secret
-    grafana.ini:
-      auth:
-        disable_login_form: true
-        disable_signout_menu: false
-      auth.generic_oauth:
-        enabled: true
-        name: "Neuland Auth"
-        allow_sign_up: true
-        client_id: "$OIDC_CLIENT_ID"
-        client_secret: "$OIDC_CLIENT_SECRET"
-        auth_url: "https://sso.informatik.sexy/application/o/authorize/"
-        token_url: "https://sso.informatik.sexy/application/o/token/"
-        api_url: "https://sso.informatik.sexy/application/o/userinfo/"
-        scopes: "openid profile email"
-      extraEnv:
-      - name: GF_AUTH_GENERIC_OAUTH_ENABLED
-        value: "true"
+      envFromSecret: grafana-oidc-secret
+      grafana.ini:
+        auth:
+          disable_login_form: true
+          disable_signout_menu: false
+        auth.generic_oauth:
+          enabled: true
+          name: "Neuland Auth"
+          allow_sign_up: true
+          client_id: "$OIDC_CLIENT_ID"
+          client_secret: "$OIDC_CLIENT_SECRET"
+          auth_url: "https://sso.informatik.sexy/application/o/authorize/"
+          token_url: "https://sso.informatik.sexy/application/o/token/"
+          api_url: "https://sso.informatik.sexy/application/o/userinfo/"
+          scopes: "openid profile email"
+        extraEnv:
+        - name: GF_AUTH_GENERIC_OAUTH_ENABLED
+          value: "true"
     prometheus:
       prometheusSpec:
         serviceMonitorSelectorNilUsesHelmValues: false
