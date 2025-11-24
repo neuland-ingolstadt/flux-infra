@@ -37,6 +37,8 @@ spec:
         server:
           domain: grafana.neuland.ing
           root_url: https://grafana.neuland.ing/
+        unified_alerting:
+          enabled: true
         auth:
           disable_login_form: true
           disable_signout_menu: false
