@@ -22,14 +22,14 @@ spec:
         key: TELEGRAM_BOT_API_KEY
       chatID: -1003385562560
       sendResolved: true
+      parseMode: Markdown
       message: |
-        {{- range .Alerts }}
-        Alert: {{ .Annotations.summary | default .Labels.alertname }}
-        Namespace: {{ .Labels.namespace | default "cluster-wide" }}
-        Severity: {{ .Labels.severity | default "none" }}
-        {{- if .Annotations.description }}
-        {{ .Annotations.description }}
-        {{- end }}
-        Details: {{ .GeneratorURL }}
-        {{ end -}}
+        {{ range .Alerts }}
+        🔔 *Alert: {{ .Labels.alertname }}*
+        {{ if .Labels.namespace }}📦 Namespace: `{{ .Labels.namespace }}`{{ end }}
+        {{ if .Labels.severity }}⚠️ Severity: `{{ .Labels.severity }}`{{ end }}
+        {{ if .Annotations.summary }}📝 {{ .Annotations.summary }}{{ end }}
+        {{ if .Annotations.description }}{{ .Annotations.description }}{{ end }}
+        {{ if .GeneratorURL }}🔗 [View Details]({{ .GeneratorURL }}){{ end }}
+        {{ end }}
 
