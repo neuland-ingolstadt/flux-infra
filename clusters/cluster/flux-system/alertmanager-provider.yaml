@@ -47,4 +47,7 @@ spec:
       name: '*'
     - kind: ImageUpdateAutomation
       name: '*'
+  exclusionList:
+    - '.*is ready'
+    - '.*reconciliation.*succeeded'
 
