@@ -6,4 +6,3 @@ resources:
   - apps
   - infrastructure.yaml
   - kube-seal
-  - rbac
