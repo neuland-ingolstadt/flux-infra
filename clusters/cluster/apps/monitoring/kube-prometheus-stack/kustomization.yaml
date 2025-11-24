@@ -4,3 +4,5 @@ resources:
   - release.yaml
   - ingress.yaml
   - alertmanagerconfig.yaml
+  - podmonitor-flux.yaml
+  - dashboards
