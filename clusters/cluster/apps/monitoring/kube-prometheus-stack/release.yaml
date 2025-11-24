@@ -288,7 +288,7 @@ spec:
                       webhook_path: [status, webhookPath]
               - groupVersionKind:
                   group: image.toolkit.fluxcd.io
-                  version: v1
+                  version: v1beta2
                   kind: ImageRepository
                 metricNamePrefix: gotk
                 metrics:
@@ -306,7 +306,7 @@ spec:
                       image: [spec, image]
               - groupVersionKind:
                   group: image.toolkit.fluxcd.io
-                  version: v1
+                  version: v1beta2
                   kind: ImagePolicy
                 metricNamePrefix: gotk
                 metrics:
@@ -324,7 +324,7 @@ spec:
                       source_name: [spec, imageRepositoryRef, name]
               - groupVersionKind:
                   group: image.toolkit.fluxcd.io
-                  version: v1
+                  version: v1beta2
                   kind: ImageUpdateAutomation
                 metricNamePrefix: gotk
                 metrics:
