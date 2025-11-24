@@ -20,7 +20,7 @@ spec:
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Alert
 metadata:
-  name: flux-alerts
+  name: flux-alerts-errors
   namespace: flux-system
 spec:
   providerRef:
@@ -49,5 +49,39 @@ spec:
       name: '*'
   exclusionList:
     - '.*is ready'
-    - '.*reconciliation.*succeeded'
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: flux-alerts-resolved
+  namespace: flux-system
+spec:
+  providerRef:
+    name: alertmanager
+  eventSeverity: info
+  eventSources:
+    - kind: GitRepository
+      name: '*'
+    - kind: Kustomization
+      name: '*'
+    - kind: HelmRelease
+      name: '*'
+    - kind: HelmChart
+      name: '*'
+    - kind: OCIRepository
+      name: '*'
+    - kind: Bucket
+      name: '*'
+    - kind: HelmRepository
+      name: '*'
+    - kind: ImageRepository
+      name: '*'
+    - kind: ImagePolicy
+      name: '*'
+    - kind: ImageUpdateAutomation
+      name: '*'
+  exclusionList:
+    - '.*is ready'
+    # Exclude info events that are not resolutions
+    # This allows "reconciliation.*succeeded" events through to mark alerts as resolved
 
