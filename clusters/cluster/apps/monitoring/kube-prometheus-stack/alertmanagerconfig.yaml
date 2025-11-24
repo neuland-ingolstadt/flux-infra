@@ -24,12 +24,22 @@ spec:
       sendResolved: true
       parseMode: Markdown
       message: |
-        {{ range .Alerts }}
+        {{- range .Alerts }}
         🔔 *Alert: {{ .Labels.alertname }}*
-        {{ if .Labels.namespace }}📦 Namespace: `{{ .Labels.namespace }}`{{ end }}
-        {{ if .Labels.severity }}⚠️ Severity: `{{ .Labels.severity }}`{{ end }}
-        {{ if .Annotations.summary }}📝 {{ .Annotations.summary }}{{ end }}
-        {{ if .Annotations.description }}{{ .Annotations.description }}{{ end }}
-        {{ if .GeneratorURL }}🔗 [View Details]({{ .GeneratorURL }}){{ end }}
-        {{ end }}
+        {{- if .Labels.namespace }}
+        📦 Namespace: `{{ .Labels.namespace }}`
+        {{- end }}
+        {{- if .Labels.severity }}
+        ⚠️ Severity: `{{ .Labels.severity }}`
+        {{- end }}
+        {{- if .Annotations.summary }}
+        📝 {{ .Annotations.summary }}
+        {{- end }}
+        {{- if .Annotations.description }}
+        {{ .Annotations.description }}
+        {{- end }}
+        {{- if .GeneratorURL }}
+        🔗 [View Details]({{ .GeneratorURL }})
+        {{- end }}
+        {{- end }}
 
