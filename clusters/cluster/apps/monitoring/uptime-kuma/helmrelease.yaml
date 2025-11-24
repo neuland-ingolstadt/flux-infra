@@ -24,10 +24,6 @@ spec:
         namespace: monitoring
       interval: 12h
   values:
-    image:
-      repository: louislam/uptime-kuma
-      tag: "2.0.2"
-      pullPolicy: IfNotPresent
     dnsPolicy: "None"
     dnsConfig:
       nameservers:
