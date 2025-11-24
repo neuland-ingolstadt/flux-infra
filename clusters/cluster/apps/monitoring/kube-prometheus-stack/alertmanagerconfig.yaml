@@ -1,0 +1,43 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: telegram-config
+  namespace: monitoring
+  labels:
+    alertmanagerConfig: "true"
+spec:
+  route:
+    groupBy:
+    - namespace
+    - alertname
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 12h
+    receiver: telegram
+    routes:
+    - receiver: null
+      continue: false
+      matchers:
+      - name: alertname
+        value: Watchdog
+        matchType: '='
+  receivers:
+  - name: telegram
+    telegramConfigs:
+    - botToken:
+        name: telegram-bot-secrets
+        key: TELEGRAM_BOT_API_KEY
+      chatID: -1003385562560
+      sendResolved: true
+      message: |
+        {{- range .Alerts }}
+        Alert: {{ .Annotations.summary | default .Labels.alertname }}
+        Namespace: {{ .Labels.namespace | default "cluster-wide" }}
+        Severity: {{ .Labels.severity | default "none" }}
+        {{- if .Annotations.description }}
+        {{ .Annotations.description }}
+        {{- end }}
+        Details: {{ .GeneratorURL }}
+        {{ end -}}
+  - name: null
+
