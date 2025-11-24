@@ -34,6 +34,9 @@ spec:
     grafana:
     envFromSecret: grafana-oidc-secret
     grafana.ini:
+      auth:
+        disable_login_form: true
+        disable_signout_menu: false
       auth.generic_oauth:
         enabled: true
         name: "Neuland Auth"
@@ -44,6 +47,9 @@ spec:
         token_url: "https://sso.informatik.sexy/application/o/token/"
         api_url: "https://sso.informatik.sexy/application/o/userinfo/"
         scopes: "openid profile email"
+      extraEnv:
+      - name: GF_AUTH_GENERIC_OAUTH_ENABLED
+        value: "true"
     prometheus:
       prometheusSpec:
         serviceMonitorSelectorNilUsesHelmValues: false
