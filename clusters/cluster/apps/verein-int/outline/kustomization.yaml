@@ -10,7 +10,6 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
-  - sealed-secret.yaml
   - certificate.yaml
   # - imagerepository.yaml
   #- imagepolicy.yaml
