@@ -83,6 +83,16 @@ spec:
         enabled: true
         port: 10257
         targetPort: 10257
+    kubeProxy:
+      enabled: true
+      endpoints:
+        - 10.0.0.2
+        - 10.0.0.3
+        - 10.0.0.4
+      service:
+        enabled: true
+        port: 10249
+        targetPort: 10249
     kube-state-metrics:
       # For kube-prometheus-stacks that are already installed and configured with
       # custom collectors, commenting out the collectors and extraArgs below will
