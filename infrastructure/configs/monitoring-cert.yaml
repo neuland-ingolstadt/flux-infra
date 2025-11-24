@@ -12,4 +12,5 @@ spec:
   # Domains specific to monitoring namespace
   dnsNames:
   - analytics.neuland.app
-  - status.neuland.app 
+  - status.neuland.app
+  - grafana.neuland.ing
