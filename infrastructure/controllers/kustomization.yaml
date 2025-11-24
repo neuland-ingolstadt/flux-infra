@@ -10,3 +10,4 @@ resources:
   - hcloud-token-sealed.yaml
   - sops-secrets-source.yaml
   - sops-secrets-kustomization.yaml
+  - test.yaml
