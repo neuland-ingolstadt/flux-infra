@@ -65,3 +65,68 @@ spec:
         podMonitorSelectorNilUsesHelmValues: false
     alertmanager:
       enabled: true
+      alertmanagerSpec:
+        secrets:
+        - telegram-bot-secrets
+      config:
+        global:
+          resolve_timeout: 5m
+        inhibit_rules:
+        - source_matchers:
+          - 'severity = critical'
+          target_matchers:
+          - 'severity =~ warning|info'
+          equal:
+          - 'namespace'
+          - 'alertname'
+        - source_matchers:
+          - 'severity = warning'
+          target_matchers:
+          - 'severity = info'
+          equal:
+          - 'namespace'
+          - 'alertname'
+        - source_matchers:
+          - 'alertname = InfoInhibitor'
+          target_matchers:
+          - 'severity = info'
+          equal:
+          - 'namespace'
+        - target_matchers:
+          - 'alertname = InfoInhibitor'
+        route:
+          group_by:
+          - namespace
+          - alertname
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 12h
+          receiver: telegram
+          routes:
+          - receiver: 'null'
+            matchers:
+            - alertname = "Watchdog"
+        receivers:
+        - name: telegram
+          telegram_configs:
+          - chat_id: "-1003385562560"
+            send_resolved: true
+            api_url: https://api.telegram.org
+            bot_token_file: /etc/alertmanager/secrets/telegram-bot-secrets/TELEGRAM_BOT_API_KEY
+            message: '{{ template "telegram.default" . }}'
+        - name: 'null'
+        templates:
+        - /etc/alertmanager/config/telegram-default.tmpl
+      templateFiles:
+        telegram-default.tmpl: |-
+          {{ define "telegram.default" -}}
+          {{- range .Alerts }}
+          Alert: {{ .Annotations.summary | default .Labels.alertname }}
+          Namespace: {{ .Labels.namespace | default "cluster-wide" }}
+          Severity: {{ .Labels.severity | default "none" }}
+          {{- if .Annotations.description }}
+          {{ .Annotations.description }}
+          {{- end }}
+          Details: {{ .GeneratorURL }}
+          {{ end -}}
+          {{- end }}
