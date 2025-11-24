@@ -14,13 +14,6 @@ spec:
     groupInterval: 5m
     repeatInterval: 12h
     receiver: telegram
-    routes:
-    - receiver: null
-      continue: false
-      matchers:
-      - name: alertname
-        value: Watchdog
-        matchType: '='
   receivers:
   - name: telegram
     telegramConfigs:
@@ -39,5 +32,4 @@ spec:
         {{- end }}
         Details: {{ .GeneratorURL }}
         {{ end -}}
-  - name: null
 
