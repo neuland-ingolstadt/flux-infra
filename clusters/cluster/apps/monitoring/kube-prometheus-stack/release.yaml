@@ -50,9 +50,12 @@ spec:
           token_url: "https://sso.informatik.sexy/application/o/token/"
           api_url: "https://sso.informatik.sexy/application/o/userinfo/"
           scopes: "openid profile email"
-        users:
-          auto_assign_org: true
-          auto_assign_org_role: Admin
+        org:
+          name: "Neuland Ingolstadt Kubernetes"
+        # users:
+        #   auto_assign_org: true
+        #   auto_assign_org_name: "Neuland Ingolstadt Kubernetes"
+
       extraEnv:
       - name: GF_AUTH_GENERIC_OAUTH_ENABLED
         value: "true"
