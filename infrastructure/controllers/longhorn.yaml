@@ -27,8 +27,8 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: longhorn-repo
-      version: v1.9.0
-  interval: 10m
+      version: v1.10.1
+  interval: 30m
   values:
     longhornUI:
       replicaCount: 1
