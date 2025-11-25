@@ -3,12 +3,10 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - serviceaccount.yaml
-  - ghcr-sealed-secret.yaml
   - neuland-next-staging
   - neuland-next-prod
   - neuland-next-docs
   - ersti-kit-staging
-  # - ical-service - Replaced by verein-ext:cl-eventsa
   - shared-database
   - neuland-api-prod
   - neuland-api-staging

@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - serviceaccount.yaml
-  - ghcr-sealed-secret.yaml
   - neuland-website
   - member-id
   - cl-events
