@@ -49,3 +49,5 @@ spec:
         {{- end }}
         {{- end }}
 
+        👉 [Open Grafana](https://grafana.neuland.ing/alerting/groups)
+
