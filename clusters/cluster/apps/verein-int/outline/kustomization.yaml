@@ -12,5 +12,5 @@ resources:
   - ingress.yaml
   - certificate.yaml
   # - imagerepository.yaml
-  #- imagepolicy.yaml
-  #- imageupdateautomation.yaml
+  # - imagepolicy.yaml
+  # - imageupdateautomation.yaml

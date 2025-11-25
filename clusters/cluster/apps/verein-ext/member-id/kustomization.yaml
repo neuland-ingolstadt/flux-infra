@@ -12,6 +12,4 @@ resources:
   - backend-imagepolicy.yaml
   - frontend-imagerepository.yaml
   - frontend-imagepolicy.yaml
-  - sealed-secrets.yaml 
-  - sealed-certs.yaml
   - strip-api-middleware.yaml
