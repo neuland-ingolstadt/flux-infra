@@ -5,4 +5,5 @@ resources:
   - ingress.yaml
   - alertmanagerconfig.yaml
   - podmonitor-flux.yaml
+  - prometheusrule-flux.yaml
   - dashboards
