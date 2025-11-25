@@ -151,4 +151,4 @@ spec:
       volumes:
       - name: outline-storage
         persistentVolumeClaim:
-          claimName: outline-storage-pvc-claim
+          claimName: outline-storage-pvc-claim-new
