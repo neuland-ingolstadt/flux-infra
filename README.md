@@ -25,25 +25,8 @@ scoop install k9s
 
 ## 🔐 Managing Secrets
 
-### Create New Sealed Secret
-
-```bash
-kubectl create secret generic <secret-name> \
-  --namespace=<namespace> \
-  --from-literal=KEY_NAME="VALUE" \
-  --dry-run=client -o yaml | \
-kubeseal --cert pub-sealed-secrets.pem -o yaml > sealed-secret.yaml
-```
-
-### Add to Existing Sealed Secret
-
-```bash
-kubectl create secret generic <secret-name> \
-  --namespace=<namespace> \
-  --from-literal=KEY_NAME="VALUE" \
-  --dry-run=client -o yaml | \
-kubeseal --cert pub-sealed-secrets.pem --merge-into <existing-file> -o yaml
-```
+We use [SOPS](https://github.com/mozilla/sops) to manage secrets.
+Visit our [sops-infra](https://github.com/neuland-ingolstadt/sops-infra) repository for more information.
 
 ## ⚡ Common Operations
 
