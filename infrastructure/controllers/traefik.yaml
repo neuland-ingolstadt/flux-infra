@@ -56,7 +56,8 @@ spec:
     # Service configuration
     service:
       type: LoadBalancer
-      externalTrafficPolicy: Cluster
+      spec:
+        externalTrafficPolicy: Cluster
       annotations:
         metallb.universe.tf/address-pool: floating-ip-pool
         metallb.universe.tf/loadBalancerIPs: "195.201.250.90"
