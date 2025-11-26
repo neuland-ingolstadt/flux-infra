@@ -4,6 +4,7 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
+  - clickhouse-config.yaml
   - clickhouse-deployment.yaml
   - clickhouse-service.yaml
   - pvc.yaml
