@@ -43,7 +43,7 @@ spec:
       isDefaultClass: true
     
     deployment:
-      replicas: 2
+      replicas: 3
     
     affinity:
       podAntiAffinity:
@@ -61,7 +61,7 @@ spec:
     # Service configuration
     service:
       type: LoadBalancer
-      externalTrafficPolicy: Cluster
+      externalTrafficPolicy: Local
       annotations:
         metallb.universe.tf/address-pool: floating-ip-pool
         metallb.universe.tf/loadBalancerIPs: "195.201.250.90"
