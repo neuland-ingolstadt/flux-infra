@@ -37,6 +37,11 @@ spec:
       dashboard: true
       insecure: true
     
+    # IngressClass configuration
+    ingressClass:
+      enabled: true
+      isDefaultClass: true
+    
     deployment:
       replicas: 2
     
