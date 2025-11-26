@@ -1,0 +1,25 @@
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: flux-github-status
+  namespace: flux-system
+spec:
+  type: github
+  address: https://github.com/neuland-ingolstadt/flux-infra
+  secretRef:
+    name: github-commit-status
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: flux-github-commit-status
+  namespace: flux-system
+spec:
+  providerRef:
+    name: flux-github-status
+  eventSeverity: info
+  eventSources:
+    - kind: Kustomization
+      name: '*'
+      namespace: flux-system
+
