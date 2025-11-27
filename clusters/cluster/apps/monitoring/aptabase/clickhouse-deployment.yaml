@@ -33,9 +33,6 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /var/lib/clickhouse
-        - name: clickhouse-config
-          mountPath: /etc/clickhouse-server/config.d/memory.xml
-          subPath: memory.xml
         resources:
           requests:
             cpu: 200m
@@ -44,6 +41,3 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: aptabase-events-db-pvc
-      - name: clickhouse-config
-        configMap:
-          name: aptabase-clickhouse-config
