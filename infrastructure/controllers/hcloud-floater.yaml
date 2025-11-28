@@ -62,7 +62,7 @@ spec:
         - name: HCLOUD_IP_FLOATER_HCLOUD_TOKEN
           valueFrom:
             secretKeyRef:
-              name: hcloud-token
+              name: hcloud-floater
               key: token
         - name: HCLOUD_IP_FLOATER_LOG_LEVEL
           value: "debug"
