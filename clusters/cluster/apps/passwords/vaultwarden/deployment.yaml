@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: vaultwarden
-          image: vaultwarden/server:latest
+          image: vaultwarden/server:testing
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
@@ -53,7 +53,7 @@ spec:
             - name: SSO_AUTHORITY
               value: https://sso.informatik.sexy/application/o/vaultwarden
             - name: SSO_SCOPES
-              value: "email profile"
+              value: "email profile openid offline_access"
             - name: SSO_CLIENT_ID
               valueFrom:
                 secretKeyRef:
