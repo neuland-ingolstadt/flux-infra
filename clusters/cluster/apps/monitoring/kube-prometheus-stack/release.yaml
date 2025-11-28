@@ -40,6 +40,11 @@ spec:
           root_url: https://grafana.neuland.ing/
         unified_alerting:
           enabled: true
+        metrics:
+          enabled: false
+        analytics:
+          reporting_enabled: false
+        feedback_links_enabled: false
         auth:
           disable_login_form: true
           disable_signout_menu: false
@@ -47,6 +52,7 @@ spec:
           enabled: true
           name: "Neuland Auth"
           allow_sign_up: true
+          auto_login: true
           client_id: $__env{OIDC_CLIENT_ID}
           client_secret: $__env{OIDC_CLIENT_SECRET}
           auth_url: "https://sso.informatik.sexy/application/o/authorize/"
