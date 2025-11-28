@@ -60,11 +60,5 @@ spec:
           enabled: true
           size: 2Gi
           storageClass: longhorn
-    redis:
-      enabled: true
-      master:
-        persistence:
-          enabled: true
-          size: 1Gi
-          storageClass: longhorn
+
 
