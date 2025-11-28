@@ -65,14 +65,11 @@ spec:
               name: hcloud-token
               key: token
         - name: HCLOUD_IP_FLOATER_LOG_LEVEL
-          value: "info"
+          value: "debug"
         resources:
-          limits:
-            cpu: 100m
-            memory: 64Mi
           requests:
-            cpu: 50m
-            memory: 64Mi
+            cpu: 20m
+            memory: 32Mi
 ---
 apiVersion: v1
 kind: ServiceAccount
