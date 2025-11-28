@@ -71,9 +71,21 @@ spec:
     ports:
       web:
         port: 80
+        # Don't redirect ACME challenge paths to HTTPS
         redirectTo:
           port: websecure
+          scheme: https
+          permanent: true
       websecure:
         port: 443
         tls:
           enabled: true
+    # Middleware to exclude ACME challenge from redirect
+    additionalArguments:
+      - "--entrypoints.websecure.proxyProtocol.trustedIPs=0.0.0.0/0"
+      - "--entrypoints.websecure.forwardedHeaders.trustedIPs=0.0.0.0/0"
+      - "--providers.kubernetesingress.ingressclass=traefik"
+      - "--providers.kubernetesingress.allowcrossnamespace=true"
+      - "--entrypoints.web.http.redirections.entrypoint.regex=^(?!.*\\.well-known/acme-challenge).*"
+      - "--entrypoints.web.http.redirections.entrypoint.replacement=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
