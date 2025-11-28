@@ -7,87 +7,17 @@ data:
   config.xml: |
     <?xml version="1.0"?>
     <clickhouse>
-        <!-- Limit system log tables to reduce storage usage (currently using ~3.5GB) -->
-        <!-- These settings will limit retention and prevent future growth -->
-        
-        <!-- Limit asynchronous_metric_log (currently uses 1.19GB) -->
-        <asynchronous_metric_log>
-            <database>system</database>
-            <table>asynchronous_metric_log</table>
-            <flush_interval_milliseconds>2000</flush_interval_milliseconds>
-            <!-- Very aggressive retention: 1 day -->
-            <ttl>event_date + INTERVAL 1 DAY</ttl>
-        </asynchronous_metric_log>
-        
-        <!-- Limit trace_log (currently uses 1.10GB) -->
-        <trace_log>
-            <database>system</database>
-            <table>trace_log</table>
-            <flush_interval_milliseconds>2000</flush_interval_milliseconds>
-            <!-- Very aggressive retention: 1 day -->
-            <ttl>event_date + INTERVAL 1 DAY</ttl>
-        </trace_log>
-        
-        <!-- Limit metric_log (currently uses 1GB) -->
-        <metric_log>
-            <database>system</database>
-            <table>metric_log</table>
-            <flush_interval_milliseconds>2000</flush_interval_milliseconds>
-            <!-- Retention: 1 day -->
-            <ttl>event_date + INTERVAL 1 DAY</ttl>
-        </metric_log>
-        
-        <!-- Limit query_log (currently uses 111MB) -->
-        <query_log>
-            <database>system</database>
-            <table>query_log</table>
-            <flush_interval_milliseconds>2000</flush_interval_milliseconds>
-            <!-- Retention: 1 day -->
-            <ttl>event_date + INTERVAL 1 DAY</ttl>
-        </query_log>
-        
-        <!-- Limit part_log (currently uses 64MB) -->
-        <part_log>
-            <database>system</database>
-            <table>part_log</table>
-            <flush_interval_milliseconds>2000</flush_interval_milliseconds>
-            <!-- Retention: 1 day -->
-            <ttl>event_date + INTERVAL 1 DAY</ttl>
-        </part_log>
-        
-        <!-- Limit text_log (currently uses 10MB) -->
-        <text_log>
-            <database>system</database>
-            <table>text_log</table>
-            <level>warning</level> <!-- Only log warnings and errors -->
-            <flush_interval_milliseconds>2000</flush_interval_milliseconds>
-            <!-- Retention: 1 day -->
-            <ttl>event_date + INTERVAL 1 DAY</ttl>
-        </text_log>
-        
-        <!-- Limit opentelemetry_span_log -->
-        <opentelemetry_span_log>
-            <database>system</database>
-            <table>opentelemetry_span_log</table>
-            <flush_interval_milliseconds>2000</flush_interval_milliseconds>
-            <ttl>event_date + INTERVAL 1 DAY</ttl>
-        </opentelemetry_span_log>
-        
-        <!-- Limit processors_profile_log -->
-        <processors_profile_log>
-            <database>system</database>
-            <table>processors_profile_log</table>
-            <flush_interval_milliseconds>2000</flush_interval_milliseconds>
-            <ttl>event_date + INTERVAL 1 DAY</ttl>
-        </processors_profile_log>
-        
-        <!-- Logger configuration for file logs -->
-        <logger>
-            <level>information</level>
-            <log>/var/log/clickhouse-server/clickhouse-server.log</log>
-            <errorlog>/var/log/clickhouse-server/clickhouse-server.err.log</errorlog>
-            <size>100M</size> <!-- Max 100MB per log file -->
-            <count>2</count> <!-- Keep only 2 rotated files (200MB max) -->
-            <console>1</console>
-        </logger>
+    <asynchronous_metric_log remove="1"/>
+    <metric_log remove="1"/>
+    <query_thread_log remove="1" />  
+    <query_log remove="1" />
+    <query_views_log remove="1" />
+    <part_log remove="1"/>
+    <session_log remove="1"/>
+    <text_log remove="1" />
+    <trace_log remove="1"/>
+    <crash_log remove="1"/>
+    <opentelemetry_span_log remove="1"/>
+    <zookeeper_log remove="1"/>
     </clickhouse>
+ 
