@@ -31,7 +31,7 @@ spec:
   - host: flux-webhook.neuland.ing
     http:
       paths:
-      - path: /
+      - path: /hook/
         pathType: Prefix
         backend:
           service:
