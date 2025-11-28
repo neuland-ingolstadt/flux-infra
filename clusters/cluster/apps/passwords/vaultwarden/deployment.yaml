@@ -28,7 +28,7 @@ spec:
             - name: DATA_FOLDER
               value: /data
             - name: SIGNUPS_ALLOWED
-              value: "false"
+              value: "true"
             - name: SIGNUPS_VERIFY
               value: "true"
             - name: ADMIN_TOKEN
