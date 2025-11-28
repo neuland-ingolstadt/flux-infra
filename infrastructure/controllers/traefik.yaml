@@ -66,26 +66,18 @@ spec:
         - "--entrypoints.websecure.forwardedHeaders.trustedIPs=0.0.0.0/0"
         - "--providers.kubernetesingress.ingressclass=traefik"
         - "--providers.kubernetesingress.allowcrossnamespace=true"
+        # Configure redirect from HTTP to HTTPS, but exclude ACME challenge paths
+        - "--entrypoints.web.http.redirections.entrypoint.regex=^(?!.*\\.well-known/acme-challenge).*"
+        - "--entrypoints.web.http.redirections.entrypoint.replacement=websecure"
+        - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
     
     # Entry points
     ports:
       web:
         port: 80
-        # Don't redirect ACME challenge paths to HTTPS
-        redirectTo:
-          port: websecure
-          scheme: https
-          permanent: true
+        # Don't use redirectTo here - we use redirectRegex in additionalArguments instead
+        # to exclude ACME challenge paths
       websecure:
         port: 443
         tls:
           enabled: true
-    # Middleware to exclude ACME challenge from redirect
-    additionalArguments:
-      - "--entrypoints.websecure.proxyProtocol.trustedIPs=0.0.0.0/0"
-      - "--entrypoints.websecure.forwardedHeaders.trustedIPs=0.0.0.0/0"
-      - "--providers.kubernetesingress.ingressclass=traefik"
-      - "--providers.kubernetesingress.allowcrossnamespace=true"
-      - "--entrypoints.web.http.redirections.entrypoint.regex=^(?!.*\\.well-known/acme-challenge).*"
-      - "--entrypoints.web.http.redirections.entrypoint.replacement=websecure"
-      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
