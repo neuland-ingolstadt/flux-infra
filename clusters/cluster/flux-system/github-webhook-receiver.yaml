@@ -20,6 +20,7 @@ metadata:
   namespace: flux-system
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true"
 spec:
   ingressClassName: traefik
   tls:
