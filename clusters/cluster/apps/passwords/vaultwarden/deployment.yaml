@@ -64,9 +64,13 @@ spec:
                 secretKeyRef:
                   name: vaultwarden-secret
                   key: SSO_CLIENT_SECRET
-            - name: ORG_CREATION_USERS
-              value: "none"
-            - name: INVITATIONS_ALLOWED
+            - name: ORG_ATTACHMENT_LIMIT
+              value: "300000"
+            - name: USER_ATTACHMENT_LIMIT
+              value: "50000"
+            # - name: ORG_CREATION_USERS
+            #   value: "none"
+            - name: EMAIL_CHANGE_ALLOWED
               value: "false"
             - name: SMTP_HOST
               value: smtp.azurecomm.net
