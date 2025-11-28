@@ -44,6 +44,8 @@ kind: Certificate
 metadata:
   name: flux-webhook-tls
   namespace: flux-system
+  annotations:
+    acme.cert-manager.io/http01-edit-in-place: "true"
 spec:
   secretName: flux-system-webhook-tls
   issuerRef:
