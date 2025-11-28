@@ -6,3 +6,4 @@ resources:
 - alertmanager-provider.yaml
 - github-commit-status.yaml
 - github-webhook-receiver.yaml
+- allow-traefik-acme.yaml
