@@ -5,3 +5,4 @@ resources:
 - gotk-sync.yaml
 - alertmanager-provider.yaml
 - github-commit-status.yaml
+- github-webhook-receiver.yaml
