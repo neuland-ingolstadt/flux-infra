@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: aoc-leaderboard-scraper-update-leaderboard
+  namespace: verein-int
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: aoc-leaderboard-scraper-update-leaderboard
+              image: curlimages/curl
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  curl -X POST http://aoc-leaderboard-scraper.verein-int.svc.cluster.local:3333/persistCurrentLocalScores/2025/5119569?viewKey=34bdec59
+          restartPolicy: OnFailure
