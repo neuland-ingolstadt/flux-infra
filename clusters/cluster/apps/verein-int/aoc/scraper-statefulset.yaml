@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: aoc-leaderboard-scraper
+  namespace: verein-int
+spec:
+  selector:
+    matchLabels:
+      app: aoc-leaderboard-scraper
+  serviceName: "aoc-leaderboard-scraper"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: aoc-leaderboard-scraper
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: aoc-leaderboard-scraper
+          image: ghcr.io/neuland-ingolstadt/aoc-leaderboard-scraper:1.0.4 # {"$imagepolicy": "flux-system:aoc-leaderboard-scraper"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3333
+              name: main
+            - containerPort: 3334
+              name: health
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: health
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+            - mountPath: /data
+              name: data
+          env:
+            - name: MAIN_PORT
+              value: "3333"
+            - name: HEALTH_PORT
+              value: "3334"
+            - name: DATA_DUMP_DIRECTORY
+              value: "/data"
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: ""
+        resources:
+          requests:
+            storage: 500Mi
+
