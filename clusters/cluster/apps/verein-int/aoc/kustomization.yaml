@@ -2,7 +2,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - scraper-pvc.yaml
   - scraper-statefulset.yaml
   - scraper-service.yaml
   - scraper-imagerepository.yaml

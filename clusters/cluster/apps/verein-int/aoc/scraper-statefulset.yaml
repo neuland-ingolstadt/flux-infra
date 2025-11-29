@@ -43,8 +43,13 @@ spec:
               value: "3334"
             - name: DATA_DUMP_DIRECTORY
               value: "/data"
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: aoc-leaderboard-scraper-data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: longhorn
+        resources:
+          requests:
+            storage: 500Mi
 
