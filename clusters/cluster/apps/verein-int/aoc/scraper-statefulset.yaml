@@ -43,6 +43,13 @@ spec:
               value: "3334"
             - name: DATA_DUMP_DIRECTORY
               value: "/data"
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
   volumeClaimTemplates:
     - metadata:
         name: data
