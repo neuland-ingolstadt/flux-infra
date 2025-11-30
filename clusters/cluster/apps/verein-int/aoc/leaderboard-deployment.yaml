@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aoc-leaderboard
+  namespace: verein-int
+  labels:
+    app: aoc-leaderboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aoc-leaderboard
+  template:
+    metadata:
+      labels:
+        app: aoc-leaderboard
+    spec:
+      containers:
+      - name: aoc-leaderboard
+        image: ghcr.io/neuland-ingolstadt/neuland-aoc-leaderboard:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          name: http
+        env:
+        - name: AOC_LEADERBOARD_URL
+          valueFrom:
+            secretKeyRef:
+              name: aoc-leaderboard-secret
+              key: leaderboardUrl
+        - name: AOC_SESSION_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: aoc-leaderboard-secret
+              key: sessionToken
+        - name: AOC_INVITE_CODE
+          valueFrom:
+            secretKeyRef:
+              name: aoc-leaderboard-secret
+              key: inviteCode

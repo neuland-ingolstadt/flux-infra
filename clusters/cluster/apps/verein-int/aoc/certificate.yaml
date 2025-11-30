@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: aoc-neuland-ing
+  namespace: verein-int
+spec:
+  secretName: aoc-neuland-ing-tls
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  dnsNames:
+    - aoc.neuland.ing
