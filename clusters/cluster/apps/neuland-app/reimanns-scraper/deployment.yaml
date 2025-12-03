@@ -33,13 +33,13 @@ spec:
             name: neuland-reimanns-scraper-secrets
         livenessProbe:
           httpGet:
-            path: /
+            path: /q/health/live
             port: 8080
           initialDelaySeconds: 5
           timeoutSeconds: 5
         readinessProbe:
           httpGet:
-            path: /
+            path: /q/health/ready
             port: 8080
           initialDelaySeconds: 5
           timeoutSeconds: 5
