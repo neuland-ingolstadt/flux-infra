@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: neuland-website
-        image: ghcr.io/neuland-ingolstadt/neuland-website:build-182 # {"$imagepolicy": "flux-system:neuland-website"}
+        image: ghcr.io/neuland-ingolstadt/neuland-website:build-183 # {"$imagepolicy": "flux-system:neuland-website"}
         imagePullPolicy: IfNotPresent
         env:
         - name: HOSTNAME
