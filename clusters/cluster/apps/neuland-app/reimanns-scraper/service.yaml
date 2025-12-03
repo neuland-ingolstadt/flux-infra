@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: reimanns-scraper
+  namespace: neuland-app
+spec:
+  type: ClusterIP
+  selector:
+    app: reimanns-scraper
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: http
