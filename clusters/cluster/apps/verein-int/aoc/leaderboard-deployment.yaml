@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: aoc-leaderboard
-        image: ghcr.io/neuland-ingolstadt/neuland-aoc-leaderboard:latest
+        image: ghcr.io/neuland-ingolstadt/neuland-aoc-leaderboard:latest # {"$imagepolicy": "flux-system:aoc-leaderboard"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000

@@ -9,6 +9,8 @@ resources:
   - scraper-imagepolicy.yaml
   - scraper-imageupdateautomation.yaml
   - leaderboard-deployment.yaml
+  - leaderboard-imagerepository.yaml
+  - leaderboard-imagepolicy.yaml
   - leaderboard-service.yaml
   - oauth2-proxy-deployment.yaml
   - oauth2-proxy-service.yaml
