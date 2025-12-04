@@ -39,6 +39,8 @@ spec:
         server:
           domain: grafana.neuland.ing
           root_url: https://grafana.neuland.ing/
+        log:
+          level: debug
         unified_alerting:
           enabled: true
         metrics:
@@ -60,14 +62,11 @@ spec:
           auth_url: "https://sso.informatik.sexy/application/o/authorize/"
           token_url: "https://sso.informatik.sexy/application/o/token/"
           api_url: "https://sso.informatik.sexy/application/o/userinfo/"
-          scopes: "openid profile email"
-          # Map OIDC groups/roles to Grafana roles
-          # Users with "Kubernetes Admin" group/role get Editor permissions (required for drill down)
+          scopes: "openid profile email groups"
+          # Map OIDC groups to Grafana roles
+          # Users with "Kubernetes Admin" group get Editor permissions (required for drill down)
           # All other users get Viewer role
-          role_attribute_path: |
-            contains(groups[*], 'Kubernetes Admin') && 'Editor' ||
-            contains(roles[*], 'Kubernetes Admin') && 'Editor' ||
-            'Viewer'
+          role_attribute_path: contains(groups[*], 'Kubernetes Admin') && 'Editor' || 'Viewer'
           role_attribute_strict: true
           # Fallback: assign Viewer role by default if role mapping fails
           auto_assign_org_role: "Viewer"
