@@ -24,46 +24,44 @@ spec:
       retries: 3
   chart:
     spec:
-      chart: loki-stack
-      version: "*"
+      chart: loki
+      version: 6.7.1
       sourceRef:
         kind: HelmRepository
         name: grafana
         namespace: monitoring
   values:
+    deploymentMode: SingleBinary
     loki:
-      enabled: true
-      image:
-        repository: grafana/loki
-        tag: "3.2.2"
+      commonConfig:
+        replication_factor: 1
+      storage:
+        type: filesystem
+      auth_enabled: false
+      schemaConfig:
+        configs:
+          - from: "2025-01-01"
+            store: tsdb
+            object_store: filesystem
+            schema: v13
+            index:
+              prefix: loki_index_
+              period: 24h
+      storage_config:
+        filesystem:
+          directory: /var/loki/chunks
+      limits_config:
+        volume_enabled: true
+      pattern_ingester:
+        enabled: true
+    singleBinary:
+      replicas: 1
       persistence:
         enabled: true
         size: 3Gi
         storageClassName: longhorn
         accessModes:
           - ReadWriteOnce
-      config:
-        schema_config:
-          configs:
-            - from: "2025-01-01"
-              store: boltdb-shipper
-              object_store: filesystem
-              schema: v11
-              index:
-                prefix: index_
-                period: 24h
-        limits_config:
-          enforce_metric_name: false
-          reject_old_samples: true
-          reject_old_samples_max_age: 168h
-          volume_enabled: true
-        pattern_ingester:
-          enabled: true
-        chunk_store_config:
-          max_look_back_period: 0s
-        table_manager:
-          retention_deletes_enabled: true
-          retention_period: 720h
       resources:
         limits:
           cpu: 2000m
@@ -71,92 +69,16 @@ spec:
         requests:
           cpu: 500m
           memory: 1Gi
-    promtail:
-      enabled: true
-      config:
-        clients:
-          - url: http://loki:3100/loki/api/v1/push
-        file: |
-          server:
-            log_level: info
-            log_format: json
-            http_listen_port: 3101
-          
-          clients:
-            - url: http://loki:3100/loki/api/v1/push
-          
-          positions:
-            filename: /run/promtail/positions.yaml
-          
-          scrape_configs:
-            - job_name: kubernetes-pods
-              kubernetes_sd_configs:
-                - role: pod
-              pipeline_stages:
-                - docker: {}
-              relabel_configs:
-                - source_labels:
-                    - __meta_kubernetes_pod_node_name
-                  target_label: __host__
-                - action: replace
-                  replacement: $1
-                  separator: /
-                  source_labels:
-                    - __meta_kubernetes_namespace
-                    - __meta_kubernetes_pod_name
-                  target_label: job
-                - action: replace
-                  source_labels:
-                    - __meta_kubernetes_namespace
-                  target_label: namespace
-                - action: replace
-                  source_labels:
-                    - __meta_kubernetes_pod_name
-                  target_label: pod
-                - action: replace
-                  source_labels:
-                    - __meta_kubernetes_pod_container_name
-                  target_label: container
-                - replacement: /var/log/pods/*$1/*.log
-                  separator: /
-                  source_labels:
-                    - __meta_kubernetes_pod_uid
-                    - __meta_kubernetes_pod_container_name
-                  target_label: __path__
-                - action: replace
-                  replacement: $1
-                  source_labels:
-                    - __meta_kubernetes_pod_label_name
-                  target_label: app
-                - action: replace
-                  source_labels:
-                    - __meta_kubernetes_pod_label_app
-                  target_label: app
-                - action: replace
-                  source_labels:
-                    - __meta_kubernetes_pod_label_app_kubernetes_io_name
-                  target_label: app
-                - action: replace
-                  source_labels:
-                    - __meta_kubernetes_pod_label_release
-                  target_label: release
-      resources:
-        limits:
-          cpu: 500m
-          memory: 512Mi
-        requests:
-          cpu: 100m
-          memory: 128Mi
-      extraArgs:
-        - -server.http-listen-port=3101
-      readinessProbe:
-        httpGet:
-          path: /ready
-          port: http-metrics
-        initialDelaySeconds: 10
-        periodSeconds: 10
-        timeoutSeconds: 1
-        failureThreshold: 5
-    grafana:
+    write:
+      replicas: 0
+    read:
+      replicas: 0
+    backend:
+      replicas: 0
+    chunksCache:
       enabled: false
-
+    resultsCache:
+      enabled: false
+    gateway:
+      enabled: true
+      replicas: 1
