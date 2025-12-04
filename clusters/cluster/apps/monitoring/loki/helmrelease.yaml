@@ -42,7 +42,7 @@ spec:
       config:
         schema_config:
           configs:
-            - from: 2020-10-24
+            - from: "2025-01-01"
               store: boltdb-shipper
               object_store: filesystem
               schema: v11
@@ -51,11 +51,11 @@ spec:
                 period: 24h
         storage_config:
           boltdb_shipper:
-            active_index_directory: /loki/boltdb-shipper/active
-            cache_location: /loki/boltdb-shipper/cache
+            active_index_directory: /data/loki/boltdb-shipper-active
+            cache_location: /data/loki/boltdb-shipper-cache
             shared_store: filesystem
           filesystem:
-            directory: /loki/chunks
+            directory: /data/loki/chunks
         limits_config:
           enforce_metric_name: false
           reject_old_samples: true
@@ -77,20 +77,30 @@ spec:
       config:
         clients:
           - url: http://loki:3100/loki/api/v1/push
-        snippets:
-          pipelineStages:
-            - docker: {}
-          scrapeConfigs:
+        file: |
+          server:
+            log_level: info
+            log_format: json
+            http_listen_port: 3101
+          
+          clients:
+            - url: http://loki:3100/loki/api/v1/push
+          
+          positions:
+            filename: /tmp/positions.yaml
+          
+          scrape_configs:
             - job_name: kubernetes-pods
               kubernetes_sd_configs:
                 - role: pod
+              pipeline_stages:
+                - docker: {}
               relabel_configs:
                 - source_labels:
                     - __meta_kubernetes_pod_node_name
                   target_label: __host__
                 - action: replace
-                  replacement:
-                    - $1
+                  replacement: $1
                   separator: /
                   source_labels:
                     - __meta_kubernetes_namespace
@@ -115,8 +125,7 @@ spec:
                     - __meta_kubernetes_pod_container_name
                   target_label: __path__
                 - action: replace
-                  replacement:
-                    - $1
+                  replacement: $1
                   source_labels:
                     - __meta_kubernetes_pod_label_name
                   target_label: app
