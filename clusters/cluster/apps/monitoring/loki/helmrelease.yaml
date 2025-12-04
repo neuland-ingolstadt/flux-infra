@@ -33,6 +33,8 @@ spec:
   values:
     loki:
       enabled: true
+      image:
+        tag: "3.2.2"
       persistence:
         enabled: true
         size: 3Gi
@@ -53,6 +55,9 @@ spec:
           enforce_metric_name: false
           reject_old_samples: true
           reject_old_samples_max_age: 168h
+          volume_enabled: true
+        pattern_ingester:
+          enabled: true
         chunk_store_config:
           max_look_back_period: 0s
         table_manager:
@@ -80,7 +85,7 @@ spec:
             - url: http://loki:3100/loki/api/v1/push
           
           positions:
-            filename: /tmp/positions.yaml
+            filename: /run/promtail/positions.yaml
           
           scrape_configs:
             - job_name: kubernetes-pods
@@ -141,6 +146,16 @@ spec:
         requests:
           cpu: 100m
           memory: 128Mi
+      extraArgs:
+        - -server.http-listen-port=3101
+      readinessProbe:
+        httpGet:
+          path: /ready
+          port: http-metrics
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        timeoutSeconds: 1
+        failureThreshold: 5
     grafana:
       enabled: false
 
