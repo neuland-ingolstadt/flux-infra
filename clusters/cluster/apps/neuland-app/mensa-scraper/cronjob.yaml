@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mensa-xml-scraper
+  namespace: neuland-app
+spec:
+  # Every 2 hours
+  schedule: "0 */2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: mensa-xml-scraper
+              image: curlimages/curl:8.12.1
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -eu
+                  TS="$(date +%Y%m%d-%H%M%S)"
+                  OUT="/data/mensa-ingolstadt-${TS}.xml"
+                  curl -fsSL "https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/xml/mensa-ingolstadt.xml" -o "${OUT}"
+              volumeMounts:
+                - name: mensa-xml-data
+                  mountPath: /data
+          restartPolicy: OnFailure
+          volumes:
+            - name: mensa-xml-data
+              persistentVolumeClaim:
+                claimName: mensa-xml-storage
+
+
