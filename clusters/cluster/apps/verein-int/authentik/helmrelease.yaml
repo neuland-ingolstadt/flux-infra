@@ -27,26 +27,35 @@ spec:
     authentik:
       error_reporting:
         enabled: false
-      secret_key: "${SECRET_KEY}" # will be set from secret
-      postgresql:
-        password: "${POSTGRES_PASSWORD}" # will be set from secret
     server:
       ingress:
         enabled: true
         ingressClassName: traefik
         hosts:
-          - sso.eggl.one
+          - auth.neuland.ing
         tls:
           - hosts:
-              - sso.eggl.one
-            secretName: sso-eggl-one-tls
-      env:
-        - name: SECRET_KEY
+              - auth.neuland.ing
+            secretName: authentik-tls
+      extraEnv:
+        - name: AUTHENTIK_SECRET_KEY
           valueFrom:
             secretKeyRef:
               name: authentik-secrets
               key: secret-key
-        - name: POSTGRES_PASSWORD
+        - name: AUTHENTIK_POSTGRESQL__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: postgres-password
+    worker:
+      extraEnv:
+        - name: AUTHENTIK_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: secret-key
+        - name: AUTHENTIK_POSTGRESQL__PASSWORD
           valueFrom:
             secretKeyRef:
               name: authentik-secrets
@@ -54,11 +63,9 @@ spec:
     postgresql:
       enabled: true
       auth:
-        password: "${POSTGRES_PASSWORD}" # will be set from secret
+        existingSecret: authentik-secrets
+        secretKeys:
+          adminPasswordKey: postgres-password
       primary:
         persistence:
-          enabled: true
-          size: 2Gi
-          storageClass: longhorn
-
-
+          enabled: false

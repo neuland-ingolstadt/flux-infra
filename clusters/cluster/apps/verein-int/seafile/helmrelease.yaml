@@ -1,0 +1,46 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: seafile
+  namespace: verein-int
+spec:
+  interval: 24h
+  url: https://haiwen.github.io/seafile-helm-chart/repo
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: seafile
+  namespace: verein-int
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: ce
+      sourceRef:
+        kind: HelmRepository
+        name: seafile
+        namespace: verein-int
+      interval: 12h
+  values:
+    ingress:
+      enabled: true
+      className: traefik
+      hosts:
+        - host: cloud.neuland.ing
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - cloud.neuland.ing
+          secretName: seafile-tls
+    seafile:
+      configs:
+        SERVICE_URL: https://cloud.neuland.ing
+        FILE_SERVER_ROOT: https://cloud.neuland.ing/seafhttp
+      # The chart by default uses a secret named "seafile-secret" for DB/JWT/admin passwords.
+      # We create a template for that secret in secrets.template.yaml so it can be sealed.
+
+
