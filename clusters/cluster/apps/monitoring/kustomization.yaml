@@ -5,3 +5,4 @@ resources:
   - uptime-kuma
   - aptabase
   - kube-prometheus-stack
+  - loki
