@@ -22,4 +22,3 @@ spec:
                 name: vaultwarden
                 port:
                   number: 80
-

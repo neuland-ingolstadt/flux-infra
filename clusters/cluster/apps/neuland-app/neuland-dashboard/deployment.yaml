@@ -20,41 +20,41 @@ spec:
         app: neuland-dashboard
     spec:
       containers:
-      - name: neuland-dashboard
-        image: ghcr.io/neuland-ingolstadt/neuland-dashboard:main-62 # {"$imagepolicy": "flux-system:neuland-dashboard"}
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: NEXTAUTH_URL
-          value: "https://dashboard.neuland.app"
-        - name: GRAPHQL_URL
-          value: "https://api.neuland.app/graphql"
-        - name: DEV_GRAPHQL_URL
-          value: "https://api.dev.neuland.app/graphql"
-        - name: AUTHENTIK_ISSUER
-          value: "https://sso.informatik.sexy/application/o/api-dashboard"
-        envFrom:
-        - secretRef:
-            name: neuland-dashboard-secret
-        ports:
-        - name: http
-          containerPort: 3000
-          protocol: TCP
-        livenessProbe:
-          httpGet:
-            path: /auth/signIn
-            port: 3000
-          initialDelaySeconds: 30
-          timeoutSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /auth/signIn
-            port: 3000
-          initialDelaySeconds: 30
-          timeoutSeconds: 10
-        resources:
-          limits:
-            cpu: 300m
-            memory: 256Mi
-          requests:
-            cpu: 100m
-            memory: 64Mi
+        - name: neuland-dashboard
+          image: ghcr.io/neuland-ingolstadt/neuland-dashboard:main-62 # {"$imagepolicy": "flux-system:neuland-dashboard"}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NEXTAUTH_URL
+              value: "https://dashboard.neuland.app"
+            - name: GRAPHQL_URL
+              value: "https://api.neuland.app/graphql"
+            - name: DEV_GRAPHQL_URL
+              value: "https://api.dev.neuland.app/graphql"
+            - name: AUTHENTIK_ISSUER
+              value: "https://sso.informatik.sexy/application/o/api-dashboard"
+          envFrom:
+            - secretRef:
+                name: neuland-dashboard-secret
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /auth/signIn
+              port: 3000
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /auth/signIn
+              port: 3000
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
+          resources:
+            limits:
+              cpu: 300m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi

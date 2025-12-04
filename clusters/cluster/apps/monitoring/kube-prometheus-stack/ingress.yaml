@@ -8,18 +8,17 @@ metadata:
 spec:
   ingressClassName: traefik
   tls:
-  - hosts:
-    - grafana.neuland.ing
-    secretName: monitoring-tls
+    - hosts:
+        - grafana.neuland.ing
+      secretName: monitoring-tls
   rules:
-  - host: grafana.neuland.ing
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: kube-prometheus-stack-grafana
-            port:
-              number: 80
-
+    - host: grafana.neuland.ing
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kube-prometheus-stack-grafana
+                port:
+                  number: 80

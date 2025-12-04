@@ -20,7 +20,6 @@ spec:
           annotations:
             summary: "Flux Kustomization {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not ready"
             description: "Flux Kustomization {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been not ready for more than 3 minutes. Revision: {{ $labels.revision }}"
-
         - alert: FluxCDHelmReleaseNotReady
           expr: |
             {__name__=~"gotk_.*_resource_info", customresource_kind="HelmRelease", ready!="True", suspended!="true"} == 1
@@ -30,7 +29,6 @@ spec:
           annotations:
             summary: "Flux HelmRelease {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not ready"
             description: "Flux HelmRelease {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been not ready for more than 3 minutes. Chart: {{ $labels.chart_name }}, Version: {{ $labels.revision }}"
-
         - alert: FluxCDGitRepositoryNotReady
           expr: |
             {__name__=~"gotk_.*_resource_info", customresource_kind="GitRepository", ready!="True", suspended!="true"} == 1
@@ -40,7 +38,6 @@ spec:
           annotations:
             summary: "Flux GitRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not ready"
             description: "Flux GitRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been not ready for more than 3 minutes. URL: {{ $labels.url }}, Revision: {{ $labels.revision }}"
-
         - alert: FluxCDOCIRepositoryNotReady
           expr: |
             {__name__=~"gotk_.*_resource_info", customresource_kind="OCIRepository", ready!="True", suspended!="true"} == 1
@@ -50,7 +47,6 @@ spec:
           annotations:
             summary: "Flux OCIRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not ready"
             description: "Flux OCIRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been not ready for more than 3 minutes. URL: {{ $labels.url }}, Revision: {{ $labels.revision }}"
-
         - alert: FluxCDHelmRepositoryNotReady
           expr: |
             {__name__=~"gotk_.*_resource_info", customresource_kind="HelmRepository", ready!="True", suspended!="true"} == 1
@@ -60,7 +56,6 @@ spec:
           annotations:
             summary: "Flux HelmRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not ready"
             description: "Flux HelmRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been not ready for more than 3 minutes. URL: {{ $labels.url }}"
-
         - alert: FluxCDBucketNotReady
           expr: |
             {__name__=~"gotk_.*_resource_info", customresource_kind="Bucket", ready!="True", suspended!="true"} == 1
@@ -70,7 +65,6 @@ spec:
           annotations:
             summary: "Flux Bucket {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not ready"
             description: "Flux Bucket {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been not ready for more than 3 minutes. Endpoint: {{ $labels.endpoint }}, Bucket: {{ $labels.bucket_name }}"
-
         - alert: FluxCDImageRepositoryNotReady
           expr: |
             {__name__=~"gotk_.*_resource_info", customresource_kind="ImageRepository", ready!="True", suspended!="true"} == 1
@@ -80,7 +74,6 @@ spec:
           annotations:
             summary: "Flux ImageRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not ready"
             description: "Flux ImageRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been not ready for more than 3 minutes. Image: {{ $labels.image }}"
-
         - alert: FluxCDImagePolicyNotReady
           expr: |
             {__name__=~"gotk_.*_resource_info", customresource_kind="ImagePolicy", ready!="True", suspended!="true"} == 1
@@ -90,7 +83,6 @@ spec:
           annotations:
             summary: "Flux ImagePolicy {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not ready"
             description: "Flux ImagePolicy {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been not ready for more than 3 minutes. Source: {{ $labels.source_name }}"
-
         - alert: FluxCDImageUpdateAutomationNotReady
           expr: |
             {__name__=~"gotk_.*_resource_info", customresource_kind="ImageUpdateAutomation", ready!="True", suspended!="true"} == 1
@@ -100,4 +92,3 @@ spec:
           annotations:
             summary: "Flux ImageUpdateAutomation {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not ready"
             description: "Flux ImageUpdateAutomation {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been not ready for more than 3 minutes. Source: {{ $labels.source_name }}"
-

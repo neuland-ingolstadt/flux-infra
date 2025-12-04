@@ -3,5 +3,3 @@ kind: Kustomization
 resources:
   - pvc.yaml
   - cronjob.yaml
-
-

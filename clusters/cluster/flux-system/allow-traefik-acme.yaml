@@ -8,13 +8,12 @@ spec:
     matchLabels:
       acme.cert-manager.io/http01-solver: "true"
   ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          kubernetes.io/metadata.name: traefik
-    ports:
-    - protocol: TCP
-      port: 8089
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: traefik
+      ports:
+        - protocol: TCP
+          port: 8089
   policyTypes:
-  - Ingress
-
+    - Ingress

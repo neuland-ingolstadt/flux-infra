@@ -25,7 +25,6 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-
       version: 79.8.2
       sourceRef:
         kind: HelmRepository
@@ -60,10 +59,9 @@ spec:
           token_url: "https://sso.informatik.sexy/application/o/token/"
           api_url: "https://sso.informatik.sexy/application/o/userinfo/"
           scopes: "openid profile email"
-          
       extraEnv:
-      - name: GF_AUTH_GENERIC_OAUTH_ENABLED
-        value: "true"
+        - name: GF_AUTH_GENERIC_OAUTH_ENABLED
+          value: "true"
     prometheus:
       prometheusSpec:
         serviceMonitorSelectorNilUsesHelmValues: false

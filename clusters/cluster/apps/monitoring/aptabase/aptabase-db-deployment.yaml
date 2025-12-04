@@ -14,46 +14,46 @@ spec:
         app: aptabase-db
     spec:
       containers:
-      - name: postgres
-        image: postgres:15-alpine
-        ports:
-        - containerPort: 5432
-          name: postgres
-        env:
-        - name: POSTGRES_DB
-          value: aptabase
-        - name: POSTGRES_USER
-          value: aptabase_admin
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: aptabase-db-secrets
-              key: POSTGRES_PASSWORD
-        volumeMounts:
-        - name: postgres-storage
-          mountPath: /var/lib/postgresql/data
-          subPath: postgres
-        livenessProbe:
-          exec:
-            command:
-            - pg_isready
-            - -U
-            - aptabase_admin
-            - -d
-            - aptabase
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          exec:
-            command:
-            - pg_isready
-            - -U
-            - aptabase_admin
-            - -d
-            - aptabase
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: postgres
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+              name: postgres
+          env:
+            - name: POSTGRES_DB
+              value: aptabase
+            - name: POSTGRES_USER
+              value: aptabase_admin
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: aptabase-db-secrets
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - aptabase_admin
+                - -d
+                - aptabase
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - aptabase_admin
+                - -d
+                - aptabase
+            initialDelaySeconds: 5
+            periodSeconds: 5
       volumes:
-      - name: postgres-storage
-        persistentVolumeClaim:
-          claimName: aptabase-db-pvc 
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: aptabase-db-pvc

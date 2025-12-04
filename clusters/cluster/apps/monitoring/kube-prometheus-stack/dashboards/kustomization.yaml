@@ -19,4 +19,3 @@ configMapGenerator:
         grafana_dashboard: "1"
       annotations:
         grafana_dashboard_version: "1"
-

@@ -24,4 +24,3 @@ spec:
   podMetricsEndpoints:
     - port: http-prom
       path: /metrics
-

@@ -1,4 +1,3 @@
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -9,17 +8,17 @@ metadata:
 spec:
   ingressClassName: traefik
   tls:
-  - hosts:
-    - ist.informatik.sexy
-    secretName: verein-ext-tls
+    - hosts:
+        - ist.informatik.sexy
+      secretName: verein-ext-tls
   rules:
-  - host: ist.informatik.sexy
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: ist-informatik-sexy
-            port:
-              number: 80
+    - host: ist.informatik.sexy
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ist-informatik-sexy
+                port:
+                  number: 80

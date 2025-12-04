@@ -8,4 +8,3 @@ spec:
   interval: 10m
   secretRef:
     name: ghcr-secret
-

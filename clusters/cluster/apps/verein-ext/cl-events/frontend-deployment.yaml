@@ -14,28 +14,28 @@ spec:
         app: cl-events-frontend
     spec:
       containers:
-      - name: cl-events-frontend
-        image: ghcr.io/neuland-ingolstadt/campus-life-events-frontend:build-86 # {"$imagepolicy": "flux-system:cl-events-frontend"}
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: BACKEND_URL
-          value: http://cl-events-backend:8080
-        - name: SELF_URL
-          value: https://cl.neuland.ing
-        - name: HOSTNAME
-          value: 0.0.0.0
-        - name: PORT
-          value: "3000"
-        - name: NODE_ENV
-          value: production
-        ports:
-        - name: http
-          containerPort: 3000
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 100m
-            memory: 512Mi
-          requests:
-            cpu: 50m
-            memory: 128Mi
+        - name: cl-events-frontend
+          image: ghcr.io/neuland-ingolstadt/campus-life-events-frontend:build-86 # {"$imagepolicy": "flux-system:cl-events-frontend"}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: BACKEND_URL
+              value: http://cl-events-backend:8080
+            - name: SELF_URL
+              value: https://cl.neuland.ing
+            - name: HOSTNAME
+              value: 0.0.0.0
+            - name: PORT
+              value: "3000"
+            - name: NODE_ENV
+              value: production
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi

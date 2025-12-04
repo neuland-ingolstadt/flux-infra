@@ -12,4 +12,3 @@ spec:
   filterTags:
     pattern: '^v?([0-9]+\.[0-9]+\.[0-9]+)$'
     extract: '$1'
-

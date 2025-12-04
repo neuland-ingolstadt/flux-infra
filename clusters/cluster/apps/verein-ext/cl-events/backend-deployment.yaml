@@ -14,42 +14,42 @@ spec:
         app: cl-events-backend
     spec:
       containers:
-      - name: cl-events-backend
-        image: ghcr.io/neuland-ingolstadt/campus-life-events-backend:build-63 # {"$imagepolicy": "flux-system:cl-events-backend"}
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: cl-events-secrets
-              key: DATABASE_URL
-        - name: REDIS_URL
-          value: redis://cl-events-redis:6379
-        - name: CACHE_TTL_SECONDS
-          value: "120"
-        - name: BASE_URL
-          value: https://cl.neuland.ing
-        - name: ALLOWED_ORIGINS
-          value: https://dev.neuland.app, https://web.neuland.app, http://localhost:3000
-        - name: SMTP_HOST
-          value: smtp.azurecomm.net
-        - name: SMTP_PORT
-          value: "587"
-        - name: SMTP_NAME
-          value: "smtp.azurecomm.net"
-        - name: SMTP_FROM_EMAIL
-          value: "DoNotReply@neuland-ingolstadt.de"
-        - name: SMTP_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: cl-events-secrets
-              key: SMTP_PASSWORD
-        - name: SMTP_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: cl-events-secrets
-              key: SMTP_USERNAME
-        ports:
-        - name: http
-          containerPort: 8080
-          protocol: TCP
+        - name: cl-events-backend
+          image: ghcr.io/neuland-ingolstadt/campus-life-events-backend:build-63 # {"$imagepolicy": "flux-system:cl-events-backend"}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: cl-events-secrets
+                  key: DATABASE_URL
+            - name: REDIS_URL
+              value: redis://cl-events-redis:6379
+            - name: CACHE_TTL_SECONDS
+              value: "120"
+            - name: BASE_URL
+              value: https://cl.neuland.ing
+            - name: ALLOWED_ORIGINS
+              value: https://dev.neuland.app, https://web.neuland.app, http://localhost:3000
+            - name: SMTP_HOST
+              value: smtp.azurecomm.net
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_NAME
+              value: "smtp.azurecomm.net"
+            - name: SMTP_FROM_EMAIL
+              value: "DoNotReply@neuland-ingolstadt.de"
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cl-events-secrets
+                  key: SMTP_PASSWORD
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: cl-events-secrets
+                  key: SMTP_USERNAME
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP

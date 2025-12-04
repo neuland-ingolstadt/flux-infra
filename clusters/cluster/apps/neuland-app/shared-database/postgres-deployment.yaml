@@ -14,53 +14,53 @@ spec:
         app: neuland-shared-db
     spec:
       containers:
-      - name: postgres
-        image: postgres:17-alpine
-        ports:
-        - containerPort: 5432
-          name: postgres
-        env:
-        - name: POSTGRES_DB
-          value: neuland
-        - name: POSTGRES_USER
-          value: neuland_admin
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: neuland-shared-db-secrets
-              key: POSTGRES_PASSWORD
-        volumeMounts:
-        - name: postgres-storage
-          mountPath: /var/lib/postgresql/data
-          subPath: postgres
-        resources:
-          limits:
-            cpu: 500m
-            memory: 512Mi
-          requests:
-            cpu: 250m
-            memory: 256Mi
-        livenessProbe:
-          exec:
-            command:
-            - pg_isready
-            - -U
-            - neuland_admin
-            - -d
-            - neuland
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          exec:
-            command:
-            - pg_isready
-            - -U
-            - neuland_admin
-            - -d
-            - neuland
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: postgres
+          image: postgres:17-alpine
+          ports:
+            - containerPort: 5432
+              name: postgres
+          env:
+            - name: POSTGRES_DB
+              value: neuland
+            - name: POSTGRES_USER
+              value: neuland_admin
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: neuland-shared-db-secrets
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - neuland_admin
+                - -d
+                - neuland
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - neuland_admin
+                - -d
+                - neuland
+            initialDelaySeconds: 5
+            periodSeconds: 5
       volumes:
-      - name: postgres-storage
-        persistentVolumeClaim:
-          claimName: neuland-shared-database-pvc
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: neuland-shared-database-pvc

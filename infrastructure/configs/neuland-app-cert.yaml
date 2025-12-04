@@ -1,4 +1,3 @@
----
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -11,11 +10,11 @@ spec:
     kind: ClusterIssuer
   # Production domains for neuland-app services
   dnsNames:
-  - api.neuland.app
-  - dashboard.neuland.app
-  - dash.neuland.ing
-  - ical.neuland.app
-  - neuland.app
-  - web.neuland.app
-  - ersti.neuland.app
-  - reimanns-api.neuland.app
+    - api.neuland.app
+    - dashboard.neuland.app
+    - dash.neuland.ing
+    - ical.neuland.app
+    - neuland.app
+    - web.neuland.app
+    - ersti.neuland.app
+    - reimanns-api.neuland.app

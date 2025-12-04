@@ -1,4 +1,3 @@
----
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -11,6 +10,6 @@ spec:
     kind: ClusterIssuer
   # Domains specific to monitoring namespace
   dnsNames:
-  - analytics.neuland.app
-  - status.neuland.app
-  - grafana.neuland.ing
+    - analytics.neuland.app
+    - status.neuland.app
+    - grafana.neuland.ing

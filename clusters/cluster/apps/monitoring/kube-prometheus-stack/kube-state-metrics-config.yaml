@@ -259,4 +259,3 @@ customResourceState:
                 suspended: [spec, suspend]
                 ready: [status, conditions, "[type=Ready]", status]
                 webhook_path: [spec, resources, "[0]", path]
-

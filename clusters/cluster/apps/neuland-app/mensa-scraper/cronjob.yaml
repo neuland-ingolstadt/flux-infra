@@ -32,5 +32,3 @@ spec:
             - name: mensa-xml-data
               persistentVolumeClaim:
                 claimName: mensa-xml-storage
-
-

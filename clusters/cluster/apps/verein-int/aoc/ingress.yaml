@@ -8,17 +8,17 @@ metadata:
 spec:
   ingressClassName: traefik
   tls:
-  - hosts:
-    - aoc.neuland.ing
-    secretName: aoc-neuland-ing-tls
+    - hosts:
+        - aoc.neuland.ing
+      secretName: aoc-neuland-ing-tls
   rules:
-  - host: aoc.neuland.ing
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: aoc-oauth2-proxy
-            port:
-              number: 4180
+    - host: aoc.neuland.ing
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: aoc-oauth2-proxy
+                port:
+                  number: 4180

@@ -8,46 +8,45 @@ metadata:
 spec:
   route:
     groupBy:
-    - namespace
-    - alertname
+      - namespace
+      - alertname
     groupWait: 30s
     groupInterval: 5m
     repeatInterval: 12h
     receiver: telegram
   receivers:
-  - name: telegram
-    telegramConfigs:
-    - botToken:
-        name: telegram-bot-secrets
-        key: TELEGRAM_BOT_API_KEY
-      chatID: -1003385562560
-      sendResolved: true
-      parseMode: Markdown
-      message: |
-        {{- range .Alerts }}
-        {{- if eq .Status "firing" }}
-        🔔 *Alert: {{ .Labels.alertname }}* (FIRING)
-        {{- else }}
-        ✅ *Alert: {{ .Labels.alertname }}* (RESOLVED)
-        {{- end }}
-        
-        {{- if .Labels.namespace }}
-        📦 Namespace: `{{ .Labels.namespace }}`
-        {{- end }}
-        {{- if .Labels.container }}
-        🐳 Container: `{{ .Labels.container }}`
-        {{- end }}
-        {{- if .Labels.severity }}
-        ⚠️ Severity: `{{ .Labels.severity }}`
-        {{- end }}
-        
-        {{- if .Annotations.summary }}
-        📝 {{ .Annotations.summary }}
-        {{- end }}
-        {{- if .Annotations.description }}
-        {{ .Annotations.description }}
-        {{- end }}
-        {{- end }}
+    - name: telegram
+      telegramConfigs:
+        - botToken:
+            name: telegram-bot-secrets
+            key: TELEGRAM_BOT_API_KEY
+          chatID: -1003385562560
+          sendResolved: true
+          parseMode: Markdown
+          message: |
+            {{- range .Alerts }}
+            {{- if eq .Status "firing" }}
+            🔔 *Alert: {{ .Labels.alertname }}* (FIRING)
+            {{- else }}
+            ✅ *Alert: {{ .Labels.alertname }}* (RESOLVED)
+            {{- end }}
 
-        👉 [Open Grafana](https://grafana.neuland.ing/alerting/groups)
+            {{- if .Labels.namespace }}
+            📦 Namespace: `{{ .Labels.namespace }}`
+            {{- end }}
+            {{- if .Labels.container }}
+            🐳 Container: `{{ .Labels.container }}`
+            {{- end }}
+            {{- if .Labels.severity }}
+            ⚠️ Severity: `{{ .Labels.severity }}`
+            {{- end }}
 
+            {{- if .Annotations.summary }}
+            📝 {{ .Annotations.summary }}
+            {{- end }}
+            {{- if .Annotations.description }}
+            {{ .Annotations.description }}
+            {{- end }}
+            {{- end }}
+
+            👉 [Open Grafana](https://grafana.neuland.ing/alerting/groups)

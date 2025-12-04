@@ -118,4 +118,3 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: vaultwarden-data
-

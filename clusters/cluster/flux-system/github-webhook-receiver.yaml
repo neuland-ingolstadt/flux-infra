@@ -26,20 +26,20 @@ metadata:
 spec:
   ingressClassName: traefik
   tls:
-  - hosts:
-    - flux-webhook.neuland.ing
-    secretName: flux-system-webhook-tls
+    - hosts:
+        - flux-webhook.neuland.ing
+      secretName: flux-system-webhook-tls
   rules:
-  - host: flux-webhook.neuland.ing
-    http:
-      paths:
-      - path: /hook/
-        pathType: Prefix
-        backend:
-          service:
-            name: webhook-receiver
-            port:
-              number: 80
+    - host: flux-webhook.neuland.ing
+      http:
+        paths:
+          - path: /hook/
+            pathType: Prefix
+            backend:
+              service:
+                name: webhook-receiver
+                port:
+                  number: 80
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -54,5 +54,4 @@ spec:
     name: letsencrypt
     kind: ClusterIssuer
   dnsNames:
-  - flux-webhook.neuland.ing
-
+    - flux-webhook.neuland.ing

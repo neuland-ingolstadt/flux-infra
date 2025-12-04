@@ -20,36 +20,36 @@ spec:
         app: neuland-next-docs
     spec:
       containers:
-      - name: neuland-next-docs
-        image: ghcr.io/neuland-ingolstadt/neuland.app-docs:build-48 # {"$imagepolicy": "flux-system:neuland-next-docs"}
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: HOSTNAME
-          value: "0.0.0.0"
-        - name: PORT
-          value: "3000"
-        - name: NODE_ENV
-          value: "production"
-        ports:
-        - name: http
-          containerPort: 3000
-          protocol: TCP
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 3000
-          initialDelaySeconds: 5
-          timeoutSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 3000
-          initialDelaySeconds: 5
-          timeoutSeconds: 5
-        resources:
-          limits:
-            cpu: 400m
-            memory: 256Mi
-          requests:
-            cpu: 100m
-            memory: 64Mi
+        - name: neuland-next-docs
+          image: ghcr.io/neuland-ingolstadt/neuland.app-docs:build-48 # {"$imagepolicy": "flux-system:neuland-next-docs"}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: HOSTNAME
+              value: "0.0.0.0"
+            - name: PORT
+              value: "3000"
+            - name: NODE_ENV
+              value: "production"
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 400m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi

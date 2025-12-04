@@ -1,4 +1,3 @@
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -9,17 +8,17 @@ metadata:
 spec:
   ingressClassName: traefik
   tls:
-  - hosts:
-    - ersti.neuland.app
-    secretName: neuland-app-prod-tls
+    - hosts:
+        - ersti.neuland.app
+      secretName: neuland-app-prod-tls
   rules:
-  - host: ersti.neuland.app
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: ersti-kit-production
-            port:
-              number: 3000
+    - host: ersti.neuland.app
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ersti-kit-production
+                port:
+                  number: 3000

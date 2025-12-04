@@ -22,4 +22,4 @@ spec:
       branch: main
   update:
     path: clusters/cluster/apps/verein-ext/member-id
-    strategy: Setters 
+    strategy: Setters

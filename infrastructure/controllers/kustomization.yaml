@@ -8,4 +8,3 @@ resources:
   - longhorn.yaml
   - sops-secrets-source.yaml
   - sops-secrets-kustomization.yaml
-

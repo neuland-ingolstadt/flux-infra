@@ -8,6 +8,6 @@ spec:
   selector:
     app: aoc-oauth2-proxy
   ports:
-  - name: http
-    port: 4180
-    targetPort: 4180
+    - name: http
+      port: 4180
+      targetPort: 4180

@@ -8,17 +8,17 @@ metadata:
 spec:
   ingressClassName: traefik
   tls:
-  - hosts:
-    - neuland.app
-    secretName: neuland-app-prod-tls
+    - hosts:
+        - neuland.app
+      secretName: neuland-app-prod-tls
   rules:
-  - host: neuland.app
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: neuland-next-docs
-            port:
-              number: 3000
+    - host: neuland.app
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: neuland-next-docs
+                port:
+                  number: 3000

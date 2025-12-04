@@ -14,36 +14,36 @@ spec:
         app: aptabase-events-db
     spec:
       containers:
-      - name: clickhouse
-        image: clickhouse/clickhouse-server:25.10-alpine
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8123
-          name: http
-        - containerPort: 9000
-          name: native
-        env:
-        - name: CLICKHOUSE_USER
-          value: aptabase
-        - name: CLICKHOUSE_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: aptabase-auth
-              key: DB_PASSWORD
-        volumeMounts:
-        - name: data
-          mountPath: /var/lib/clickhouse
-        - name: config
-          mountPath: /etc/clickhouse-server/config.d/custom-config.xml
-          subPath: config.xml
-        resources:
-          requests:
-            cpu: 200m
-            memory: 500Mi
+        - name: clickhouse
+          image: clickhouse/clickhouse-server:25.10-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8123
+              name: http
+            - containerPort: 9000
+              name: native
+          env:
+            - name: CLICKHOUSE_USER
+              value: aptabase
+            - name: CLICKHOUSE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: aptabase-auth
+                  key: DB_PASSWORD
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/clickhouse
+            - name: config
+              mountPath: /etc/clickhouse-server/config.d/custom-config.xml
+              subPath: config.xml
+          resources:
+            requests:
+              cpu: 200m
+              memory: 500Mi
       volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: aptabase-events-db-pvc
-      - name: config
-        configMap:
-          name: clickhouse-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: aptabase-events-db-pvc
+        - name: config
+          configMap:
+            name: clickhouse-config

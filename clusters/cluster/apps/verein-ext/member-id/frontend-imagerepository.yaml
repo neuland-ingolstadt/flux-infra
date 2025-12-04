@@ -7,4 +7,4 @@ spec:
   image: ghcr.io/neuland-ingolstadt/member-id-frontend
   interval: 10m
   secretRef:
-    name: ghcr-secret 
+    name: ghcr-secret

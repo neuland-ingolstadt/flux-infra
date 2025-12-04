@@ -14,26 +14,26 @@ spec:
         app: fider-db
     spec:
       containers:
-      - name: postgres
-        image: postgres:15-alpine
-        ports:
-        - containerPort: 5432
-          name: postgres
-        env:
-        - name: POSTGRES_DB
-          value: fider
-        - name: POSTGRES_USER
-          value: fider
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: fider-secret
-              key: POSTGRES_PASSWORD
-        volumeMounts:
-        - name: postgres-storage
-          mountPath: /var/lib/postgresql/data
-          subPath: postgres
+        - name: postgres
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+              name: postgres
+          env:
+            - name: POSTGRES_DB
+              value: fider
+            - name: POSTGRES_USER
+              value: fider
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fider-secret
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
       volumes:
-      - name: postgres-storage
-        persistentVolumeClaim:
-          claimName: fider-db-pvc
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: fider-db-pvc

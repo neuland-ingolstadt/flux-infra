@@ -23,7 +23,7 @@ metadata:
   name: flux-alerts-errors
   namespace: flux-system
 spec:
-  suspend: true  # Suspended: using PrometheusRules with 3m delay instead
+  suspend: true # Suspended: using PrometheusRules with 3m delay instead
   providerRef:
     name: alertmanager
   eventSeverity: error
@@ -50,4 +50,3 @@ spec:
       name: '*'
   exclusionList:
     - '.*is ready'
-

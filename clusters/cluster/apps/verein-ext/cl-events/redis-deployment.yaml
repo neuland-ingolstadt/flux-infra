@@ -14,9 +14,9 @@ spec:
         app: cl-events-redis
     spec:
       containers:
-      - name: redis
-        image: redis:7-alpine
-        command: ["redis-server"]
-        ports:
-        - containerPort: 6379
-          name: redis
+        - name: redis
+          image: redis:7-alpine
+          command: ["redis-server"]
+          ports:
+            - containerPort: 6379
+              name: redis

@@ -14,46 +14,46 @@ spec:
         app: cl-events-postgres
     spec:
       containers:
-      - name: postgres
-        image: postgres:16
-        ports:
-        - containerPort: 5432
-          name: postgres
-        env:
-        - name: POSTGRES_DB
-          value: cl_events
-        - name: POSTGRES_USER
-          value: cl_events
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: cl-events-secrets
-              key: POSTGRES_PASSWORD
-        volumeMounts:
-        - name: postgres-storage
-          mountPath: /var/lib/postgresql/data
-          subPath: data
-        livenessProbe:
-          exec:
-            command:
-            - pg_isready
-            - -U
-            - cl_events
-            - -d
-            - cl_events
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          exec:
-            command:
-            - pg_isready
-            - -U
-            - cl_events
-            - -d
-            - cl_events
-          initialDelaySeconds: 10
-          periodSeconds: 5
+        - name: postgres
+          image: postgres:16
+          ports:
+            - containerPort: 5432
+              name: postgres
+          env:
+            - name: POSTGRES_DB
+              value: cl_events
+            - name: POSTGRES_USER
+              value: cl_events
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cl-events-secrets
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: data
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - cl_events
+                - -d
+                - cl_events
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - cl_events
+                - -d
+                - cl_events
+            initialDelaySeconds: 10
+            periodSeconds: 5
       volumes:
-      - name: postgres-storage
-        persistentVolumeClaim:
-          claimName: cl-events-db-postgres-pvc
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: cl-events-db-postgres-pvc

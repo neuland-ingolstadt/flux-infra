@@ -1,4 +1,3 @@
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -9,17 +8,17 @@ metadata:
 spec:
   ingressClassName: traefik
   tls:
-  - hosts:
-    - api.dev.neuland.app
-    secretName: neuland-app-dev-tls
+    - hosts:
+        - api.dev.neuland.app
+      secretName: neuland-app-dev-tls
   rules:
-  - host: api.dev.neuland.app
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: neuland-api-staging
-            port:
-              number: 4000
+    - host: api.dev.neuland.app
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: neuland-api-staging
+                port:
+                  number: 4000

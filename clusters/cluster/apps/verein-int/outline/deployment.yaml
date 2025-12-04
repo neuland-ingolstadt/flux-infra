@@ -18,137 +18,136 @@ spec:
         runAsGroup: 1000
         runAsUser: 1000
       initContainers:
-      - name: init-chmod-data
-        image: busybox:1.35
-        command: ['sh', '-c', 'chown -R 1000:1000 /var/lib/outline/data && chmod -R 755 /var/lib/outline/data']
-        volumeMounts:
-        - name: outline-storage
-          mountPath: /var/lib/outline/data
-        securityContext:
-          runAsUser: 0
+        - name: init-chmod-data
+          image: busybox:1.35
+          command: ['sh', '-c', 'chown -R 1000:1000 /var/lib/outline/data && chmod -R 755 /var/lib/outline/data']
+          volumeMounts:
+            - name: outline-storage
+              mountPath: /var/lib/outline/data
+          securityContext:
+            runAsUser: 0
       containers:
-      - name: outline
-        image: docker.getoutline.com/outlinewiki/outline:1.1.0 # {"$imagepolicy": "flux-system:outline"}
-        ports:
-        - containerPort: 3000
-          name: http
-        env:
-        - name: URL
-          value: https://notes.neuland-ingolstadt.de
-        - name: WEB_CONCURRENCY
-          value: "1"
-        - name: SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: outline-secret
-              key: SECRET_KEY
-        - name: UTILS_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: outline-secret
-              key: UTILS_SECRET
-        - name: DEFAULT_LANGUAGE
-          value: de_DE
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: outline-secret
-              key: DATABASE_URL
-        - name: PGSSLMODE
-          value: disable
-        - name: REDIS_URL
-          value: redis://outline-redis:6379
-        - name: FILE_STORAGE
-          value: local
-        - name: FILE_STORAGE_LOCAL_ROOT_DIR
-          value: /var/lib/outline/data
-        - name: FILE_STORAGE_UPLOAD_MAX_SIZE
-          value: "52428800"
-        - name: FILE_STORAGE_IMPORT_MAX_SIZE
-          value: "52428800"
-        - name: FILE_STORAGE_WORKSPACE_IMPORT_MAX_SIZE
-          value: "52428800"
-        - name: FORCE_HTTPS
-          value: "false"
-        - name: OIDC_CLIENT_ID
-          valueFrom:
-            secretKeyRef:
-              name: outline-secret
-              key: OIDC_CLIENT_ID
-        - name: OIDC_CLIENT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: outline-secret
-              key: OIDC_CLIENT_SECRET
-        - name: OIDC_AUTH_URI
-          value: https://sso.informatik.sexy/application/o/authorize/
-        - name: OIDC_TOKEN_URI
-          value: https://sso.informatik.sexy/application/o/token/
-        - name: OIDC_USERINFO_URI
-          value: https://sso.informatik.sexy/application/o/userinfo/
-        - name: OIDC_LOGOUT_URI
-          value: https://sso.informatik.sexy/application/o/outline/end-session/
-        - name: OIDC_USERNAME_CLAIM
-          value: preferred_username
-        - name: OIDC_DISPLAY_NAME
-          value: "Authentik"
-        - name: OIDC_SCOPES
-          value: "openid profile email"
-        - name: RATE_LIMITER_ENABLED
-          value: "false"
-        - name: ENABLE_UPDATES
-          value: "true"
-        - name: LOG_LEVEL
-          value: info
-        - name: SMTP_HOST
-          value: smtp.azurecomm.net
-        - name: SMTP_PORT
-          value: "587"
-        - name: SMTP_SECURE
-          value: "false"
-        - name: SMTP_TLS_CIPHERS
-          value: "TLSv1.2:TLSv1.3"
-        - name: SMTP_NAME
-          value: "smtp.azurecomm.net"
-        - name: SMTP_FROM_EMAIL
-          value: "DoNotReply@neuland-ingolstadt.de"
-        - name: SMTP_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: outline-secret
-              key: SMTP_PASSWORD
-        - name: SMTP_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: outline-secret
-              key: SMTP_USERNAME
-        - name: GITHUB_CLIENT_ID
-          valueFrom:
-            secretKeyRef:
-              name: outline-secret
-              key: GITHUB_CLIENT_ID
-        - name: GITHUB_CLIENT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: outline-secret
-              key: GITHUB_CLIENT_SECRET
-        - name: GITHUB_APP_NAME
-          value: "outline-neuland-notes"
-        - name: GITHUB_APP_ID
-          valueFrom:
-            secretKeyRef:
-              name: outline-secret
-              key: GITHUB_APP_ID
-        - name: GITHUB_APP_PRIVATE_KEY
-          valueFrom:
-            secretKeyRef:
-              name: outline-secret
-              key: GITHUB_APP_PRIVATE_KEY
-
-        volumeMounts:
-        - name: outline-storage
-          mountPath: /var/lib/outline/data
+        - name: outline
+          image: docker.getoutline.com/outlinewiki/outline:1.1.0 # {"$imagepolicy": "flux-system:outline"}
+          ports:
+            - containerPort: 3000
+              name: http
+          env:
+            - name: URL
+              value: https://notes.neuland-ingolstadt.de
+            - name: WEB_CONCURRENCY
+              value: "1"
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: SECRET_KEY
+            - name: UTILS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: UTILS_SECRET
+            - name: DEFAULT_LANGUAGE
+              value: de_DE
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: DATABASE_URL
+            - name: PGSSLMODE
+              value: disable
+            - name: REDIS_URL
+              value: redis://outline-redis:6379
+            - name: FILE_STORAGE
+              value: local
+            - name: FILE_STORAGE_LOCAL_ROOT_DIR
+              value: /var/lib/outline/data
+            - name: FILE_STORAGE_UPLOAD_MAX_SIZE
+              value: "52428800"
+            - name: FILE_STORAGE_IMPORT_MAX_SIZE
+              value: "52428800"
+            - name: FILE_STORAGE_WORKSPACE_IMPORT_MAX_SIZE
+              value: "52428800"
+            - name: FORCE_HTTPS
+              value: "false"
+            - name: OIDC_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: OIDC_CLIENT_ID
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: OIDC_CLIENT_SECRET
+            - name: OIDC_AUTH_URI
+              value: https://sso.informatik.sexy/application/o/authorize/
+            - name: OIDC_TOKEN_URI
+              value: https://sso.informatik.sexy/application/o/token/
+            - name: OIDC_USERINFO_URI
+              value: https://sso.informatik.sexy/application/o/userinfo/
+            - name: OIDC_LOGOUT_URI
+              value: https://sso.informatik.sexy/application/o/outline/end-session/
+            - name: OIDC_USERNAME_CLAIM
+              value: preferred_username
+            - name: OIDC_DISPLAY_NAME
+              value: "Authentik"
+            - name: OIDC_SCOPES
+              value: "openid profile email"
+            - name: RATE_LIMITER_ENABLED
+              value: "false"
+            - name: ENABLE_UPDATES
+              value: "true"
+            - name: LOG_LEVEL
+              value: info
+            - name: SMTP_HOST
+              value: smtp.azurecomm.net
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_SECURE
+              value: "false"
+            - name: SMTP_TLS_CIPHERS
+              value: "TLSv1.2:TLSv1.3"
+            - name: SMTP_NAME
+              value: "smtp.azurecomm.net"
+            - name: SMTP_FROM_EMAIL
+              value: "DoNotReply@neuland-ingolstadt.de"
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: SMTP_PASSWORD
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: SMTP_USERNAME
+            - name: GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: GITHUB_CLIENT_ID
+            - name: GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: GITHUB_CLIENT_SECRET
+            - name: GITHUB_APP_NAME
+              value: "outline-neuland-notes"
+            - name: GITHUB_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: GITHUB_APP_ID
+            - name: GITHUB_APP_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: GITHUB_APP_PRIVATE_KEY
+          volumeMounts:
+            - name: outline-storage
+              mountPath: /var/lib/outline/data
       volumes:
-      - name: outline-storage
-        persistentVolumeClaim:
-          claimName: outline-storage-pvc-claim-new
+        - name: outline-storage
+          persistentVolumeClaim:
+            claimName: outline-storage-pvc-claim-new

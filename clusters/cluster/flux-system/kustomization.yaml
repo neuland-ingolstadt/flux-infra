@@ -1,9 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- gotk-components.yaml
-- gotk-sync.yaml
-- alertmanager-provider.yaml
-- github-commit-status.yaml
-- github-webhook-receiver.yaml
-- allow-traefik-acme.yaml
+  - gotk-components.yaml
+  - gotk-sync.yaml
+  - alertmanager-provider.yaml
+  - github-commit-status.yaml
+  - github-webhook-receiver.yaml
+  - allow-traefik-acme.yaml
