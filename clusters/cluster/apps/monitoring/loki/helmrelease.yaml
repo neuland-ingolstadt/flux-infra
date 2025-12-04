@@ -25,7 +25,7 @@ spec:
   chart:
     spec:
       chart: loki
-      version: 6.7.1
+      version: "*"
       sourceRef:
         kind: HelmRepository
         name: grafana
@@ -38,6 +38,10 @@ spec:
       storage:
         type: filesystem
       auth_enabled: false
+      limits_config:
+        volume_enabled: true
+      pattern_ingester:
+        enabled: true
       schemaConfig:
         configs:
           - from: "2025-01-01"
@@ -47,15 +51,10 @@ spec:
             index:
               prefix: loki_index_
               period: 24h
-      storage_config:
-        filesystem:
-          directory: /var/loki/chunks
-      limits_config:
-        volume_enabled: true
-      pattern_ingester:
-        enabled: true
     singleBinary:
       replicas: 1
+      image:
+        tag: "3.2.2"
       persistence:
         enabled: true
         size: 3Gi
