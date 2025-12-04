@@ -10,6 +10,8 @@ spec:
     spec:
       template:
         spec:
+          securityContext:
+            fsGroup: 1000
           containers:
             - name: mensa-xml-scraper
               image: curlimages/curl:8.12.1
