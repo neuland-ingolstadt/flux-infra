@@ -32,6 +32,8 @@ spec:
         namespace: monitoring
   values:
     grafana:
+      image:
+        tag: "12.3.0"
       envFromSecret: grafana-oidc-secret
       grafana.ini:
         server:
