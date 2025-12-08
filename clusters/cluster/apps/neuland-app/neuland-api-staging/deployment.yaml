@@ -34,17 +34,6 @@ spec:
                 secretKeyRef:
                   name: neuland-api-prod-secrets
                   key: DEEPL_API_KEY
-            # Moodle credentials
-            - name: MOODLE_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: neuland-api-prod-secrets
-                  key: MOODLE_USERNAME
-            - name: MOODLE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: neuland-api-prod-secrets
-                  key: MOODLE_PASSWORD
             - name: DB_HOST
               value: "neuland-shared-db"
             - name: DB_PORT
