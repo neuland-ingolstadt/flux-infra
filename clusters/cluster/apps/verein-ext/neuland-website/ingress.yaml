@@ -9,10 +9,21 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
+        - www.neuland-ingolstadt.de
         - neuland-ingolstadt.de
         - neuland.ing
       secretName: verein-ext-tls
   rules:
+    - host: www.neuland-ingolstadt.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: neuland-website
+                port:
+                  number: 3000
     - host: neuland-ingolstadt.de
       http:
         paths:
