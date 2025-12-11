@@ -10,25 +10,40 @@ spec:
     spec:
       template:
         spec:
-          securityContext:
-            fsGroup: 1000
           containers:
             - name: mensa-xml-scraper
-              image: curlimages/curl:8.12.1
+              image: amazon/aws-cli:2.15.0
               imagePullPolicy: IfNotPresent
+              env:
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: hetzner-s3-secret
+                      key: AWS_ACCESS_KEY_ID
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: hetzner-s3-secret
+                      key: AWS_SECRET_ACCESS_KEY
+                - name: AWS_ENDPOINT_URL
+                  value: https://nbg1.your-objectstorage.com
+                - name: AWS_DEFAULT_REGION
+                  value: nbg1
               command:
                 - /bin/sh
                 - -c
                 - |
-                  set -eu
+                  set -e
                   TS="$(date +%Y%m%d-%H%M%S)"
-                  OUT="/data/mensa-ingolstadt-${TS}.xml"
+                  OUT="/tmp/mensa-ingolstadt-${TS}.xml"
+                  
+                  echo "Downloading mensa XML file..."
                   curl -fsSL "https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/xml/mensa-ingolstadt.xml" -o "${OUT}"
-              volumeMounts:
-                - name: mensa-xml-data
-                  mountPath: /data
+                  
+                  echo "Uploading to S3..."
+                  aws s3 cp "${OUT}" "s3://neuland/mensa-scraper/mensa-ingolstadt-${TS}.xml" \
+                    --endpoint-url="${AWS_ENDPOINT_URL}" \
+                    --region="${AWS_DEFAULT_REGION}"
+                  
+                  echo "Upload completed: mensa-ingolstadt-${TS}.xml"
           restartPolicy: OnFailure
-          volumes:
-            - name: mensa-xml-data
-              persistentVolumeClaim:
-                claimName: mensa-xml-storage
