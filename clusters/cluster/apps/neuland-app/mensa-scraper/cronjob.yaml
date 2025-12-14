@@ -4,8 +4,8 @@ metadata:
   name: mensa-xml-scraper
   namespace: neuland-app
 spec:
-  # Every 2 hours
-  schedule: "0 */2 * * *"
+  # Every hour
+  schedule: "0 * * * *"
   jobTemplate:
     spec:
       template:
@@ -34,16 +34,16 @@ spec:
                 - -c
                 - |
                   set -e
-                  TS="$(date +%Y%m%d-%H%M%S)"
+                  TS="$(date +%Y-%m-%d-%H:%M:%S)"
                   OUT="/tmp/mensa-ingolstadt-${TS}.xml"
                   
                   echo "Downloading mensa XML file..."
                   curl -fsSL "https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/xml/mensa-ingolstadt.xml" -o "${OUT}"
                   
                   echo "Uploading to S3..."
-                  aws s3 cp "${OUT}" "s3://neuland/mensa-scraper/mensa-ingolstadt-${TS}.xml" \
+                  aws s3 cp "${OUT}" "s3://neuland/mensa-thi/mensa-ingolstadt-${TS}.xml" \
                     --endpoint-url="${AWS_ENDPOINT_URL}" \
                     --region="${AWS_DEFAULT_REGION}"
                   
-                  echo "Upload completed: mensa-ingolstadt-${TS}.xml"
+                  echo "Upload completed: mensa-thi-${TS}.xml"
           restartPolicy: OnFailure
