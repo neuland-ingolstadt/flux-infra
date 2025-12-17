@@ -1,0 +1,347 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: twin
+  namespace: monitoring
+spec:
+  url: https://twin.github.io/helm-charts/
+  interval: 24h
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gatus
+  namespace: monitoring
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: gatus
+      version: "1.4.4"
+      sourceRef:
+        kind: HelmRepository
+        name: twin
+        namespace: monitoring
+      interval: 12h
+  values:
+    image:
+      repository: twinproduction/gatus
+      tag: "v5.33.1"
+    replicaCount: 1
+    persistence:
+      enabled: true
+      size: 200Mi
+      storageClassName: longhorn
+    deploymentStrategy:
+      type: Recreate
+    config:
+      storage:
+        type: sqlite
+        path: /data/gatus.db
+      alerting:
+        telegram:
+          enabled: true
+          token: "${TELEGRAM_BOT_TOKEN}"
+          id: -1003368636870
+        discord:
+          enabled: true
+          webhook-url: "${DISCORD_WEBHOOK_URL}"
+      ui:
+        dark-mode: true
+        default-sort-by: group
+        title: "Neuland Services Status"
+        description: "Service and application health monitoring for Neuland Ingolstadt."
+        dashboard-heading: "Neuland Services"
+        dashboard-subheading: "Real-time monitoring of all Neuland services and applications."
+        header: "Neuland Ingolstadt"
+        logo: "https://neuland-ingolstadt.de/favicon.png"
+        buttons:
+          - name: "Neuland Website"
+            link: "https://neuland-ingolstadt.de"
+          - name: "Impressum"
+            link: "https://neuland-ingolstadt.de/impressum"
+          - name: "Datenschutz"
+            link: "https://neuland-ingolstadt.de/legal/datenschutz"
+      endpoints:
+        # Neuland Next Services
+        - name: Neuland Next Web
+          group: Neuland App
+          url: "https://web.neuland.app"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        - name: Neuland Next Landing Page
+          group: Neuland App
+          url: "https://neuland.app"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        - name: Neuland Next Web (Beta)
+          group: Neuland App
+          url: "https://dev.neuland.app"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        - name: Neuland API
+          group: Neuland App
+          url: "https://api.neuland.app/graphql"
+          method: POST
+          interval: 1m
+          headers:
+            Content-Type: "application/json"
+          body: |
+            {
+                "query": "query { __typename }"
+            }
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        - name: Neuland API (Beta)
+          group: Neuland App
+          url: "https://api.dev.neuland.app/graphql"
+          method: POST
+          interval: 1m
+          headers:
+            Content-Type: "application/json"
+          body: |
+            {
+                "query": "query { __typename }"
+            }
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        - name: Neuland API Dashboard
+          group: Neuland App
+          url: "https://dashboard.neuland.app"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        - name: Ersti-Kit
+          group: StudVer
+          url: "https://ersti.neuland.app"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+        
+        - name: Ersti-Kit (Beta)
+          group: StudVer
+          url: "https://dev.ersti.neuland.app"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        - name: Map Server
+          group: Neuland App
+          url: "https://tile.neuland.app/health"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        # Neuland Verein Services
+        - name: Neuland Website
+          group: Verein
+          url: "https://neuland-ingolstadt.de"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        - name: Member ID Scanner
+          group: Verein
+          url: "https://id.neuland-ingolstadt.de"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        - name: Member ID API
+          group: Verein
+          url: "https://id.neuland-ingolstadt.de/api/health"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        - name: Neuland Notes
+          group: Verein
+          url: "https://notes.neuland-ingolstadt.de"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+          ui:
+            hide-url: true
+            hide-hostname: true
+        
+        - name: Ist Informatik sexy?
+          group: Verein
+          url: "https://ist.informatik.sexy"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        - name: Authentik
+          group: Verein
+          url: "https://sso.informatik.sexy"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+          ui:
+            hide-url: true
+            hide-hostname: true
+        
+        - name: Nextcloud
+          group: Verein
+          url: "https://cloud.informatik.sexy"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+          ui:
+            hide-url: true
+            hide-hostname: true
+        
+        - name: Campus Life Dashboard
+          group: StudVer
+          url: "https://cl.neuland-ingolstadt.de"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        - name: Campus Life API
+          group: StudVer
+          url: "https://cl.neuland-ingolstadt.de/api/v1/healthcheck"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+        
+        # External Dependencies
+        - name: THI-API
+          group: Neuland App
+          url: "https://hiplan.thi.de/webservice/zits_s_40_test/index.php"
+          method: POST
+          interval: 5m
+          headers:
+            Content-Type: "application/x-www-form-urlencoded"
+          body: "service=session&method=open&format=json"
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+          ui:
+            hide-url: true
+            hide-hostname: true
+              
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
+    env:
+      TELEGRAM_BOT_TOKEN:
+        valueFrom:
+          secretKeyRef:
+            name: telegram-bot-secrets
+            key: TELEGRAM_BOT_API_KEY
+      DISCORD_WEBHOOK_URL:
+        valueFrom:
+          secretKeyRef:
+            name: discord-monitoring-webhook
+            key: DISCORD_WEBHOOK_URL
+    podTemplate:
+      spec:
+        dnsPolicy: "ClusterFirst"
+        terminationGracePeriodSeconds: 30
+

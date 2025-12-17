@@ -6,3 +6,4 @@ resources:
   - aptabase
   - kube-prometheus-stack
   - loki
+  - gatus

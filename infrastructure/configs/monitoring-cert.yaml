@@ -13,3 +13,5 @@ spec:
     - analytics.neuland.app
     - status.neuland.app
     - grafana.neuland.ing
+    - status.neuland.ing
+  
