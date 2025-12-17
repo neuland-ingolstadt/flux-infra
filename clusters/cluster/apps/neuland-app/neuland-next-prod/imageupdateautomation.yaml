@@ -17,7 +17,7 @@ spec:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
       messageTemplate: |
-        Automated image update for neuland-next-prod
+        chore(neuland-next-prod): update image tags
     push:
       branch: main
   update:

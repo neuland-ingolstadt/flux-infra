@@ -17,7 +17,7 @@ spec:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
       messageTemplate: |
-        Automated image update for ist-informatik-sexy
+        chore(ist-informatik-sexy): update image tags
     push:
       branch: main
   update:
