@@ -10,7 +10,6 @@ spec:
     kind: ClusterIssuer
   # Domains specific to verein-ext namespace
   dnsNames:
-    - www.neuland-ingolstadt.de
     - id.neuland-ingolstadt.de
     - id.neuland.ing
     - neuland-ingolstadt.de
