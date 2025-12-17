@@ -77,6 +77,27 @@ spec:
       prometheusSpec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
+        # Retention settings - reduce from default 15d to 7d
+        retention: 7d
+        retentionSize: "5GB"
+        # Resource limits to prevent excessive memory usage
+        resources:
+          requests:
+            cpu: 200m
+            memory: 1Gi
+          limits:
+            cpu: 1000m
+            memory: 1.5Gi
+        # Reduce scrape interval to collect less frequently
+        scrapeInterval: 60s
+        evaluationInterval: 60s
+        # Limit concurrent queries to reduce memory spikes
+        query:
+          maxConcurrency: 10
+          timeout: 2m
+        # Enable compression to reduce memory footprint
+        enableAdminAPI: false
+        walCompression: true
     kubeScheduler:
       enabled: true
       endpoints:

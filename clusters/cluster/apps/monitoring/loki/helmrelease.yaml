@@ -81,3 +81,7 @@ spec:
     gateway:
       enabled: true
       replicas: 1
+    # Disable Loki Canary - it generates test logs that clutter the system
+    monitoring:
+      lokiCanary:
+        enabled: false

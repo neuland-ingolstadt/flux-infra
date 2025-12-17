@@ -59,7 +59,7 @@ spec:
           - name: "Neuland Website"
             link: "https://neuland-ingolstadt.de"
           - name: "Impressum"
-            link: "https://neuland-ingolstadt.de/impressum"
+            link: "https://neuland-ingolstadt.de/legal/impressum"
           - name: "Datenschutz"
             link: "https://neuland-ingolstadt.de/legal/datenschutz"
       endpoints:
@@ -139,7 +139,7 @@ spec:
               send-on-resolved: true
         
         - name: Neuland API Dashboard
-          group: Neuland App
+          group: Verein (Internal)
           url: "https://dashboard.neuland.app"
           interval: 1m
           conditions:
@@ -151,7 +151,7 @@ spec:
               send-on-resolved: true
         
         - name: Ersti-Kit
-          group: StudVer
+          group: Ersti-Kit
           url: "https://ersti.neuland.app"
           interval: 1m
           conditions:
@@ -161,7 +161,7 @@ spec:
               send-on-resolved: true
         
         - name: Ersti-Kit (Beta)
-          group: StudVer
+          group: Ersti-Kit
           url: "https://dev.ersti.neuland.app"
           interval: 1m
           conditions:
@@ -186,7 +186,7 @@ spec:
         
         # Neuland Verein Services
         - name: Neuland Website
-          group: Verein
+          group: Verein (Public)
           url: "https://neuland-ingolstadt.de"
           interval: 1m
           conditions:
@@ -198,7 +198,7 @@ spec:
               send-on-resolved: true
         
         - name: Member ID Scanner
-          group: Verein
+          group: Verein (Public)
           url: "https://id.neuland-ingolstadt.de"
           interval: 1m
           conditions:
@@ -210,7 +210,7 @@ spec:
               send-on-resolved: true
         
         - name: Member ID API
-          group: Verein
+          group: Verein (Public)
           url: "https://id.neuland-ingolstadt.de/api/health"
           interval: 1m
           conditions:
@@ -222,7 +222,7 @@ spec:
               send-on-resolved: true
         
         - name: Neuland Notes
-          group: Verein
+          group: Verein (Internal)
           url: "https://notes.neuland-ingolstadt.de"
           interval: 1m
           conditions:
@@ -237,7 +237,7 @@ spec:
             hide-hostname: true
         
         - name: Ist Informatik sexy?
-          group: Verein
+          group: Verein (Public)
           url: "https://ist.informatik.sexy"
           interval: 1m
           conditions:
@@ -249,7 +249,7 @@ spec:
               send-on-resolved: true
         
         - name: Authentik
-          group: Verein
+          group: Verein (Internal)
           url: "https://sso.informatik.sexy"
           interval: 1m
           conditions:
@@ -264,7 +264,7 @@ spec:
             hide-hostname: true
         
         - name: Nextcloud
-          group: Verein
+          group: Verein (Internal)
           url: "https://cloud.informatik.sexy"
           interval: 1m
           conditions:
@@ -278,8 +278,24 @@ spec:
             hide-url: true
             hide-hostname: true
         
+        - name: Advent of Code Leaderboard
+          group: Verein (Internal)
+          url: "http://aoc-leaderboard.verein-int.svc.cluster.local:80"
+          interval: 1m
+          conditions:
+            - "[STATUS] == 200"
+          alerts:
+            - type: telegram
+              send-on-resolved: true
+            - type: discord
+              send-on-resolved: true
+          ui:
+            hide-url: true
+            hide-port: true
+            hide-hostname: true
+        
         - name: Campus Life Dashboard
-          group: StudVer
+          group: Campus Life
           url: "https://cl.neuland-ingolstadt.de"
           interval: 1m
           conditions:
@@ -291,7 +307,7 @@ spec:
               send-on-resolved: true
         
         - name: Campus Life API
-          group: StudVer
+          group: Campus Life
           url: "https://cl.neuland-ingolstadt.de/api/v1/healthcheck"
           interval: 1m
           conditions:
