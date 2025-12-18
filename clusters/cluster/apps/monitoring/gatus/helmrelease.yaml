@@ -254,7 +254,7 @@ spec:
         
         - name: Authentik
           group: Verein (Internal)
-          url: "https://sso.informatik.sexy"
+          url: "https://auth.neuland.ing"
           interval: 1m
           conditions:
             - "[STATUS] == 200"

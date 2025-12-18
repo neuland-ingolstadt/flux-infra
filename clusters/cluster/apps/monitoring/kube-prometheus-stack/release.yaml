@@ -56,12 +56,12 @@ spec:
           name: "Neuland Auth"
           allow_sign_up: true
           auto_login: true
-          signout_redirect_url: https://sso.informatik.sexy/
+          signout_redirect_url: https://auth.neuland.ing/
           client_id: $__env{OIDC_CLIENT_ID}
           client_secret: $__env{OIDC_CLIENT_SECRET}
-          auth_url: "https://sso.informatik.sexy/application/o/authorize/"
-          token_url: "https://sso.informatik.sexy/application/o/token/"
-          api_url: "https://sso.informatik.sexy/application/o/userinfo/"
+          auth_url: "https://auth.neuland.ing/application/o/authorize/"
+          token_url: "https://auth.neuland.ing/application/o/token/"
+          api_url: "https://auth.neuland.ing/application/o/userinfo/"
           scopes: "openid profile email groups"
           # Map OIDC groups to Grafana roles
           # Users with "Kubernetes Admin" group get Editor permissions (required for drill down)

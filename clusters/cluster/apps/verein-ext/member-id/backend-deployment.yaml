@@ -26,7 +26,7 @@ spec:
                   name: member-id-secrets
                   key: QR_PRIVATE_KEY_HEX
             - name: JWKS_URL
-              value: https://sso.informatik.sexy/application/o/next/jwks/
+              value: https://auth.neuland.ing/application/o/next/jwks/
             - name: EXPECTED_AUDIENCE
               valueFrom:
                 secretKeyRef:

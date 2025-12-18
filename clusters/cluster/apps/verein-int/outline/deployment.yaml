@@ -81,13 +81,13 @@ spec:
                   name: outline-secret
                   key: OIDC_CLIENT_SECRET
             - name: OIDC_AUTH_URI
-              value: https://sso.informatik.sexy/application/o/authorize/
+              value: https://auth.neuland.ing/application/o/authorize/
             - name: OIDC_TOKEN_URI
-              value: https://sso.informatik.sexy/application/o/token/
+              value: https://auth.neuland.ing/application/o/token/
             - name: OIDC_USERINFO_URI
-              value: https://sso.informatik.sexy/application/o/userinfo/
+              value: https://auth.neuland.ing/application/o/userinfo/
             - name: OIDC_LOGOUT_URI
-              value: https://sso.informatik.sexy/application/o/outline/end-session/
+              value: https://auth.neuland.ing/application/o/outline/end-session/
             - name: OIDC_USERNAME_CLAIM
               value: preferred_username
             - name: OIDC_DISPLAY_NAME
