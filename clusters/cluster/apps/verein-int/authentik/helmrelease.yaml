@@ -53,6 +53,7 @@ spec:
       interval: 12h
   values:
     authentik:
+      log_level: warning
       storage:
         media:
           backend: local
