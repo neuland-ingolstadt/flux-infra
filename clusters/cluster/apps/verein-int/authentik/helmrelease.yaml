@@ -23,6 +23,10 @@ spec:
       name: authentik-secrets
       valuesKey: postgres-password
       targetPath: authentik.postgresql.password
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: postgres-password
+      targetPath: postgresql.auth.password
   chart:
     spec:
       chart: authentik
@@ -47,7 +51,3 @@ spec:
             secretName: authentik-tls
     postgresql:
       enabled: true
-      auth:
-        existingSecret: authentik-secrets
-        secretKeys:
-          password: postgres-password
