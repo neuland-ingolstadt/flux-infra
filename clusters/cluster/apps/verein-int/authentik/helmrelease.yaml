@@ -53,6 +53,11 @@ spec:
       interval: 12h
   values:
     authentik:
+      storage:
+        media:
+          backend: local
+          local:
+            path: /media
       email:
         port: 587
         use_tls: true
