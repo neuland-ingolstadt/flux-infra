@@ -6,4 +6,5 @@ resources:
   - authentik
   # - fider
   - outline
+  - membership
   # - nextcloud

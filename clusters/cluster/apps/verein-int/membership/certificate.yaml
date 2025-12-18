@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: membership-informatik-sexy
+  namespace: verein-int
+spec:
+  secretName: membership-informatik-sexy-tls
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  dnsNames:
+    - membership.informatik.sexy

@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: membership-informatik-sexy
+  namespace: verein-int
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - membership.informatik.sexy
+      secretName: membership-informatik-sexy-tls
+  rules:
+    - host: membership.informatik.sexy
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: membership-informatik-sexy
+                port:
+                  number: 80

@@ -1,0 +1,10 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: membership-informatik-sexy
+  namespace: flux-system
+spec:
+  image: ghcr.io/neuland-ingolstadt/membership-tools
+  interval: 30m
+  secretRef:
+    name: ghcr-secret

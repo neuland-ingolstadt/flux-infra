@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: membership-tool
+  namespace: verein-int
+spec:
+  minReadySeconds: 3
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 60
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: membership-informatik-sexy
+  template:
+    metadata:
+      labels:
+        app: membership-informatik-sexy
+    spec:
+      containers:
+        - name: membership-informatik-sexy
+          image: ghcr.io/neuland-ingolstadt/membership-tools:main-13 # {"$imagepolicy": "flux-system:membership-informatik-sexy"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          env:
+            - name: NEXTAUTH_URL
+              value: "https://membership.informatik.sexy/"
+            - name: AUTHENTIK_ISSUER
+              value: "https://auth.neuland.ing/application/o/membership"
+            - name: AUTHENTIK_API_URL
+              value: "https://auth.neuland.ing/api/v3/"
+            - name: AUTHENTIK_DEFAULT_GROUP
+              value: "mitglieder"
+            - name: FROM_EMAIL
+              value: "welcome@neuland-ingolstadt.de"
+            - name: AUTHENTIK_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: membership-informatik-sexy-secret
+                  key: AUTHENTIK_CLIENT_ID
+            - name: AUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: membership-informatik-sexy-secret
+                  key: AUTH_SECRET
+            - name: AUTHENTIK_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: membership-informatik-sexy-secret
+                  key: AUTHENTIK_CLIENT_SECRET
+            - name: AUTHENTIK_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: membership-informatik-sexy-secret
+                  key: AUTHENTIK_API_TOKEN
+            - name: AZURE_COMMUNICATION_SERVICE_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: membership-informatik-sexy-secret
+                  key: AZURE_COMMUNICATION_SERVICE_CONNECTION_STRING
+            - name: EASYVEREIN_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: membership-informatik-sexy-secret
+                  key: EASYVEREIN_API_TOKEN
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
