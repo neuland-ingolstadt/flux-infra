@@ -65,7 +65,13 @@ spec:
       announcements:
         - timestamp: 2025-12-18T17:00:00Z
           type: warning
-          message: "Scheduled maintenance (server upgrades) today 18:00–21:00 (Europe/Berlin). Some services may be unavailable, including login/SSO."
+          message: "Scheduled maintenance (server upgrades) today 18:00–22:00 (Europe/Berlin). Some services may be unavailable, including login/SSO."
+        - timestamp: 2025-12-18T22:00:00Z
+          type: operational
+          message: "Upgrades completed successfully. Authentik is now available on its new domain: https://auth.neuland.ing"
+        - timestamp: 2025-12-18T22:05:00Z
+          type: information
+          message: "Neuland Member ID: Update the Neuland Next app to the latest version to use the new authentication system."
       endpoints:
         # Neuland Next Services
         - name: Neuland Next Web
