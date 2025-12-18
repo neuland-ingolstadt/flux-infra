@@ -62,6 +62,10 @@ spec:
             link: "https://neuland-ingolstadt.de/legal/impressum"
           - name: "Datenschutz"
             link: "https://neuland-ingolstadt.de/legal/datenschutz"
+      announcements:
+        - timestamp: 2025-12-18T17:00:00Z
+          type: warning
+          message: "Scheduled maintenance (server upgrades) today 18:00–21:00 (Europe/Berlin). Some services may be unavailable, including login/SSO."
       endpoints:
         # Neuland Next Services
         - name: Neuland Next Web
@@ -360,4 +364,3 @@ spec:
       spec:
         dnsPolicy: "ClusterFirst"
         terminationGracePeriodSeconds: 30
-
