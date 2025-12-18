@@ -27,38 +27,22 @@ spec:
       name: authentik-secrets
       valuesKey: postgres-password
       targetPath: postgresql.auth.password
-    # - kind: Secret
-    #   name: authentik-secrets
-    #   valuesKey: AUTHENTIK_EMAIL__HOST
-    #   targetPath: authentik.email.host
-    # - kind: Secret
-    #   name: authentik-secrets
-    #   valuesKey: AUTHENTIK_EMAIL__PORT
-    #   targetPath: authentik.email.port
-    # - kind: Secret
-    #   name: authentik-secrets
-    #   valuesKey: AUTHENTIK_EMAIL__USERNAME
-    #   targetPath: authentik.email.username
-    # - kind: Secret
-    #   name: authentik-secrets
-    #   valuesKey: AUTHENTIK_EMAIL__PASSWORD
-    #   targetPath: authentik.email.password
-    # - kind: Secret
-    #   name: authentik-secrets
-    #   valuesKey: AUTHENTIK_EMAIL__USE_TLS
-    #   targetPath: authentik.email.use_tls
-    # - kind: Secret
-    #   name: authentik-secrets
-    #   valuesKey: AUTHENTIK_EMAIL__USE_SSL
-    #   targetPath: authentik.email.use_ssl
-    # - kind: Secret
-    #   name: authentik-secrets
-    #   valuesKey: AUTHENTIK_EMAIL__TIMEOUT
-    #   targetPath: authentik.email.timeout
-    # - kind: Secret
-    #   name: authentik-secrets
-    #   valuesKey: AUTHENTIK_EMAIL__FROM
-    #   targetPath: authentik.email.from
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: AUTHENTIK_EMAIL__HOST
+      targetPath: authentik.email.host
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: AUTHENTIK_EMAIL__USERNAME
+      targetPath: authentik.email.username
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: AUTHENTIK_EMAIL__PASSWORD
+      targetPath: authentik.email.password
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: AUTHENTIK_EMAIL__FROM
+      targetPath: authentik.email.from
   chart:
     spec:
       chart: authentik
@@ -69,6 +53,11 @@ spec:
       interval: 12h
   values:
     authentik:
+      email:
+        port: 587
+        use_tls: true
+        use_ssl: false
+        timeout: 10
       error_reporting:
         enabled: false
     server:
