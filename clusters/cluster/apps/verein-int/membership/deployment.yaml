@@ -19,6 +19,8 @@ spec:
       labels:
         app: membership-informatik-sexy
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: membership-informatik-sexy
           image: ghcr.io/neuland-ingolstadt/membership-tools:main-13 # {"$imagepolicy": "flux-system:membership-informatik-sexy"}
