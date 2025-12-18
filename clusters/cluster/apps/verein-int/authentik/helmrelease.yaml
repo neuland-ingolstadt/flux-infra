@@ -14,6 +14,15 @@ metadata:
   namespace: verein-int
 spec:
   interval: 30m
+  valuesFrom:
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: secret-key
+      targetPath: authentik.secret_key
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: postgres-password
+      targetPath: authentik.postgresql.password
   chart:
     spec:
       chart: authentik
@@ -36,35 +45,9 @@ spec:
           - hosts:
               - auth.neuland.ing
             secretName: authentik-tls
-      extraEnv:
-        - name: AUTHENTIK_SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: authentik-secrets
-              key: secret-key
-        - name: AUTHENTIK_POSTGRESQL__PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: authentik-secrets
-              key: postgres-password
-    worker:
-      extraEnv:
-        - name: AUTHENTIK_SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: authentik-secrets
-              key: secret-key
-        - name: AUTHENTIK_POSTGRESQL__PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: authentik-secrets
-              key: postgres-password
     postgresql:
       enabled: true
       auth:
         existingSecret: authentik-secrets
         secretKeys:
-          adminPasswordKey: postgres-password
-      primary:
-        persistence:
-          enabled: false
+          password: postgres-password

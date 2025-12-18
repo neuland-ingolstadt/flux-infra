@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - aoc
-  # - authentik
+  - authentik
   # - fider
   - outline
   # - nextcloud
