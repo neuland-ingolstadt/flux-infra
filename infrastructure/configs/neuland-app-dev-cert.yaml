@@ -11,5 +11,5 @@ spec:
   # Development domains for neuland-app services
   dnsNames:
     - api.dev.neuland.app
-    - dev.ersti.neuland.app
+    # - dev.ersti.neuland.app
     - dev.neuland.app

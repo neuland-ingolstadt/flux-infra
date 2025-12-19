@@ -6,7 +6,7 @@ resources:
   - neuland-next-staging
   - neuland-next-prod
   - neuland-next-docs
-  - ersti-kit-staging
+  # - ersti-kit-staging
   - shared-database
   - neuland-api-prod
   - neuland-api-staging
