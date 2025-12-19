@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: aptabase
-          image: ghcr.io/robert27/aptabase:ci-oauth-15
+          image: ghcr.io/robert27/aptabase:ci-oauth-16
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
