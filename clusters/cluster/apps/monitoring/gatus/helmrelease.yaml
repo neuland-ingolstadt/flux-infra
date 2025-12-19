@@ -66,12 +66,15 @@ spec:
         - timestamp: 2025-12-18T17:00:00Z
           type: warning
           message: "Scheduled maintenance (server upgrades) today 18:00–22:00 (Europe/Berlin). Some services may be unavailable, including login/SSO."
+          archived: true
         - timestamp: 2025-12-18T22:00:00Z
+          type: information
+          message: "Neuland Member ID: Due to new authentication system, the login in Neuland Next is currently unavailable. We are working on an app update to fix this."
+          archived: true
+        - timestamp: 2025-12-18T22:10:00Z
           type: operational
           message: "Upgrades completed successfully. Authentik is now available on its new domain: https://auth.neuland.ing"
-        - timestamp: 2025-12-18T22:05:00Z
-          type: information
-          message: "Neuland Member ID: Update the Neuland Next app to the latest version to use the new authentication system."
+          archived: true
       endpoints:
         # Neuland Next Services
         - name: Neuland Next Web
@@ -275,7 +278,7 @@ spec:
         
         - name: Nextcloud
           group: Verein (Internal)
-          url: "https://cloud.informatik.sexy"
+          url: "https://cloud.informatik.sexy/status.php"
           interval: 1m
           conditions:
             - "[STATUS] == 200"
