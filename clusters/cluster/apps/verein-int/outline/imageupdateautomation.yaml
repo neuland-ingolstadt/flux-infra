@@ -16,8 +16,7 @@ spec:
       author:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
-      messageTemplate: |
-        chore(outline): update image tags 
+      messageTemplate: "chore(outline): update image tags \n"
     push:
       branch: main
   update:

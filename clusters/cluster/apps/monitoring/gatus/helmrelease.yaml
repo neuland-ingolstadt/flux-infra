@@ -88,7 +88,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         - name: Neuland Next Landing Page
           group: Neuland App
           url: "https://neuland.app"
@@ -100,7 +100,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         - name: Neuland Next Web (Beta)
           group: Neuland App
           url: "https://dev.neuland.app"
@@ -112,7 +112,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         - name: Neuland API
           group: Neuland App
           url: "https://api.neuland.app/graphql"
@@ -131,7 +131,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         - name: Neuland API (Beta)
           group: Neuland App
           url: "https://api.dev.neuland.app/graphql"
@@ -150,7 +150,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         - name: Neuland API Dashboard
           group: Verein (Internal)
           url: "https://dashboard.neuland.app"
@@ -162,7 +162,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         - name: Ersti-Kit
           group: Ersti-Kit
           url: "https://ersti.neuland.app"
@@ -172,7 +172,7 @@ spec:
           alerts:
             - type: telegram
               send-on-resolved: true
-        
+
         - name: Ersti-Kit (Beta)
           group: Ersti-Kit
           url: "https://dev.ersti.neuland.app"
@@ -184,7 +184,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         - name: Map Server
           group: Neuland App
           url: "https://tile.neuland.app/health"
@@ -196,7 +196,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         # Neuland Verein Services
         - name: Neuland Website
           group: Verein (Public)
@@ -209,7 +209,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         - name: Member ID Scanner
           group: Verein (Public)
           url: "https://id.neuland-ingolstadt.de"
@@ -221,7 +221,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         - name: Member ID API
           group: Verein (Public)
           url: "https://id.neuland-ingolstadt.de/api/health"
@@ -233,7 +233,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         - name: Neuland Notes
           group: Verein (Internal)
           url: "https://notes.neuland-ingolstadt.de"
@@ -248,7 +248,7 @@ spec:
           ui:
             hide-url: true
             hide-hostname: true
-        
+
         - name: Ist Informatik sexy?
           group: Verein (Public)
           url: "https://ist.informatik.sexy"
@@ -260,7 +260,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         - name: Authentik
           group: Verein (Internal)
           url: "https://auth.neuland.ing"
@@ -275,7 +275,7 @@ spec:
           ui:
             hide-url: true
             hide-hostname: true
-        
+
         - name: Nextcloud
           group: Verein (Internal)
           url: "https://cloud.informatik.sexy/status.php"
@@ -290,7 +290,7 @@ spec:
           ui:
             hide-url: true
             hide-hostname: true
-        
+
         - name: Advent of Code Leaderboard
           group: Verein (Internal)
           url: "http://aoc-leaderboard.verein-int.svc.cluster.local:80"
@@ -306,7 +306,7 @@ spec:
             hide-url: true
             hide-port: true
             hide-hostname: true
-        
+
         - name: Campus Life Dashboard
           group: Campus Life
           url: "https://cl.neuland-ingolstadt.de"
@@ -318,7 +318,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         - name: Campus Life API
           group: Campus Life
           url: "https://cl.neuland-ingolstadt.de/api/v1/healthcheck"
@@ -330,7 +330,7 @@ spec:
               send-on-resolved: true
             - type: discord
               send-on-resolved: true
-        
+
         # External Dependencies
         - name: THI-API
           group: Neuland App
@@ -350,7 +350,7 @@ spec:
           ui:
             hide-url: true
             hide-hostname: true
-              
+
     resources:
       limits:
         cpu: 100m
