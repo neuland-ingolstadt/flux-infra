@@ -173,18 +173,6 @@ spec:
             - type: telegram
               send-on-resolved: true
 
-        - name: Ersti-Kit (Beta)
-          group: Ersti-Kit
-          url: "https://dev.ersti.neuland.app"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
-
         - name: Map Server
           group: Neuland App
           url: "https://tile.neuland.app/health"
