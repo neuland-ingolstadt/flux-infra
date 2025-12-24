@@ -75,6 +75,10 @@ spec:
           type: operational
           message: "Upgrades completed successfully. Authentik is now available on its new domain: https://auth.neuland.ing"
           archived: true
+        - timestamp: 2025-12-24T18:00:00Z
+          type: information
+          message: "The Advent of Code leaderboard has been shut down now that the event has ended. See you next year!"
+          archived: true
       default-endpoint: &defaults
         interval: 1m
         conditions:
@@ -183,15 +187,6 @@ spec:
           url: "https://cloud.informatik.sexy/status.php"
           ui:
             hide-url: true
-            hide-hostname: true
-
-        - name: Advent of Code Leaderboard
-          <<: *defaults
-          group: Verein (Internal)
-          url: "http://aoc-leaderboard.verein-int.svc.cluster.local:80"
-          ui:
-            hide-url: true
-            hide-port: true
             hide-hostname: true
 
         - name: Campus Life Dashboard
