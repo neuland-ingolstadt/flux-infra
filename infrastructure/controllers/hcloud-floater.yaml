@@ -5,7 +5,7 @@ metadata:
   labels:
     toolkit.fluxcd.io/tenant: sre-team
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: hcloud-ip-floater
@@ -14,7 +14,7 @@ spec:
   image: ghcr.io/costela/hcloud-ip-floater
   interval: 10m
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
   name: hcloud-ip-floater
