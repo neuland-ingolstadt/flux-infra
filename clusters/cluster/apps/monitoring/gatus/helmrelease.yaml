@@ -75,252 +75,138 @@ spec:
           type: operational
           message: "Upgrades completed successfully. Authentik is now available on its new domain: https://auth.neuland.ing"
           archived: true
+      default-endpoint: &defaults
+        interval: 1m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: telegram
+            send-on-resolved: true
+          - type: discord
+            send-on-resolved: true
       endpoints:
         # Neuland Next Services
         - name: Neuland Next Web
+          <<: *defaults
           group: Neuland App
           url: "https://web.neuland.app"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         - name: Neuland Next Landing Page
+          <<: *defaults
           group: Neuland App
           url: "https://neuland.app"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         - name: Neuland Next Web (Beta)
+          <<: *defaults
           group: Neuland App
           url: "https://dev.neuland.app"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         - name: Neuland API
+          <<: *defaults
           group: Neuland App
           url: "https://api.neuland.app/graphql"
           method: POST
-          interval: 1m
           headers:
             Content-Type: "application/json"
           body: |
             {
                 "query": "query { __typename }"
             }
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         - name: Neuland API (Beta)
+          <<: *defaults
           group: Neuland App
           url: "https://api.dev.neuland.app/graphql"
           method: POST
-          interval: 1m
           headers:
             Content-Type: "application/json"
           body: |
             {
                 "query": "query { __typename }"
             }
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         - name: Neuland API Dashboard
+          <<: *defaults
           group: Verein (Internal)
           url: "https://dashboard.neuland.app"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         - name: Ersti-Kit
+          <<: *defaults
           group: Ersti-Kit
           url: "https://ersti.neuland.app"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
 
         - name: Map Server
+          <<: *defaults
           group: Neuland App
           url: "https://tile.neuland.app/health"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         # Neuland Verein Services
         - name: Neuland Website
+          <<: *defaults
           group: Verein (Public)
           url: "https://neuland-ingolstadt.de"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         - name: Member ID Scanner
+          <<: *defaults
           group: Verein (Public)
           url: "https://id.neuland-ingolstadt.de"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         - name: Member ID API
+          <<: *defaults
           group: Verein (Public)
           url: "https://id.neuland-ingolstadt.de/api/health"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         - name: Neuland Notes
+          <<: *defaults
           group: Verein (Internal)
           url: "https://notes.neuland-ingolstadt.de"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
           ui:
             hide-url: true
             hide-hostname: true
 
         - name: Ist Informatik sexy?
+          <<: *defaults
           group: Verein (Public)
           url: "https://ist.informatik.sexy"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         - name: Authentik
+          <<: *defaults
           group: Verein (Internal)
           url: "https://auth.neuland.ing"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
           ui:
             hide-url: true
             hide-hostname: true
 
         - name: Nextcloud
+          <<: *defaults
           group: Verein (Internal)
           url: "https://cloud.informatik.sexy/status.php"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
           ui:
             hide-url: true
             hide-hostname: true
 
         - name: Advent of Code Leaderboard
+          <<: *defaults
           group: Verein (Internal)
           url: "http://aoc-leaderboard.verein-int.svc.cluster.local:80"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
           ui:
             hide-url: true
             hide-port: true
             hide-hostname: true
 
         - name: Campus Life Dashboard
+          <<: *defaults
           group: Campus Life
           url: "https://cl.neuland-ingolstadt.de"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         - name: Campus Life API
+          <<: *defaults
           group: Campus Life
           url: "https://cl.neuland-ingolstadt.de/api/v1/healthcheck"
-          interval: 1m
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
 
         # External Dependencies
         - name: THI-API
+          <<: *defaults
           group: Neuland App
           url: "https://hiplan.thi.de/webservice/zits_s_40_test/index.php"
           method: POST
@@ -328,13 +214,6 @@ spec:
           headers:
             Content-Type: "application/x-www-form-urlencoded"
           body: "service=session&method=open&format=json"
-          conditions:
-            - "[STATUS] == 200"
-          alerts:
-            - type: telegram
-              send-on-resolved: true
-            - type: discord
-              send-on-resolved: true
           ui:
             hide-url: true
             hide-hostname: true
