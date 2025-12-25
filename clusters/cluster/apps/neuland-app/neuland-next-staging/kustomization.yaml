@@ -4,6 +4,5 @@ resources:
   - imageupdateautomation.yaml
   - deployment.yaml
   - ingress.yaml
-  - hpa.yaml
   - imagepolicy.yaml
   - service.yaml
