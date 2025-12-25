@@ -4,6 +4,7 @@ metadata:
   name: neuland-website
   namespace: verein-ext
 spec:
+  replicas: 1
   minReadySeconds: 3
   revisionHistoryLimit: 5
   progressDeadlineSeconds: 60

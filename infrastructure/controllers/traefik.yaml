@@ -57,21 +57,21 @@ spec:
       annotations:
         metallb.universe.tf/address-pool: floating-ip-pool
         metallb.universe.tf/loadBalancerIPs: "195.201.250.90"
-      additionalArguments:
-        - "--entrypoints.websecure.proxyProtocol.trustedIPs=0.0.0.0/0"
-        - "--entrypoints.websecure.forwardedHeaders.trustedIPs=0.0.0.0/0"
-        - "--providers.kubernetesingress.ingressclass=traefik"
-        - "--providers.kubernetesingress.allowcrossnamespace=true"
-        # Configure redirect from HTTP to HTTPS, but exclude ACME challenge paths
-        - "--entrypoints.web.http.redirections.entrypoint.regex=^(?!.*\\.well-known/acme-challenge).*"
-        - "--entrypoints.web.http.redirections.entrypoint.replacement=websecure"
-        - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+    # Additional Traefik arguments
+    additionalArguments:
+      - "--entrypoints.websecure.proxyProtocol.trustedIPs=0.0.0.0/0"
+      - "--entrypoints.websecure.forwardedHeaders.trustedIPs=0.0.0.0/0"
+      - "--providers.kubernetesingress.ingressclass=traefik"
+      # Note: allowcrossnamespace is not available for kubernetesingress provider in Traefik v3
+      # Cross-namespace support is enabled by default when namespaces flag is not set
     # Entry points
     ports:
       web:
         port: 80
-        # Don't use redirectTo here - we use redirectRegex in additionalArguments instead
-        # to exclude ACME challenge paths
+        redirectTo:
+          port: websecure
+        # Note: ACME challenges are handled via cert-manager ingress annotations
+        # which bypass the redirect
       websecure:
         port: 443
         tls:

@@ -35,6 +35,8 @@ spec:
       image:
         tag: "12.3.0"
       envFromSecret: grafana-oidc-secret
+      serviceMonitor:
+        enabled: false
       grafana.ini:
         server:
           domain: grafana.neuland.ing
@@ -94,6 +96,17 @@ spec:
           requests:
             memory: 1Gi
             cpu: 200m
+    defaultRules:
+      rules:
+        kubeScheduler: false
+        kubeControllerManager: false
+        kubeProxy: false
+    kubeScheduler:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    kubeProxy:
+      enabled: false
     kube-state-metrics:
       rbac:
         extraRules:
