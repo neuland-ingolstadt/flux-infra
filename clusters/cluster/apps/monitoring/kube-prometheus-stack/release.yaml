@@ -94,6 +94,11 @@ spec:
           requests:
             memory: 1Gi
             cpu: 200m
+    defaultRules:
+      rules:
+        kubeScheduler: false
+        kubeControllerManager: false
+        kubeProxy: false
     kube-state-metrics:
       rbac:
         extraRules:
