@@ -32,7 +32,7 @@ spec:
             - name: DEEPL_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: neuland-api-prod-secrets
+                  name: neuland-api-staging-secrets
                   key: DEEPL_API_KEY
             - name: DB_HOST
               value: "neuland-shared-db"
