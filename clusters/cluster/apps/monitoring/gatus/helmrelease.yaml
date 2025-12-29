@@ -35,6 +35,11 @@ spec:
       storageClassName: longhorn
     deploymentStrategy:
       type: Recreate
+    service:
+      enabled: true
+      type: ClusterIP
+      port: 80
+      targetPort: 8080
     config:
       storage:
         type: sqlite
