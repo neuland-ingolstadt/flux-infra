@@ -107,6 +107,12 @@ spec:
       enabled: false
     kubeProxy:
       enabled: false
+    prometheus-node-exporter:
+      # Configure DNS policy to use cluster DNS instead of node nameservers
+      # This prevents DNSConfigForming warnings when nodes have >3 nameservers
+      podTemplate:
+        spec:
+          dnsPolicy: ClusterFirst
     kube-state-metrics:
       rbac:
         extraRules:
