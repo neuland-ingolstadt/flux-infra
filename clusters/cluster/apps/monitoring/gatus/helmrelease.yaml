@@ -43,6 +43,10 @@ spec:
       storage:
         type: sqlite
         path: /data/gatus.db
+      connectivity:
+        checker:
+          target: 1.1.1.1:53
+          interval: 60s
       alerting:
         telegram:
           enabled: true
@@ -230,6 +234,9 @@ spec:
           headers:
             Content-Type: "application/x-www-form-urlencoded"
           body: "service=session&method=open&format=json"
+          conditions:
+            - "[STATUS] == 200"
+            - "[CERTIFICATE_EXPIRATION] > 48h"
           ui:
             hide-url: true
             hide-hostname: true
