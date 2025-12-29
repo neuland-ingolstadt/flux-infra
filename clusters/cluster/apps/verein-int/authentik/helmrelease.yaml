@@ -91,7 +91,7 @@ spec:
       primary:
         persistence:
           enabled: true
-          existingClaim: authentik-postgresql-0
+          existingClaim: data-authentik-postgresql-0
     worker:
       securityContext:
         fsGroup: 1000
