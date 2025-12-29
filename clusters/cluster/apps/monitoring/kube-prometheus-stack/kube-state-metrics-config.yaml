@@ -174,7 +174,7 @@ customResourceState:
         # ImageRepository
         - groupVersionKind:
             group: image.toolkit.fluxcd.io
-            version: v1beta2
+            version: v1
             kind: ImageRepository
           metricNamePrefix: gotk
           metrics:
@@ -196,7 +196,7 @@ customResourceState:
         # ImagePolicy
         - groupVersionKind:
             group: image.toolkit.fluxcd.io
-            version: v1beta2
+            version: v1
             kind: ImagePolicy
           metricNamePrefix: gotk
           metrics:
@@ -218,7 +218,7 @@ customResourceState:
         # ImageUpdateAutomation
         - groupVersionKind:
             group: image.toolkit.fluxcd.io
-            version: v1beta2
+            version: v1
             kind: ImageUpdateAutomation
           metricNamePrefix: gotk
           metrics:

@@ -62,6 +62,7 @@ spec:
       - "--entrypoints.websecure.proxyProtocol.trustedIPs=0.0.0.0/0"
       - "--entrypoints.websecure.forwardedHeaders.trustedIPs=0.0.0.0/0"
       - "--providers.kubernetesingress.ingressclass=traefik"
+      - "--providers.kubernetescrd.allowcrossnamespace=true"
       # Note: allowcrossnamespace is not available for kubernetesingress provider in Traefik v3
       # Cross-namespace support is enabled by default when namespaces flag is not set
     # Entry points
@@ -70,8 +71,8 @@ spec:
         port: 80
         redirectTo:
           port: websecure
-        # Note: ACME challenges are handled via cert-manager ingress annotations
-        # which bypass the redirect
+          # Note: ACME challenges are handled via cert-manager ingress annotations
+          # which bypass the redirect
       websecure:
         port: 443
         tls:

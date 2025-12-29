@@ -6,7 +6,8 @@ resources:
   - frontend-deployment.yaml
   - backend-service.yaml
   - frontend-service.yaml
-  - ingress.yaml
+  - ingress-backend.yaml
+  - ingress-frontend.yaml
   - backend-imagerepository.yaml
   - backend-imagepolicy.yaml
   - frontend-imagerepository.yaml

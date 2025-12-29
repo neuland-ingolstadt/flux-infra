@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: member-id-frontend
+  namespace: verein-ext
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - id.neuland-ingolstadt.de
+        - id.neuland.ing
+      secretName: verein-ext-tls
+  rules:
+    - host: id.neuland-ingolstadt.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: member-id-frontend
+                port:
+                  number: 3000
+    - host: id.neuland.ing
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: member-id-frontend
+                port:
+                  number: 3000
+

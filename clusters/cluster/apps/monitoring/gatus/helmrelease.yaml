@@ -63,6 +63,14 @@ spec:
           - name: "Datenschutz"
             link: "https://neuland-ingolstadt.de/legal/datenschutz"
       announcements:
+        - timestamp: 2025-12-29T03:00:00Z
+          type: outage
+          message: "All services are currently unavailable due to planned maintenance until 04:00 (Europe/Berlin)."
+          archived: true
+        - timestamp: 2025-12-29T04:00:00Z
+          type: operational
+          message: "Planned maintenance completed successfully. All services are now available again."
+          archived: true
         - timestamp: 2025-12-18T17:00:00Z
           type: warning
           message: "Scheduled maintenance (server upgrades) today 18:00–22:00 (Europe/Berlin). Some services may be unavailable, including login/SSO."
@@ -91,22 +99,22 @@ spec:
       endpoints:
         # Neuland Next Services
         - name: Neuland Next Web
-          <<: *defaults
+          !!merge <<: *defaults
           group: Neuland App
           url: "https://web.neuland.app"
 
         - name: Neuland Next Landing Page
-          <<: *defaults
+          !!merge <<: *defaults
           group: Neuland App
           url: "https://neuland.app"
 
         - name: Neuland Next Web (Beta)
-          <<: *defaults
+          !!merge <<: *defaults
           group: Neuland App
           url: "https://dev.neuland.app"
 
         - name: Neuland API
-          <<: *defaults
+          !!merge <<: *defaults
           group: Neuland App
           url: "https://api.neuland.app/graphql"
           method: POST
@@ -118,7 +126,7 @@ spec:
             }
 
         - name: Neuland API (Beta)
-          <<: *defaults
+          !!merge <<: *defaults
           group: Neuland App
           url: "https://api.dev.neuland.app/graphql"
           method: POST
@@ -130,38 +138,38 @@ spec:
             }
 
         - name: Neuland API Dashboard
-          <<: *defaults
+          !!merge <<: *defaults
           group: Verein (Internal)
           url: "https://dashboard.neuland.app"
 
         - name: Ersti-Kit
-          <<: *defaults
+          !!merge <<: *defaults
           group: Ersti-Kit
           url: "https://ersti.neuland.app"
 
         - name: Map Server
-          <<: *defaults
+          !!merge <<: *defaults
           group: Neuland App
           url: "https://tile.neuland.app/health"
 
         # Neuland Verein Services
         - name: Neuland Website
-          <<: *defaults
+          !!merge <<: *defaults
           group: Verein (Public)
           url: "https://neuland-ingolstadt.de"
 
         - name: Member ID Scanner
-          <<: *defaults
+          !!merge <<: *defaults
           group: Verein (Public)
           url: "https://id.neuland-ingolstadt.de"
 
         - name: Member ID API
-          <<: *defaults
+          !!merge <<: *defaults
           group: Verein (Public)
           url: "https://id.neuland-ingolstadt.de/api/health"
 
         - name: Neuland Notes
-          <<: *defaults
+          !!merge <<: *defaults
           group: Verein (Internal)
           url: "https://notes.neuland-ingolstadt.de"
           ui:
@@ -169,12 +177,12 @@ spec:
             hide-hostname: true
 
         - name: Ist Informatik sexy?
-          <<: *defaults
+          !!merge <<: *defaults
           group: Verein (Public)
           url: "https://ist.informatik.sexy"
 
         - name: Authentik
-          <<: *defaults
+          !!merge <<: *defaults
           group: Verein (Internal)
           url: "https://auth.neuland.ing"
           ui:
@@ -182,7 +190,7 @@ spec:
             hide-hostname: true
 
         - name: Nextcloud
-          <<: *defaults
+          !!merge <<: *defaults
           group: Verein (Internal)
           url: "https://cloud.informatik.sexy/status.php"
           ui:
@@ -190,18 +198,18 @@ spec:
             hide-hostname: true
 
         - name: Campus Life Dashboard
-          <<: *defaults
+          !!merge <<: *defaults
           group: Campus Life
           url: "https://cl.neuland-ingolstadt.de"
 
         - name: Campus Life API
-          <<: *defaults
+          !!merge <<: *defaults
           group: Campus Life
           url: "https://cl.neuland-ingolstadt.de/api/v1/healthcheck"
 
         # External Dependencies
         - name: THI-API
-          <<: *defaults
+          !!merge <<: *defaults
           group: Neuland App
           url: "https://hiplan.thi.de/webservice/zits_s_40_test/index.php"
           method: POST
