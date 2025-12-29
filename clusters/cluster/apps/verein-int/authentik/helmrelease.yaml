@@ -91,9 +91,6 @@ spec:
       primary:
         persistence:
           enabled: true
-          existingClaim: authentik-postgresql-0
-          # size: 2Gi  # Not needed when using existingClaim
-          # storageClassName: longhorn  # Not needed when using existingClaim
     worker:
       securityContext:
         fsGroup: 1000
