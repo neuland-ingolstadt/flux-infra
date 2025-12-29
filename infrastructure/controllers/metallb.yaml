@@ -50,3 +50,8 @@ spec:
           operator: Exists
         - effect: NoExecute
           operator: Exists
+      # Configure DNS policy to use cluster DNS instead of node nameservers
+      # This prevents DNSConfigForming warnings when nodes have >3 nameservers
+      podTemplate:
+        spec:
+          dnsPolicy: ClusterFirst
