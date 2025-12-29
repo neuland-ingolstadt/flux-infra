@@ -63,11 +63,11 @@ spec:
           - name: "Datenschutz"
             link: "https://neuland-ingolstadt.de/legal/datenschutz"
       announcements:
-        - timestamp: 2025-12-29T04:00:00Z
+        - timestamp: 2025-12-29T03:00:00+01:00
           type: outage
           message: "All services are currently unavailable due to planned maintenance of the ingress controller."
           archived: false
-        - timestamp: 2025-12-29T03:16:00Z
+        - timestamp: 2025-12-29T04:16:00+01:00
           type: operational
           message: "Planned maintenance completed successfully. All services are now available again."
           archived: false
