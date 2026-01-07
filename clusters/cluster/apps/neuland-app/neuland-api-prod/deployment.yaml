@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: neuland-api-prod
-          image: ghcr.io/neuland-ingolstadt/neuland.app-backend:main-179 # {"$imagepolicy": "flux-system:neuland-api-prod"}
+          image: ghcr.io/neuland-ingolstadt/neuland.app-backend:main-181 # {"$imagepolicy": "flux-system:neuland-api-prod"}
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
