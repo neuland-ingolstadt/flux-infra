@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: reimanns-scraper
-          image: ghcr.io/neuland-ingolstadt/reimanns-scraper:129
+          image: ghcr.io/neuland-ingolstadt/reimanns-scraper:155
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
