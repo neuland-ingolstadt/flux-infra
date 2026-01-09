@@ -1,0 +1,12 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: reimanns-scraper-config
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: oci://ghcr.io/neuland-ingolstadt/reimanns-scraper-config
+  ref:
+    tag: latest
+  secretRef:
+    name: ghcr-secret
