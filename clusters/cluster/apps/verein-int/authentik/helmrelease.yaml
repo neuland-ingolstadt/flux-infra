@@ -58,7 +58,7 @@ spec:
         media:
           backend: local
           local:
-            path: /media
+            path: /files
       email:
         port: 587
         use_tls: true
@@ -85,7 +85,7 @@ spec:
             claimName: authentik-media
       volumeMounts:
         - name: media
-          mountPath: /media
+          mountPath: /files
     postgresql:
       enabled: true
       primary:
