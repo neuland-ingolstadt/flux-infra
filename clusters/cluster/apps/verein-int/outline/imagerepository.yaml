@@ -4,5 +4,5 @@ metadata:
   name: outline
   namespace: flux-system
 spec:
-  image: docker.getoutline.com/outlinewiki/outline
+  image: docker.io/outlinewiki/outline
   interval: 60m
