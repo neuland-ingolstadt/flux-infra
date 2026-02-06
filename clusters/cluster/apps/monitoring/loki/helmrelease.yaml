@@ -40,6 +40,10 @@ spec:
       auth_enabled: false
       limits_config:
         volume_enabled: true
+        retention_period: 14d
+      compactor:
+        working_directory: /var/loki/compactor
+        retention_enabled: true
       pattern_ingester:
         enabled: true
       schemaConfig:
