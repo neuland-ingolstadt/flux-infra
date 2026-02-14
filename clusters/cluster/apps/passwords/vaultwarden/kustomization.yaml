@@ -6,5 +6,3 @@ resources:
   - service.yaml
   - ingress.yaml
   - certificate.yaml
-patchesStrategicMerge:
-  - deployment-strategy-patch.yaml
