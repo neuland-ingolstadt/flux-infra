@@ -7,5 +7,5 @@ resources:
   - neuland-app-dev-cert.yaml
   - monitoring-cert.yaml
   - verein-ext-cert.yaml
+  - redirects-cert.yaml
   - k3s-admins.yaml
-

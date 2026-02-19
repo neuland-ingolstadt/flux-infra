@@ -6,3 +6,4 @@ resources:
   - verein-int
   - monitoring
   - passwords
+  - redirects

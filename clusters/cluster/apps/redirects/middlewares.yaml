@@ -1,0 +1,156 @@
+# Simple redirects (no path preservation)
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-neuland-ingolstadt
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+/?(.*)"
+    replacement: "https://neuland-ingolstadt.de"
+    permanent: false
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-auth-neuland-ing
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+/?(.*)"
+    replacement: "https://auth.neuland.ing/"
+    permanent: false
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-mail-neuland-ingolstadt
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+/?(.*)"
+    replacement: "https://mail.neuland-ingolstadt.de"
+    permanent: false
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-tour-ingolstadt
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+/?(.*)"
+    replacement: "https://ersti.neuland.app/tour/ingolstadt"
+    permanent: false
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-tour-neuburg
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+/?(.*)"
+    replacement: "https://ersti.neuland.app/tour/neuburg"
+    permanent: false
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-ctftime
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+/?(.*)"
+    replacement: "https://ctftime.org/team/150968"
+    permanent: false
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-easyverein
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+/?(.*)"
+    replacement: "https://easyverein.com/public/neuland/applicationform/4405"
+    permanent: false
+---
+# Path-preserving redirects
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-ersti-neuland
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+(.*)"
+    replacement: "https://ersti.neuland.app${1}"
+    permanent: false
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-dev-ersti-neuland
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+(.*)"
+    replacement: "https://dev.ersti.neuland.app${1}"
+    permanent: false
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-jitsi
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+(.*)"
+    replacement: "https://jitsi.buergernetz.de${1}"
+    permanent: false
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-studverthi
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+(.*)"
+    replacement: "https://intranet.studverthi.de${1}"
+    permanent: false
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-meckerkasten
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+(.*)"
+    replacement: "https://meckerkasten.studverthi.de${1}"
+    permanent: false
+---
+# Blog redirects
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-blog-posts
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://blog\\.neuland-ingolstadt\\.de/posts/(.*)"
+    replacement: "https://neuland-ingolstadt.de/blog/${1}"
+    permanent: true
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-blog
+  namespace: redirects
+spec:
+  redirectRegex:
+    regex: "^https?://blog\\.neuland-ingolstadt\\.de(.*)"
+    replacement: "https://neuland-ingolstadt.de/blog${1}"
+    permanent: false

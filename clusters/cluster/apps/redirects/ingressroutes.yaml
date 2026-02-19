@@ -1,0 +1,270 @@
+# sso.informatik.sexy → https://auth.neuland.ing/
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-sso-informatik-sexy
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`sso.informatik.sexy`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-auth-neuland-ing
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls
+---
+# informatik.sexy → https://neuland-ingolstadt.de
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-informatik-sexy
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`informatik.sexy`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-neuland-ingolstadt
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls
+---
+# o-phase.neuland.app, ophase.neuland.app, phase.neuland.app → https://ersti.neuland.app$request_uri
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-ophase-neuland-app
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`o-phase.neuland.app`) || Host(`ophase.neuland.app`) || Host(`phase.neuland.app`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-ersti-neuland
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls
+---
+# dev.ophase.neuland.app → https://dev.ersti.neuland.app$request_uri
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-dev-ophase-neuland-app
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`dev.ophase.neuland.app`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-dev-ersti-neuland
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls
+---
+# meet.informatik.sexy → https://jitsi.buergernetz.de$request_uri
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-meet-informatik-sexy
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`meet.informatik.sexy`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-jitsi
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls
+---
+# map.neuland.app → https://ersti.neuland.app/tour/ingolstadt
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-map-neuland-app
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`map.neuland.app`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-tour-ingolstadt
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls
+---
+# ingolstadt.neuland.app → https://ersti.neuland.app/tour/ingolstadt
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-ingolstadt-neuland-app
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ingolstadt.neuland.app`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-tour-ingolstadt
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls
+---
+# neuburg.neuland.app → https://ersti.neuland.app/tour/neuburg
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-neuburg-neuland-app
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`neuburg.neuland.app`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-tour-neuburg
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls
+---
+# ctf.neuland.app → https://ctftime.org/team/150968
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-ctf-neuland-app
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ctf.neuland.app`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-ctftime
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls
+---
+# studver.neuland.app → https://intranet.studverthi.de$request_uri
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-studver-neuland-app
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`studver.neuland.app`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-studverthi
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls
+---
+# meckerkasten.neuland.app → https://meckerkasten.studverthi.de$request_uri
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-meckerkasten-neuland-app
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`meckerkasten.neuland.app`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-meckerkasten
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls
+---
+# join.neuland-ingolstadt.de → https://easyverein.com/public/neuland/applicationform/4405
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-join-neuland-ingolstadt
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`join.neuland-ingolstadt.de`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-easyverein
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls
+---
+# blog.neuland-ingolstadt.de
+#   /posts/* → https://neuland-ingolstadt.de/blog/* (301 permanent)
+#   /*       → https://neuland-ingolstadt.de/blog*  (302 temporary)
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-blog-neuland-ingolstadt
+  namespace: redirects
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`blog.neuland-ingolstadt.de`) && PathPrefix(`/posts/`)
+      kind: Rule
+      priority: 100
+      middlewares:
+        - name: redirect-blog-posts
+      services:
+        - kind: TraefikService
+          name: noop@internal
+    - match: Host(`blog.neuland-ingolstadt.de`)
+      kind: Rule
+      priority: 50
+      middlewares:
+        - name: redirect-blog
+      services:
+        - kind: TraefikService
+          name: noop@internal
+  tls:
+    secretName: redirects-tls

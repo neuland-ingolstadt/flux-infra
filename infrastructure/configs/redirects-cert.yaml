@@ -1,0 +1,27 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: redirects-cert
+  namespace: redirects
+spec:
+  secretName: redirects-tls
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  dnsNames:
+    - informatik.sexy
+    - mail.informatik.sexy
+    - meet.informatik.sexy
+    - sso.informatik.sexy
+    - o-phase.neuland.app
+    - ophase.neuland.app
+    - phase.neuland.app
+    - dev.ophase.neuland.app
+    - map.neuland.app
+    - ingolstadt.neuland.app
+    - neuburg.neuland.app
+    - ctf.neuland.app
+    - studver.neuland.app
+    - meckerkasten.neuland.app
+    - join.neuland-ingolstadt.de
+    - blog.neuland-ingolstadt.de
