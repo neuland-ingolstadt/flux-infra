@@ -75,6 +75,13 @@ spec:
                 secretKeyRef:
                   name: student-verification-secret
                   key: AZURE_COMMUNICATION_SERVICE_CONNECTION_STRING
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
           livenessProbe:
             httpGet:
               path: /
