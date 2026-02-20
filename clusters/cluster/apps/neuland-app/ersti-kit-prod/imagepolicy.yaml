@@ -1,7 +1,7 @@
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
-  name: ersti-kit-production
+  name: ersti-kit-prod
   namespace: flux-system
 spec:
   imageRepositoryRef:
@@ -10,5 +10,5 @@ spec:
     numerical:
       order: asc
   filterTags:
-    pattern: '^main-([0-9]+)$'
-    extract: '$1'
+    pattern: "^main-([0-9]+)$"
+    extract: "$1"
