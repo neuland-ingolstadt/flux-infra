@@ -34,9 +34,10 @@ data:
                 proxy_hide_header x-amz-id-2;
                 proxy_hide_header x-amz-request-id;
                 proxy_cache s3_cache;
-                proxy_cache_valid 200 304 30d;
+                proxy_cache_valid 200 206 304 30d;
                 proxy_cache_valid 403 404 1h;
                 proxy_cache_lock on;
+                proxy_ignore_headers Cache-Control Set-Cookie X-Accel-Expires Expires;
                 proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
                 add_header X-Cache-Status $upstream_cache_status;
             }
