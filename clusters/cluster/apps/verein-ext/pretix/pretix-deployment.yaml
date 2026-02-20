@@ -29,6 +29,8 @@ spec:
               memory: "2Gi"
               cpu: "1"
           env:
+            - name: NUM_WORKERS
+              value: "2"
             - name: TZ
               value: Europe/Berlin
           volumeMounts:
