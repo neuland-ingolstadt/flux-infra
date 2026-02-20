@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pretix-redis
+  namespace: verein-ext
+spec:
+  type: ClusterIP
+  selector:
+    app: pretix-redis
+  ports:
+    - port: 6379
+      targetPort: redis
+      name: redis

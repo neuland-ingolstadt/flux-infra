@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pretix-redis
+  namespace: verein-ext
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pretix-redis
+  template:
+    metadata:
+      labels:
+        app: pretix-redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine
+          command: ["redis-server"]
+          ports:
+            - containerPort: 6379
+              name: redis

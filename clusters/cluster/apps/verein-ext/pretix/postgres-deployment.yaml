@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pretix-postgres
+  namespace: verein-ext
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pretix-postgres
+  template:
+    metadata:
+      labels:
+        app: pretix-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          ports:
+            - containerPort: 5432
+              name: postgres
+          env:
+            - name: POSTGRES_DB
+              value: ticketing
+            - name: POSTGRES_USER
+              value: ticketing
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pretix-secrets
+                  key: POSTGRES_PASSWORD
+            - name: TZ
+              value: Europe/Berlin
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: data
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - ticketing
+                - -d
+                - ticketing
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - ticketing
+                - -d
+                - ticketing
+            initialDelaySeconds: 10
+            periodSeconds: 5
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: pretix-db-postgres-pvc

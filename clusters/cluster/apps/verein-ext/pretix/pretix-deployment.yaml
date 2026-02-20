@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pretix
+  namespace: verein-ext
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pretix
+  template:
+    metadata:
+      labels:
+        app: pretix
+    spec:
+      securityContext:
+        fsGroup: 15371
+      containers:
+        - name: pretix
+          image: pretix/standalone:latest
+          ports:
+            - containerPort: 80
+              name: http
+          env:
+            - name: TZ
+              value: Europe/Berlin
+          volumeMounts:
+            - name: pretix-data
+              mountPath: /data
+            - name: pretix-conf
+              mountPath: /etc/pretix
+              readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /healthcheck/
+              port: 80
+              httpHeaders:
+                - name: Host
+                  value: tickets.neuland-ingolstadt.de
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthcheck/
+              port: 80
+              httpHeaders:
+                - name: Host
+                  value: tickets.neuland-ingolstadt.de
+            initialDelaySeconds: 90
+            timeoutSeconds: 5
+            periodSeconds: 30
+            failureThreshold: 5
+      volumes:
+        - name: pretix-data
+          persistentVolumeClaim:
+            claimName: pretix-data-pvc
+        - name: pretix-conf
+          secret:
+            secretName: pretix-secrets
+            items:
+              - key: pretix.cfg
+                path: pretix.cfg
