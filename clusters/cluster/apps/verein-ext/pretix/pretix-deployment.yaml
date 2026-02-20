@@ -21,6 +21,12 @@ spec:
           ports:
             - containerPort: 80
               name: http
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
           env:
             - name: TZ
               value: Europe/Berlin
