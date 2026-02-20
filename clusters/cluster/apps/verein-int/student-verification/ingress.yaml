@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: student-verification
+  namespace: verein-int
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - verification.neuland-ingolstadt.de
+      secretName: student-verification-tls
+  rules:
+    - host: verification.neuland-ingolstadt.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: student-verification
+                port:
+                  number: 80

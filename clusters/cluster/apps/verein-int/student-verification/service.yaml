@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-verification
+  namespace: verein-int
+spec:
+  type: ClusterIP
+  selector:
+    app: student-verification
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http

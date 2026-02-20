@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-verification
+  namespace: verein-int
+spec:
+  minReadySeconds: 3
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 60
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: student-verification
+  template:
+    metadata:
+      labels:
+        app: student-verification
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: student-verification
+          image: ghcr.io/neuland-ingolstadt/neuland-student-verification:build-15 # {"$imagepolicy": "flux-system:student-verification"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          env:
+            - name: TZ
+              value: "Europe/Berlin"
+            - name: BASE_URL
+              value: "https://verification.neuland-ingolstadt.de"
+            - name: IMPRINT_URL
+              value: "https://neuland-ingolstadt.de/legal/impressum"
+            - name: FROM_EMAIL
+              value: "DoNotReply@neuland-ingolstadt.de"
+            - name: BACKEND
+              value: "easyverein"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: student-verification-secret
+                  key: JWT_SECRET
+            - name: EASYVEREIN_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: student-verification-secret
+                  key: EASYVEREIN_API_KEY
+            - name: EASYVEREIN_EMAIL_CF
+              valueFrom:
+                secretKeyRef:
+                  name: student-verification-secret
+                  key: EASYVEREIN_EMAIL_CF
+            - name: EASYVEREIN_DATE_CF
+              valueFrom:
+                secretKeyRef:
+                  name: student-verification-secret
+                  key: EASYVEREIN_DATE_CF
+            - name: HCAPTCHA_SITEKEY
+              valueFrom:
+                secretKeyRef:
+                  name: student-verification-secret
+                  key: HCAPTCHA_SITEKEY
+            - name: HCAPTCHA_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: student-verification-secret
+                  key: HCAPTCHA_SECRET
+            - name: AZURE_COMMUNICATION_SERVICE_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: student-verification-secret
+                  key: AZURE_COMMUNICATION_SERVICE_CONNECTION_STRING
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            timeoutSeconds: 5

@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: student-verification
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: student-verification
+  policy:
+    numerical:
+      order: asc
+  filterTags:
+    pattern: "^build-([0-9]+)$"
+    extract: "$1"

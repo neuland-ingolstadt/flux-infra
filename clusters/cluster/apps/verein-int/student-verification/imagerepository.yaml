@@ -1,0 +1,10 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: student-verification
+  namespace: flux-system
+spec:
+  image: ghcr.io/neuland-ingolstadt/neuland-student-verification
+  interval: 30m
+  secretRef:
+    name: ghcr-secret

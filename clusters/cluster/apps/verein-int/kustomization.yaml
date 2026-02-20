@@ -6,4 +6,5 @@ resources:
   - authentik
   - outline
   - membership
+  - student-verification
   # - nextcloud
