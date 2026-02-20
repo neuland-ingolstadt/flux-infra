@@ -31,10 +31,12 @@ data:
                 proxy_pass $s3_bucket$uri;
                 proxy_set_header Host nbg1.your-objectstorage.com;
                 proxy_set_header Authorization "";
+                proxy_set_header Range "";
+                proxy_set_header If-Range "";
                 proxy_hide_header x-amz-id-2;
                 proxy_hide_header x-amz-request-id;
                 proxy_cache s3_cache;
-                proxy_cache_valid 200 206 304 30d;
+                proxy_cache_valid 200 304 30d;
                 proxy_cache_valid 403 404 1h;
                 proxy_cache_lock on;
                 proxy_ignore_headers Cache-Control Set-Cookie X-Accel-Expires Expires;
