@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: assets-nginx-config
+  namespace: neuland-app
+data:
+  nginx.conf: |
+    worker_processes auto;
+    events {
+        worker_connections 1024;
+    }
+    http {
+        include       mime.types;
+        default_type  application/octet-stream;
+        proxy_cache_path /var/cache/nginx/assets
+        keys_zone=s3_cache:10m
+        levels=1:2
+        inactive=30d
+        max_size=10g
+        use_temp_path=off;
+        server {
+            listen 80;
+            server_name assets.neuland.app localhost;
+            resolver 8.8.8.8 1.1.1.1 valid=300s;
+            location /healthz {
+                access_log off;
+                return 200 "ok";
+            }
+            location / {
+                set $s3_bucket "https://nbg1.your-objectstorage.com/neuland/assets";
+                proxy_pass $s3_bucket$uri;
+                proxy_set_header Host nbg1.your-objectstorage.com;
+                proxy_set_header Authorization "";
+                proxy_hide_header x-amz-id-2;
+                proxy_hide_header x-amz-request-id;
+                proxy_cache s3_cache;
+                proxy_cache_valid 200 304 30d;
+                proxy_cache_valid 403 404 1h;
+                proxy_cache_lock on;
+                proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+                add_header X-Cache-Status $upstream_cache_status;
+            }
+        }
+    }

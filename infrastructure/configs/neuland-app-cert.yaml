@@ -19,3 +19,4 @@ spec:
     - ersti.neuland.app
     - reimanns-api.neuland.app
     - tile.neuland.app
+    - assets.neuland.app
