@@ -14,3 +14,4 @@ resources:
   - ersti-kit-prod
   - reimanns-scraper
   - mensa-scraper
+  - tileserver

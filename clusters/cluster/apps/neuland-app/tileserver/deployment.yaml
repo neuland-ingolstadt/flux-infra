@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tileserver
+  namespace: neuland-app
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: tileserver
+  template:
+    metadata:
+      labels:
+        app: tileserver
+    spec:
+      containers:
+        - name: tileserver
+          image: maptiler/tileserver-gl-light:v5.0.0
+          args:
+            - -c
+            - options.json
+            - -b
+            - 0.0.0.0
+            - -p
+            - "8080"
+          ports:
+            - containerPort: 8080
+              name: tileserver
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: nginx-cache
+              mountPath: /var/cache/nginx/tileserver
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: tileserver-data
+        - name: nginx-config
+          configMap:
+            name: tileserver-nginx-config
+        - name: nginx-cache
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tileserver
+  namespace: neuland-app
+spec:
+  selector:
+    app: tileserver
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tileserver
+  namespace: neuland-app
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - tile.neuland.app
+      secretName: neuland-app-prod-tls
+  rules:
+    - host: tile.neuland.app
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tileserver
+                port:
+                  name: http

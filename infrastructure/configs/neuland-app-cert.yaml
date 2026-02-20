@@ -18,3 +18,4 @@ spec:
     - web.neuland.app
     - ersti.neuland.app
     - reimanns-api.neuland.app
+    - tile.neuland.app
