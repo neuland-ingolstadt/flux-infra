@@ -49,6 +49,7 @@ spec:
   values:
     image:
       flavor: apache
+      tag: 31.0.14
 
     replicaCount: 1
 
@@ -217,7 +218,7 @@ spec:
             username: nextcloud
       image:
         repository: bitnamilegacy/postgresql
-        tag: 17.5.0-debian-12-r20
+        tag: 15.9.0-debian-12-r0
       primary:
         persistence:
           enabled: true
