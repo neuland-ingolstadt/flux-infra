@@ -131,7 +131,7 @@ spec:
             'oidc_login_provider_url' => getenv('OIDC_ISSUER_URL'),
             'oidc_login_client_id' => getenv('OIDC_CLIENT_ID'),
             'oidc_login_client_secret' => getenv('OIDC_CLIENT_SECRET'),
-            'oidc_login_logout_url' => 'https://auth.neuland.ing/application/o/nextcloud/end-session/',
+            'oidc_login_logout_url' => 'https://auth.neuland.ing/application/o/cloud/end-session/',
             'oidc_login_button_text' => 'Log in with Neuland SSO',
             'oidc_login_scope' => 'openid profile email',
             'oidc_login_end_session_redirect' => true,
@@ -183,7 +183,7 @@ spec:
               name: nextcloud-secrets
               key: oidc-client-secret
         - name: OIDC_ISSUER_URL
-          value: https://auth.neuland.ing/application/o/nextcloud/
+          value: https://auth.neuland.ing/application/o/cloud/
 
       phpConfigs:
         zz-performance.ini: |-
