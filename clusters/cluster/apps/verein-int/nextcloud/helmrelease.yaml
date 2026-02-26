@@ -128,6 +128,20 @@ spec:
           $CONFIG = array (
             'hide_login_form' => true,
             'oidc_login_auto_redirect' => true,
+            'oidc_login_provider_url' => getenv('OIDC_ISSUER_URL'),
+            'oidc_login_client_id' => getenv('OIDC_CLIENT_ID'),
+            'oidc_login_client_secret' => getenv('OIDC_CLIENT_SECRET'),
+            'oidc_login_logout_url' => 'https://auth.neuland.ing/application/o/nextcloud/end-session/',
+            'oidc_login_button_text' => 'Log in with Neuland SSO',
+            'oidc_login_scope' => 'openid profile email',
+            'oidc_login_end_session_redirect' => true,
+            'oidc_create_groups' => false,
+            'oidc_login_attributes' => array (
+              'id' => 'preferred_username',
+              'name' => 'name',
+              'mail' => 'email',
+              'groups' => 'groups',
+            ),
           );
 
         proxy.config.php: |-
