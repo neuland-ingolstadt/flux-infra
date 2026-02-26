@@ -135,6 +135,7 @@ spec:
             'oidc_login_button_text' => 'Log in with Neuland SSO',
             'oidc_login_scope' => 'openid profile email',
             'oidc_login_end_session_redirect' => true,
+            'oidc_login_auto_create' => true,
             'oidc_create_groups' => false,
             'oidc_login_attributes' => array (
               'id' => 'preferred_username',
