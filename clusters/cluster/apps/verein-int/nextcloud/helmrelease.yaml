@@ -127,7 +127,7 @@ spec:
           <?php
           $CONFIG = array (
             'hide_login_form' => true,
-            'oidc_login_auto_redirect' => false,
+            'oidc_login_auto_redirect' => true,
           );
 
         proxy.config.php: |-
