@@ -216,8 +216,8 @@ spec:
             database: nextcloud
             username: nextcloud
       image:
-        repository: bitnami/postgresql
-        tag: "17"
+        repository: bitnamilegacy/postgresql
+        tag: 17.5.0-debian-12-r20
       primary:
         persistence:
           enabled: true
@@ -227,7 +227,8 @@ spec:
     redis:
       enabled: true
       image:
-        repository: bitnami/redis
+        repository: bitnamilegacy/redis
+        tag: 8.0.1-debian-12-r1
       auth:
         enabled: false
       master:
