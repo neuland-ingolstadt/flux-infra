@@ -7,4 +7,4 @@ resources:
   - outline
   - membership
   - student-verification
-  # - nextcloud
+  - nextcloud

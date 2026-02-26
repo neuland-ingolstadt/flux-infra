@@ -14,46 +14,150 @@ metadata:
   namespace: verein-int
 spec:
   interval: 30m
+  timeout: 15m
   targetNamespace: verein-int
+  valuesFrom:
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: admin-password
+      targetPath: nextcloud.password
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: db-password
+      targetPath: postgresql.global.postgresql.auth.password
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: db-password
+      targetPath: externalDatabase.password
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: smtp-password
+      targetPath: nextcloud.mail.smtp.password
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: smtp-name
+      targetPath: nextcloud.mail.smtp.name
   chart:
     spec:
       chart: nextcloud
+      version: ">=6.0.0 <7.0.0"
       sourceRef:
         kind: HelmRepository
         name: nextcloud
         namespace: verein-int
       interval: 12h
   values:
+    image:
+      flavor: apache
+
+    replicaCount: 1
+
     ingress:
       enabled: true
       className: traefik
-      hosts:
-        - host: cloud.eggl.one
-          paths:
-            - path: /
-              pathType: Prefix
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      path: /
+      pathType: Prefix
       tls:
         - hosts:
-            - cloud.eggl.one
-          secretName: cloud-eggl-one-tls
+            - cloud.informatik.sexy
+          secretName: cloud-informatik-sexy-tls
+
     nextcloud:
-      host: cloud.eggl.one
+      host: cloud.informatik.sexy
+      username: admin
       existingSecret:
         enabled: true
         secretName: nextcloud-secrets
         usernameKey: admin-username
         passwordKey: admin-password
+        smtpUsernameKey: smtp-name
+        smtpPasswordKey: smtp-password
+        smtpHostKey: smtp-host
+
+      mail:
+        enabled: true
+        fromAddress: DoNotReply
+        domain: neuland-ingolstadt.de
+        smtp:
+          host: smtp.azurecomm.net
+          secure: tls
+          port: 587
+          authtype: LOGIN
+
       objectStore:
         s3:
           enabled: true
           existingSecret: nextcloud-secrets
-          prefix: nextcloud/
           secretKeys:
-            host: s3-host
             accessKey: s3-access-key
             secretKey: s3-secret-key
-            bucket: s3-bucket
+          host: nbg1.your-objectstorage.com
+          bucket: neuland-nextcloud
+          port: 443
+          ssl: true
+          region: nbg1
+          usePathStyle: true
+
+      configs:
+        custom.config.php: |-
+          <?php
+          $CONFIG = array (
+            'instanceid' => getenv('NC_INSTANCEID'),
+            'passwordsalt' => getenv('NC_PASSWORDSALT'),
+            'secret' => getenv('NC_SECRET'),
+            'overwrite.cli.url' => 'https://cloud.informatik.sexy',
+            'overwriteprotocol' => 'https',
+            'overwritehost' => 'cloud.informatik.sexy',
+            'dbtableprefix' => 'oc_',
+            'loglevel' => 2,
+            'simpleSignUpLink.shown' => false,
+            'trashbin_retention_obligation' => 'auto, 30',
+            'app_install_overwrite' =>
+            array (
+              0 => 'groupfolders',
+              1 => 'forms',
+            ),
+            'allow_local_remote_server' => true,
+            'data-fingerprint' => 'af607fa0e28b3084573dbedbdbe48937',
+          );
+
+        oidc.config.php: |-
+          <?php
+          $CONFIG = array (
+            'hide_login_form' => true,
+            'oidc_login_auto_redirect' => false,
+          );
+
+        proxy.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' =>
+            array (
+              0 => '127.0.0.1',
+              1 => '10.0.0.0/8',
+              2 => '172.16.0.0/12',
+            ),
+            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+          );
+
       extraEnv:
+        - name: NC_INSTANCEID
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: nc-instanceid
+        - name: NC_PASSWORDSALT
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: nc-passwordsalt
+        - name: NC_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: nc-secret
         - name: OIDC_CLIENT_ID
           valueFrom:
             secretKeyRef:
@@ -66,3 +170,91 @@ spec:
               key: oidc-client-secret
         - name: OIDC_ISSUER_URL
           value: https://auth.neuland.ing/application/o/nextcloud/
+
+      phpConfigs:
+        zz-performance.ini: |-
+          memory_limit=512M
+          upload_max_filesize=16G
+          post_max_size=16G
+          max_execution_time=3600
+          max_input_time=3600
+
+    phpClientHttpsFix:
+      enabled: true
+      protocol: https
+
+    internalDatabase:
+      enabled: false
+
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: nextcloud-postgresql
+      database: nextcloud
+      user: nextcloud
+
+    postgresql:
+      enabled: true
+      global:
+        postgresql:
+          auth:
+            database: nextcloud
+            username: nextcloud
+      image:
+        repository: bitnamilegacy/postgresql
+        tag: "15"
+      primary:
+        persistence:
+          enabled: true
+          size: 8Gi
+          storageClass: longhorn
+
+    redis:
+      enabled: true
+      image:
+        repository: bitnamilegacy/redis
+      auth:
+        enabled: false
+      master:
+        persistence:
+          enabled: true
+          size: 2Gi
+          storageClass: longhorn
+      replica:
+        replicaCount: 0
+        persistence:
+          enabled: false
+
+    cronjob:
+      enabled: true
+      type: sidecar
+
+    persistence:
+      enabled: true
+      storageClass: longhorn
+      size: 8Gi
+      accessMode: ReadWriteOnce
+
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 30
+      successThreshold: 1
+
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 15
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 15
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1

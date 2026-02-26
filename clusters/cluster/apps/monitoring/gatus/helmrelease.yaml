@@ -104,6 +104,9 @@ spec:
           type: information
           message: "The Advent of Code leaderboard has been shut down now that the event has ended. See you next year!"
           archived: true
+        - timestamp: 2026-02-23T00:00:00+01:00
+          type: warning
+          message: "Nextcloud is unavailable due to planned maintenance from February 23 00:00 CET to February 28 12:00 CET."
       default-endpoint: &defaults
         interval: 1m
         conditions:
