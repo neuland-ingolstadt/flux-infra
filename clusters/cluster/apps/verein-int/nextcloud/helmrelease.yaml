@@ -58,6 +58,7 @@ spec:
       className: traefik
       annotations:
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: verein-int-nextcloud-hsts@kubernetescrd
       path: /
       pathType: Prefix
       tls:
@@ -122,6 +123,7 @@ spec:
             ),
             'allow_local_remote_server' => true,
             'data-fingerprint' => 'af607fa0e28b3084573dbedbdbe48937',
+            'maintenance_window_start' => 1,
           );
 
         oidc.config.php: |-
@@ -226,6 +228,12 @@ spec:
               --scope="openid profile email"
             php /var/www/html/occ config:app:set --type=string --value=0 user_oidc allow_multiple_user_backends
           fi
+
+          echo "Adding missing database indices..."
+          php /var/www/html/occ db:add-missing-indices 2>/dev/null || true
+
+          echo "Running MIME type migrations..."
+          php /var/www/html/occ maintenance:repair --include-expensive 2>/dev/null || true
 
       extraEnv:
         - name: NC_INSTANCEID
