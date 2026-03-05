@@ -127,23 +127,11 @@ spec:
         oidc.config.php: |-
           <?php
           $CONFIG = array (
-            'hide_login_form' => true,
-            'oidc_login_auto_redirect' => true,
-            'oidc_login_provider_url' => getenv('OIDC_ISSUER_URL'),
-            'oidc_login_client_id' => getenv('OIDC_CLIENT_ID'),
-            'oidc_login_client_secret' => getenv('OIDC_CLIENT_SECRET'),
-            'oidc_login_logout_url' => 'https://auth.neuland.ing/application/o/cloud/end-session/',
-            'oidc_login_button_text' => 'Log in with Neuland SSO',
-            'oidc_login_scope' => 'openid profile email',
-            'oidc_login_end_session_redirect' => true,
-            'oidc_login_auto_create' => true,
-            'oidc_login_disable_registration' => false,
-            'oidc_create_groups' => false,
-            'oidc_login_attributes' => array (
-              'id' => 'preferred_username',
-              'name' => 'name',
-              'mail' => 'email',
-              'groups' => 'groups',
+            'user_oidc' => array (
+              'single_logout' => true,
+              'auto_provision' => true,
+              'soft_auto_provision' => true,
+              'login_label' => 'Log in with Neuland SSO',
             ),
           );
 
@@ -158,6 +146,53 @@ spec:
             ),
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
           );
+
+      hooks:
+        post-installation: |-
+          echo "Disabling nextcloud-oidc-login (if present)..."
+          php /var/www/html/occ app:disable oidc_login 2>/dev/null || true
+
+          echo "Enabling official user_oidc app..."
+          php /var/www/html/occ app:install user_oidc 2>/dev/null || true
+          php /var/www/html/occ app:enable user_oidc
+
+          echo "Registering OIDC provider..."
+          php /var/www/html/occ user_oidc:provider "Neuland SSO" \
+            --clientid="$OIDC_CLIENT_ID" \
+            --clientsecret="$OIDC_CLIENT_SECRET" \
+            --discoveryuri="https://auth.neuland.ing/application/o/cloud/.well-known/openid-configuration" \
+            --mapping-uid="preferred_username" \
+            --mapping-display-name="name" \
+            --mapping-email="email" \
+            --mapping-groups="groups" \
+            --unique-uid=0 \
+            --check-bearer=0 \
+            --group-provisioning=0 \
+            --scope="openid profile email"
+
+          echo "Setting user_oidc as sole login backend..."
+          php /var/www/html/occ config:app:set --type=string --value=0 user_oidc allow_multiple_user_backends
+        before-starting: |-
+          echo "Ensuring user_oidc provider is configured..."
+          php /var/www/html/occ app:enable user_oidc 2>/dev/null || true
+
+          PROVIDER_EXISTS=$(php /var/www/html/occ user_oidc:provider 2>/dev/null | grep -c "Neuland SSO" || true)
+          if [ "$PROVIDER_EXISTS" = "0" ]; then
+            echo "Re-registering OIDC provider..."
+            php /var/www/html/occ user_oidc:provider "Neuland SSO" \
+              --clientid="$OIDC_CLIENT_ID" \
+              --clientsecret="$OIDC_CLIENT_SECRET" \
+              --discoveryuri="https://auth.neuland.ing/application/o/cloud/.well-known/openid-configuration" \
+              --mapping-uid="preferred_username" \
+              --mapping-display-name="name" \
+              --mapping-email="email" \
+              --mapping-groups="groups" \
+              --unique-uid=0 \
+              --check-bearer=0 \
+              --group-provisioning=0 \
+              --scope="openid profile email"
+            php /var/www/html/occ config:app:set --type=string --value=0 user_oidc allow_multiple_user_backends
+          fi
 
       extraEnv:
         - name: NC_INSTANCEID
@@ -185,8 +220,6 @@ spec:
             secretKeyRef:
               name: nextcloud-secrets
               key: oidc-client-secret
-        - name: OIDC_ISSUER_URL
-          value: https://auth.neuland.ing/application/o/cloud/
 
       phpConfigs:
         zz-performance.ini: |-
