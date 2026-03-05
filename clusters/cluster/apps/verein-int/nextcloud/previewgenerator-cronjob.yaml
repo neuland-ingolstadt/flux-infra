@@ -14,6 +14,10 @@ spec:
       template:
         spec:
           restartPolicy: Never
+          securityContext:
+            runAsUser: 33
+            runAsGroup: 33
+            fsGroup: 33
           containers:
             - name: preview-generator
               image: nextcloud:33.0.0-apache
