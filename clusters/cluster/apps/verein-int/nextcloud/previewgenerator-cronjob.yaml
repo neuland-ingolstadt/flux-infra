@@ -47,4 +47,4 @@ spec:
           volumes:
             - name: nextcloud-main
               persistentVolumeClaim:
-                claimName: nextcloud-nextcloud
+                claimName: verein-int-nextcloud-nextcloud
