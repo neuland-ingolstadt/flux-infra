@@ -120,10 +120,18 @@ spec:
             array (
               0 => 'groupfolders',
               1 => 'forms',
+              2 => 'previewgenerator',
             ),
             'allow_local_remote_server' => true,
             'data-fingerprint' => 'af607fa0e28b3084573dbedbdbe48937',
             'maintenance_window_start' => 1,
+            'memcache.local' => '\\OC\\Memcache\\APCu',
+            'memcache.distributed' => '\\OC\\Memcache\\Redis',
+            'memcache.locking' => '\\OC\\Memcache\\Redis',
+            'redis' => array(
+              'host' => 'nextcloud-redis-master',
+              'port' => 6379,
+            ),
           );
 
         oidc.config.php: |-
@@ -151,6 +159,22 @@ spec:
 
       hooks:
         post-installation: |-
+          echo "Installing and enabling previewgenerator app..."
+          php /var/www/html/occ app:install previewgenerator 2>/dev/null || true
+          php /var/www/html/occ app:enable previewgenerator
+
+          echo "Configuring minimal preview sizes..."
+          php /var/www/html/occ config:app:set --value="64 256" previewgenerator squareSizes
+          php /var/www/html/occ config:app:set --value="256 4096" previewgenerator fillWidthHeightSizes
+          php /var/www/html/occ config:app:set --value="" previewgenerator widthSizes
+          php /var/www/html/occ config:app:set --value="" previewgenerator heightSizes
+
+          echo "Disabling built-in preview background job (using dedicated cron instead)..."
+          php /var/www/html/occ config:app:set --value=true --type=boolean previewgenerator job_disabled
+
+          echo "Running initial preview generation..."
+          php /var/www/html/occ preview:generate-all 2>/dev/null || true
+
           echo "Enabling official user_oidc app..."
           php /var/www/html/occ app:install user_oidc 2>/dev/null || true
           php /var/www/html/occ app:enable user_oidc
@@ -172,6 +196,10 @@ spec:
           echo "Setting user_oidc as sole login backend..."
           php /var/www/html/occ config:app:set --type=string --value=0 user_oidc allow_multiple_user_backends
         before-starting: |-
+          echo "Ensuring previewgenerator is enabled..."
+          php /var/www/html/occ app:enable previewgenerator 2>/dev/null || true
+          php /var/www/html/occ config:app:set --value=true --type=boolean previewgenerator job_disabled 2>/dev/null || true
+
           echo "Ensuring user_oidc provider is configured..."
           php /var/www/html/occ app:enable user_oidc 2>/dev/null || true
 
@@ -290,6 +318,14 @@ spec:
       storageClass: longhorn
       size: 8Gi
       accessMode: ReadWriteOnce
+
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+      limits:
+        cpu: "2"
+        memory: 2Gi
 
     startupProbe:
       enabled: true
