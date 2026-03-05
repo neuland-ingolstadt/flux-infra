@@ -49,7 +49,7 @@ spec:
   values:
     image:
       flavor: apache
-      tag: 32.0.6
+      tag: 33.0.0
 
     replicaCount: 1
 
@@ -151,24 +151,6 @@ spec:
 
       hooks:
         post-installation: |-
-          echo "Disabling nextcloud-oidc-login (if present)..."
-          php /var/www/html/occ app:disable oidc_login 2>/dev/null || true
-
-          echo "Removing old oidc_login config keys..."
-          php /var/www/html/occ config:system:delete hide_login_form 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_auto_redirect 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_provider_url 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_client_id 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_client_secret 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_logout_url 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_button_text 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_scope 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_end_session_redirect 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_auto_create 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_disable_registration 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_create_groups 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_attributes 2>/dev/null || true
-
           echo "Enabling official user_oidc app..."
           php /var/www/html/occ app:install user_oidc 2>/dev/null || true
           php /var/www/html/occ app:enable user_oidc
@@ -190,24 +172,6 @@ spec:
           echo "Setting user_oidc as sole login backend..."
           php /var/www/html/occ config:app:set --type=string --value=0 user_oidc allow_multiple_user_backends
         before-starting: |-
-          echo "Cleaning up old oidc_login config keys (if any)..."
-          php /var/www/html/occ config:system:delete hide_login_form 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_auto_redirect 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_provider_url 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_client_id 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_client_secret 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_logout_url 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_button_text 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_scope 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_end_session_redirect 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_auto_create 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_disable_registration 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_create_groups 2>/dev/null || true
-          php /var/www/html/occ config:system:delete oidc_login_attributes 2>/dev/null || true
-
-          echo "Disabling old oidc_login app (if still present)..."
-          php /var/www/html/occ app:disable oidc_login 2>/dev/null || true
-
           echo "Ensuring user_oidc provider is configured..."
           php /var/www/html/occ app:enable user_oidc 2>/dev/null || true
 
