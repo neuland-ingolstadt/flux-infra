@@ -58,26 +58,6 @@ spec:
   tls:
     secretName: redirects-tls
 ---
-# dev.ophase.neuland.app → https://dev.ersti.neuland.app$request_uri
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
-metadata:
-  name: redirect-dev-ophase-neuland-app
-  namespace: redirects
-spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: Host(`dev.ophase.neuland.app`)
-      kind: Rule
-      middlewares:
-        - name: redirect-to-dev-ersti-neuland
-      services:
-        - kind: TraefikService
-          name: noop@internal
-  tls:
-    secretName: redirects-tls
----
 # meet.informatik.sexy → https://jitsi.buergernetz.de$request_uri
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
