@@ -72,6 +72,10 @@ spec:
           - name: "Datenschutz"
             link: "https://neuland-ingolstadt.de/legal/datenschutz"
       announcements:
+        - timestamp: 2026-03-06T00:00:00+01:00
+          type: outage
+          message: "The THI API (hiplan.thi.de) is currently unavailable due to maintenance and migrations by Primuss / THI. It will be resolved at latest by the start of the new semester."
+          archived: false
         - timestamp: 2025-12-29T14:00:00+01:00
           type: outage
           message: "Authentik is currently unable to provide account data and authentication services due to database connectivity issues."
