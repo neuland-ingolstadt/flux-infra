@@ -124,6 +124,7 @@ spec:
             ),
             'allow_local_remote_server' => true,
             'data-fingerprint' => 'af607fa0e28b3084573dbedbdbe48937',
+            'skeletondirectory' => '',
             'maintenance_window_start' => 1,
             'memcache.local' => '\\OC\\Memcache\\APCu',
             'memcache.distributed' => '\\OC\\Memcache\\Redis',
