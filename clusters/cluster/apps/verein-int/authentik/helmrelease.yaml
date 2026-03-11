@@ -95,6 +95,8 @@ spec:
           size: 8Gi
           storageClassName: longhorn
     worker:
+      image:
+        tag: 2026.2.0
       securityContext:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
