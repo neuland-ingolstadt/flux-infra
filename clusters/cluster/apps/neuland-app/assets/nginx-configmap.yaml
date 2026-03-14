@@ -18,6 +18,11 @@ data:
         inactive=30d
         max_size=10g
         use_temp_path=off;
+        map $http_origin $cors_origin {
+            default "";
+            "https://web.neuland.app" $http_origin;
+            "https://dev.neuland.app" $http_origin;
+        }
         server {
             listen 80;
             server_name assets.neuland.app localhost;
@@ -27,6 +32,14 @@ data:
                 return 200 "ok";
             }
             location / {
+                if ($request_method = OPTIONS) {
+                    add_header Access-Control-Allow-Origin $cors_origin;
+                    add_header Access-Control-Allow-Methods "GET, HEAD, OPTIONS";
+                    add_header Access-Control-Allow-Headers "Range";
+                    add_header Access-Control-Max-Age 86400;
+                    add_header Content-Length 0;
+                    return 204;
+                }
                 set $s3_bucket "https://nbg1.your-objectstorage.com/neuland/assets";
                 proxy_pass $s3_bucket$uri;
                 proxy_set_header Host nbg1.your-objectstorage.com;
@@ -42,6 +55,7 @@ data:
                 proxy_ignore_headers Cache-Control Set-Cookie X-Accel-Expires Expires;
                 proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
                 add_header X-Cache-Status $upstream_cache_status;
+                add_header Access-Control-Allow-Origin $cors_origin always;
             }
         }
     }
